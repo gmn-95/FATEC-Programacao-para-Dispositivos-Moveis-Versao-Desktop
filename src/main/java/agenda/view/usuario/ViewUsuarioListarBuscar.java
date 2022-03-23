@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda.view.agendamento;
+package agenda.view.usuario;
 
+import agenda.view.agendamento.*;
 import agenda.controller.ControllerAgendamento;
+import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanAgendamento;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
@@ -22,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author gustavo
  */
-public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
+public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
     private boolean editar;
     private boolean excluir;
@@ -31,11 +33,11 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     private SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
     private SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
     
-    public ViewAgendamentoListarBuscar() {
+    public ViewUsuarioListarBuscar() {
         initComponents();
     }
 
-    public ViewAgendamentoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
+    public ViewUsuarioListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -54,12 +56,14 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
         this.usuario = usuario;
         
         initComponents();
+        tableListaUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
         verificaOpção();
         setLocationRelativeTo(null);
         formatarInputDePequisa();
     }
     
-    public ViewAgendamentoListarBuscar(boolean buscar, BeanUsuario usuario) {
+    public ViewUsuarioListarBuscar(boolean buscar, BeanUsuario usuario) {
         setResizable(false);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -82,34 +86,31 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
-    public void listarTodos(BeanUsuario usuario) throws ParseException{
+    public void listarTodos(BeanUsuario beanUsuario) throws ParseException{
         
-        BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
-        ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-        List<BeanAgendamento> agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, "Todos");
-        montarTabela(agendamentos);
+        ControllerUsuario controllerUsuario = new ControllerUsuario();
+        List<BeanUsuario> usuarios = controllerUsuario.listarUsuario(beanUsuario, "Todos");
+        montarTabela(usuarios);
     }
     
-    private void montarTabela(List<BeanAgendamento> agendamentos){
-        DefaultTableModel model = (DefaultTableModel) tableListaAgendamendo.getModel();
+    private void montarTabela(List<BeanUsuario> usuarios){
+        DefaultTableModel model = (DefaultTableModel) tableListaUsuarios.getModel();
         model.setNumRows(0);
 
-        if(agendamentos != null){
-            for(BeanAgendamento agendamento : agendamentos){
+        if(usuarios != null){
+            for(BeanUsuario usuario : usuarios){
                 model.addRow(new Object[]{
-                    agendamento.getId(),
-                    agendamento.getDescricao(),
-                    agendamento.getConteudo(),
-                    dataFormat.format(agendamento.getData_agendada()),
-                    horaFormat.format(agendamento.getHora_agendada()),
-                    agendamento.getContato().getId(),
-                    agendamento.getContato().getNome()
+                    usuario.getId_usuario(),
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getLogin()
                 });
             }
         }
     }
     
     private void verificaOpção(){
+
         if(editar == true && excluir != true){
             btExcluir.setVisible(false);
             btEditar.setVisible(true);
@@ -131,6 +132,15 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             
         }
     }
+    
+    private void formatarInputDePequisa(){
+        if(cbxTipoListagem.getSelectedIndex() == 0 && cbxTipoListagem.getItemCount() > 1){
+            inputPesquisa.setEditable(false);
+        }
+        else{
+            inputPesquisa.setEditable(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,7 +153,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableListaAgendamendo = new javax.swing.JTable();
+        tableListaUsuarios = new javax.swing.JTable();
         inputPesquisa = new javax.swing.JTextField();
         cbxTipoListagem = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
@@ -173,31 +183,32 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
-        tableListaAgendamendo.setModel(new javax.swing.table.DefaultTableModel(
+        tableListaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "id", "Descrição", "Conteúdo", "Data agendada", "Hora Agendada", "id contato", "Contato"
+                "id Usuario", "Id Pessoa", "Nome", "Login", "Senha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableListaAgendamendo);
-        if (tableListaAgendamendo.getColumnModel().getColumnCount() > 0) {
-            tableListaAgendamendo.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(tableListaUsuarios);
+        if (tableListaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tableListaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hora", "Data", "Descricao", "Conteudo", "Contato", "Id_contato" }));
+        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Login", "Nome" }));
         cbxTipoListagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoListagemActionPerformed(evt);
@@ -270,13 +281,13 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        if(tableListaAgendamendo.getSelectedRow() >= 0){
+        if(tableListaUsuarios.getSelectedRow() >= 0){
             
-            ViewAgendamentoEditar agendamentoEditar = new ViewAgendamentoEditar(this, editar, excluir, usuario, tableListaAgendamendo);
-            agendamentoEditar.setVisible(true);
+            ViewUsuarioEditar usuarioEditar = new ViewUsuarioEditar(this, editar, excluir, usuario, tableListaUsuarios);
+            usuarioEditar.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhum Agendamento Selecionado" , "Selecione um agendamento!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Usuário Selecionado" , "Selecione um Usuário!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -285,7 +296,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
            montarTabela(agendamentos);
        }
        else{
-           JOptionPane.showMessageDialog(null, "Agendamento Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(null, "Usuário Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
        }
    }
     
@@ -364,13 +375,13 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             }
             
         } catch (ParseException ex) {
-            Logger.getLogger(ViewAgendamentoListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewUsuarioListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if(tableListaAgendamendo.getSelectedRow() >= 0){
-            ViewAgendamentoExcluir agendamentoExcluir = new ViewAgendamentoExcluir(this, editar, excluir, usuario, tableListaAgendamendo);
+        if(tableListaUsuarios.getSelectedRow() >= 0){
+            ViewAgendamentoExcluir agendamentoExcluir = new ViewAgendamentoExcluir(this, editar, excluir, usuario, tableListaUsuarios);
             agendamentoExcluir.setVisible(true);
         }
         else{
@@ -382,14 +393,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
       
     }//GEN-LAST:event_formMouseClicked
 
-    private void formatarInputDePequisa(){
-        if(cbxTipoListagem.getSelectedIndex() == 0 && cbxTipoListagem.getItemCount() > 1){
-            inputPesquisa.setEditable(false);
-        }
-        else{
-            inputPesquisa.setEditable(true);
-        }
-    }
+ 
     /**
      * @param args the command line arguments
      */
@@ -403,6 +407,6 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     private javax.swing.JTextField inputPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableListaAgendamendo;
+    private javax.swing.JTable tableListaUsuarios;
     // End of variables declaration//GEN-END:variables
 }

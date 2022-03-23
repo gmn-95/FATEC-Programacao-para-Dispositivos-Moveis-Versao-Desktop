@@ -53,7 +53,6 @@ public class DaoAgendamento {
                 try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                     if(resultSet.next()){
                         agendamento.setId(resultSet.getLong(1));
-                        System.out.println(resultSet.getLong(1));
                     }
                     
                     resultSet.close();
@@ -179,7 +178,6 @@ public class DaoAgendamento {
                     default:
                         break;
                 }
-                connection = conexaoDb.getConnection();
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 

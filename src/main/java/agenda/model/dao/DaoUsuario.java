@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +26,127 @@ public class DaoUsuario {
     
     public DaoUsuario() {
         conexaoDb = new ConexaoDb();
+    }
+    
+    public List<BeanUsuario> listarUsuarios(BeanUsuario usuario, String tipoPesquisa){
+        
+        List<BeanUsuario> listaUsuarios = new ArrayList<>();
+        
+        String sql;
+        
+        if(conexaoDb.conectar()){
+            
+            try {
+
+                connection = conexaoDb.getConnection();
+                
+                sql = "select * from tb_usuario AS usu inner join tb_pessoa AS pes ON usu.fk_id_pessoa = pes.id";
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                
+                switch(tipoPesquisa){
+                    case "Todos":
+                        preparedStatement = connection.prepareStatement(sql);
+                        break;
+                        
+                    case "Login":
+                        sql = "select * from tb_usuario AS usu inner join tb_pessoa AS pes ON usu.fk_id_pessoa = pes.id "
+                                + "WHERE usu.login Like UPPER(?)";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + usuario.getLogin() + "%");
+                        break;
+                    
+                    case "Nome":
+                    sql = "select * from tb_usuario AS usu inner join tb_pessoa AS pes ON usu.fk_id_pessoa = pes.id "
+                            + "WHERE pes.nome Like UPPER(?)";
+
+                    preparedStatement = connection.prepareStatement(sql);
+                    preparedStatement.setString(1, "%" + usuario.getNome()+ "%");
+                    break;
+                }
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                
+                while(resultSet.next()){
+                    BeanUsuario beanUsuario = new BeanUsuario(resultSet.getLong("id"), 
+                            resultSet.getString("login"), resultSet.getString("senha"), 
+                            resultSet.getBoolean("criar_novo_usuario"), resultSet.getBoolean("editar_usuario"), 
+                            resultSet.getBoolean("excluir_usuario"), resultSet.getBoolean("listar_usuario"), 
+                            resultSet.getBoolean("buscar_usuario"), resultSet.getLong("fk_id_pessoa"), 
+                            resultSet.getString("nome"));
+                    
+                    listaUsuarios.add(beanUsuario);
+                }
+                
+                resultSet.close();
+                connection.commit();
+                connection.close();
+                
+                return listaUsuarios;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        }
+        return null;
+    }
+    
+    public BeanUsuario inserirUsuario(BeanUsuario usuario){
+        if(conexaoDb.conectar()){
+            
+            String sql = "INSERT INTO tb_usuario (login, senha, fk_id_pessoa, criar_novo_usuario, editar_usuario, excluir_usuario, listar_usuario, buscar_usuario)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, usuario.getLogin());
+                preparedStatement.setString(2, usuario.getSenha());
+                preparedStatement.setLong(3, usuario.getId());
+                preparedStatement.setBoolean(4, usuario.isCriar_novo_usuario());
+                preparedStatement.setBoolean(5, usuario.isEditar_usuario());
+                preparedStatement.setBoolean(6, usuario.isExcluir_usuario());
+                preparedStatement.setBoolean(7, usuario.isListar_usuario());
+                preparedStatement.setBoolean(8, usuario.isBuscar_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                    if(resultSet.next()){
+                        usuario.setId_usuario(resultSet.getLong(1));
+                    }
+                    
+                    resultSet.close();
+                }
+                
+                connection.commit();
+                connection.close();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        
+        conexaoDb.desconectar();
+        return null;
     }
     
     public BeanUsuario validarLogin(BeanUsuario usuario){

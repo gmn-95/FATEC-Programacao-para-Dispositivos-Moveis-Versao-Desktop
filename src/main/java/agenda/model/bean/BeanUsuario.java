@@ -154,7 +154,7 @@ public class BeanUsuario extends BeanPessoa{
 
     @Override
     public String toString() {
-        return "BeanUsuario{" + "id_usuario=" + id_usuario + ", login=" + login + ", senha=" + senha + ", criar_novo_usuario=" + criar_novo_usuario + ", editar_usuario=" + editar_usuario + ", excluir_usuario=" + excluir_usuario + ", listar_usuario=" + listar_usuario + '}';
+        return "BeanUsuario{" + "id_usuario=" + id_usuario + ", id_pessoa=" + getNome() + ", login=" + login + ", senha=" + senha + ", criar_novo_usuario=" + criar_novo_usuario + ", editar_usuario=" + editar_usuario + ", excluir_usuario=" + excluir_usuario + ", listar_usuario=" + listar_usuario + '}';
     }
 
     

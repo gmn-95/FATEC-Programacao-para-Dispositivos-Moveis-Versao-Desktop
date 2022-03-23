@@ -8,6 +8,8 @@ package agenda.view;
 import agenda.view.agendamento.ViewAgendamentoNovo;
 import agenda.model.bean.BeanUsuario;
 import agenda.view.agendamento.ViewAgendamentoListarBuscar;
+import agenda.view.usuario.ViewUsuarioListarBuscar;
+import agenda.view.usuario.ViewUsuarioNovo;
 
 /**
  *
@@ -274,6 +276,11 @@ public class ViewMenu extends javax.swing.JFrame {
         menu.addTab("Endereço", jTabbedPane2);
 
         btNovoUsu.setText("Novo");
+        btNovoUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoUsuActionPerformed(evt);
+            }
+        });
 
         btBuscarUsu.setText("Buscar");
 
@@ -339,7 +346,7 @@ public class ViewMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        menu.addTab("Usuario", jPanel4);
+        menu.addTab("Usuário", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -377,7 +384,7 @@ public class ViewMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarUsuActionPerformed
-        // TODO add your handling code here:
+        new ViewUsuarioListarBuscar(true, false, usuario).setVisible(true);
     }//GEN-LAST:event_btEditarUsuActionPerformed
 
     private void btEditarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarContatoActionPerformed
@@ -385,7 +392,7 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarContatoActionPerformed
 
     private void btNovoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoContatoActionPerformed
-        System.out.println("teste");
+        
     }//GEN-LAST:event_btNovoContatoActionPerformed
 
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
@@ -412,6 +419,10 @@ public class ViewMenu extends javax.swing.JFrame {
     private void btBuscarAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarAgendamentoActionPerformed
         new ViewAgendamentoListarBuscar(true, usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarAgendamentoActionPerformed
+
+    private void btNovoUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoUsuActionPerformed
+        new ViewUsuarioNovo(usuario).setVisible(true);
+    }//GEN-LAST:event_btNovoUsuActionPerformed
 
 
 

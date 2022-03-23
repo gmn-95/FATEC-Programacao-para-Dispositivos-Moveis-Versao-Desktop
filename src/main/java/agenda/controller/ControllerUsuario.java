@@ -7,6 +7,7 @@ package agenda.controller;
 
 import agenda.model.bean.BeanUsuario;
 import agenda.model.dao.DaoUsuario;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,14 @@ public class ControllerUsuario {
 
     public ControllerUsuario() {
         daoUsuario = new DaoUsuario();
+    }
+    
+    public BeanUsuario inserirUsuario(BeanUsuario usuario){
+        return daoUsuario.inserirUsuario(usuario);
+    }
+    
+    public List<BeanUsuario> listarUsuario(BeanUsuario usuario, String tipoPesquisa){
+        return daoUsuario.listarUsuarios(usuario, tipoPesquisa);
     }
     
     public BeanUsuario validarLogin(BeanUsuario usuario){
