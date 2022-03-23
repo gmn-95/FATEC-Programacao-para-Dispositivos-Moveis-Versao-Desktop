@@ -1,0 +1,349 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package agenda.model.dao;
+
+import agenda.model.bean.BeanAgendamento;
+import agenda.model.bean.BeanContato;
+import agenda.util.ConexaoDb;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ *
+ * @author gustavo
+ */
+public class DaoAgendamento {
+    
+    private Connection connection;
+    private final ConexaoDb conexaoDb;
+
+    public DaoAgendamento() {
+        conexaoDb = new ConexaoDb();
+    }
+    
+    public BeanAgendamento criarAgendamento(BeanAgendamento agendamento){
+        
+        if(conexaoDb.conectar()){
+            
+            String sql = "INSERT INTO tb_agendamento VALUES (null, ?, ?, ?, ?, ?, ?)";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setLong(1, agendamento.getContato().getId());
+                preparedStatement.setLong(2, agendamento.getUsuario().getId_usuario());
+                preparedStatement.setDate(3, new java.sql.Date(agendamento.getData_agendada().getTime()));
+                preparedStatement.setTime(4, new java.sql.Time(agendamento.getHora_agendada().getTime()));
+                preparedStatement.setString(5, agendamento.getDescricao());
+                preparedStatement.setString(6, agendamento.getConteudo());
+                
+                preparedStatement.executeUpdate();
+                
+                try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                    if(resultSet.next()){
+                        agendamento.setId(resultSet.getLong(1));
+                        System.out.println(resultSet.getLong(1));
+                    }
+                    
+                    resultSet.close();
+                }
+                
+                connection.commit();
+                connection.close();
+                
+                return agendamento;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+        
+    }
+    
+    public List<BeanAgendamento> listarAgendamento(BeanAgendamento agendamento, String tipoPesquisa){
+        
+        List<BeanAgendamento> agendamentos = new ArrayList<>();
+
+        SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
+        String sql;
+        
+        if(conexaoDb.conectar()){
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                sql = "select age.id, age.fk_id_contato, age.data_agendada, age.hora_agendada, age.descricao, " +
+                                "age.conteudo, cont.nome " +
+                                "from tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? ORDER BY age.data_agendada";
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                 
+                switch (tipoPesquisa) {
+                    case "Todos":
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        break;
+                        
+                    case "Hora":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and age.hora_agendada = ? ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setTime(2, new java.sql.Time(agendamento.getHora_agendada().getTime()));
+                        break;
+                        
+                    case "Data":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and age.data_agendada = ? ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setDate(2, new java.sql.Date(agendamento.getData_agendada().getTime()));
+                        break;
+                    case "Descricao":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and age.descricao LIKE UPPER(?) ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setString(2, "%" + agendamento.getDescricao() + "%");
+                        break;
+                    case "Conteudo":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and age.conteudo LIKE UPPER(?) ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setString(2, "%" + agendamento.getConteudo() + "%");
+                        break;
+                    case "Contato":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and cont.nome LIKE UPPER(?) ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setString(2, "%" + agendamento.getContato().getNome() + "%");
+                        break;
+                    case "id_contato":
+                        sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
+                                "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where usu.id = ? and cont.nome LIKE UPPER(?) ORDER BY age.data_agendada";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                        preparedStatement.setLong(2, agendamento.getContato().getId());
+                        break;
+                    default:
+                        break;
+                }
+                connection = conexaoDb.getConnection();
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                
+                while(resultSet.next()){
+                    BeanContato beanContato = new BeanContato(resultSet.getLong("fk_id_contato"), resultSet.getString("nome"));
+                    BeanAgendamento agendamento1 = new BeanAgendamento();
+                    agendamento1.setId(resultSet.getLong("id"));
+                    agendamento1.setContato(beanContato);
+                    agendamento1.setDescricao(resultSet.getString("descricao"));
+                    agendamento1.setConteudo(resultSet.getString("conteudo"));
+                    agendamento1.setHora_agendada(horaFormat.parse(resultSet.getTime("hora_agendada").toString()));
+                    agendamento1.setData_agendada(resultSet.getDate("data_agendada"));    
+                    
+                    agendamentos.add(agendamento1);
+                }
+                
+                resultSet.close();
+                connection.commit();
+                connection.close();
+                
+                return agendamentos;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            
+        }
+        
+        return null;
+    }
+    
+    public BeanAgendamento atualizar(BeanAgendamento agendamento){
+        
+        if(conexaoDb.conectar()){
+            
+            String sql = "UPDATE tb_agendamento SET data_agendada = ?, hora_agendada = ?, fk_id_contato = ?, "
+                    + "descricao = ?, conteudo = ? WHERE id = ? and fk_id_contato = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setDate(1, new java.sql.Date(agendamento.getData_agendada().getTime()));
+                preparedStatement.setTime(2, new java.sql.Time(agendamento.getHora_agendada().getTime()));
+                preparedStatement.setLong(3, agendamento.getContato().getId());
+                preparedStatement.setString(4, agendamento.getDescricao());
+                preparedStatement.setString(5, agendamento.getConteudo());
+                preparedStatement.setLong(6, agendamento.getId());
+                preparedStatement.setLong(7, agendamento.getContato().getId());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                connection.close();
+                
+                return agendamento;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+    
+    public BeanAgendamento excluir(BeanAgendamento agendamento){
+         if(conexaoDb.conectar()){
+            
+            String sql = "delete from tb_agendamento where id = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, agendamento.getId());
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                connection.close();
+                
+                return agendamento;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanAgendamento buscarAgendamento(BeanAgendamento agendamento) {
+        
+        SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
+        
+        if(conexaoDb.conectar()){
+            
+            String sql = "select age.id, age.fk_id_contato, age.data_agendada, age.hora_agendada, age.descricao, " +
+                                "age.conteudo, cont.nome " +
+                                "from tb_agendamento AS age " +
+                                "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
+                                "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
+                                "where age.id = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, agendamento.getId());
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                
+                while(resultSet.next()){
+                    BeanContato beanContato = new BeanContato(resultSet.getLong("fk_id_contato"), resultSet.getString("nome"));
+                    agendamento = new BeanAgendamento();
+                    agendamento.setId(resultSet.getLong("id"));
+                    agendamento.setContato(beanContato);
+                    agendamento.setDescricao(resultSet.getString("descricao"));
+                    agendamento.setConteudo(resultSet.getString("conteudo"));
+                    agendamento.setHora_agendada(horaFormat.parse(resultSet.getTime("hora_agendada").toString()));
+                    agendamento.setData_agendada(resultSet.getDate("data_agendada")); 
+                }
+                
+                connection.commit();
+                connection.close();
+                
+                return agendamento;
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+    
+    
+}
