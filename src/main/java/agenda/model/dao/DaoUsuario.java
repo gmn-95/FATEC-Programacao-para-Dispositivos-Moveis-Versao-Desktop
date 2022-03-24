@@ -69,13 +69,17 @@ public class DaoUsuario {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 
                 while(resultSet.next()){
+
                     BeanUsuario beanUsuario = new BeanUsuario(resultSet.getLong("id"), 
-                            resultSet.getString("login"), resultSet.getString("senha"), 
-                            resultSet.getBoolean("criar_novo_usuario"), resultSet.getBoolean("editar_usuario"), 
-                            resultSet.getBoolean("excluir_usuario"), resultSet.getBoolean("listar_usuario"), 
-                            resultSet.getBoolean("buscar_usuario"), resultSet.getLong("fk_id_pessoa"), 
+                            resultSet.getString("login"), 
+                            resultSet.getString("senha"), 
+                            resultSet.getBoolean("criar_novo_usuario"), 
+                            resultSet.getBoolean("editar_usuario"), 
+                            resultSet.getBoolean("excluir_usuario"), 
+                            resultSet.getBoolean("listar_usuario"), 
+                            resultSet.getBoolean("buscar_usuario"), 
+                            resultSet.getLong("fk_id_pessoa"), 
                             resultSet.getString("nome"));
-                    
                     listaUsuarios.add(beanUsuario);
                 }
                 
@@ -192,6 +196,51 @@ public class DaoUsuario {
             finally{
                 conexaoDb.desconectar();
             }
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanUsuario atualizarUsuario(BeanUsuario usuario) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "UPDATE tb_usuario SET login = ?, senha = ?, "
+                    + "criar_novo_usuario = ?, editar_usuario = ?, excluir_usuario = ?, "
+                    + "listar_usuario = ?, buscar_usuario = ? WHERE id = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, usuario.getLogin());
+                preparedStatement.setString(2, usuario.getSenha());
+                preparedStatement.setBoolean(3, usuario.isCriar_novo_usuario());
+                preparedStatement.setBoolean(4, usuario.isEditar_usuario());
+                preparedStatement.setBoolean(5, usuario.isExcluir_usuario());
+                preparedStatement.setBoolean(6, usuario.isListar_usuario());
+                preparedStatement.setBoolean(7, usuario.isBuscar_usuario());
+                preparedStatement.setLong(8, usuario.getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
         }
         conexaoDb.desconectar();
         return null;

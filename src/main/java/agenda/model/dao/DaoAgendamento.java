@@ -196,7 +196,7 @@ public class DaoAgendamento {
                 
                 resultSet.close();
                 connection.commit();
-                connection.close();
+                conexaoDb.desconectar();
                 
                 return agendamentos;
                 
@@ -209,9 +209,12 @@ public class DaoAgendamento {
                 }
                 return null;
             }
+            finally{
+                conexaoDb.desconectar();
+            }
             
         }
-        
+        conexaoDb.desconectar();
         return null;
     }
     
@@ -237,7 +240,7 @@ public class DaoAgendamento {
                 preparedStatement.executeUpdate();
                 
                 connection.commit();
-                connection.close();
+                conexaoDb.desconectar();
                 
                 return agendamento;
             } catch (SQLException e) {
@@ -270,7 +273,7 @@ public class DaoAgendamento {
                 preparedStatement.executeUpdate();
                 
                 connection.commit();
-                connection.close();
+                conexaoDb.desconectar();
                 
                 return agendamento;
             } catch (SQLException e) {
@@ -323,7 +326,7 @@ public class DaoAgendamento {
                 }
                 
                 connection.commit();
-                connection.close();
+                conexaoDb.desconectar();
                 
                 return agendamento;
             } catch (Exception e) {

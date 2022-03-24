@@ -5,14 +5,9 @@
  */
 package agenda.view.usuario;
 
-import agenda.view.agendamento.*;
-import agenda.controller.ControllerAgendamento;
 import agenda.controller.ControllerUsuario;
-import agenda.model.bean.BeanAgendamento;
-import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,37 +25,9 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
     private boolean excluir;
     private boolean buscar;
     private BeanUsuario usuario;
-    private SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
-    private SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
     
     public ViewUsuarioListarBuscar() {
         initComponents();
-    }
-
-    public ViewUsuarioListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
-        setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
-        
-        
-        this.editar = editar;
-        this.excluir = excluir;
-        this.usuario = usuario;
-        
-        initComponents();
-        tableListaUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
-        tableListaUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
-        verificaOpção();
-        setLocationRelativeTo(null);
-        formatarInputDePequisa();
     }
     
     public ViewUsuarioListarBuscar(boolean buscar, BeanUsuario usuario) {
@@ -76,7 +43,85 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         
+       
+        this.buscar = buscar;
         this.usuario = usuario;
+        
+        initComponents();
+        
+        tableListaUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(5).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(5).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(6).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(7).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(7).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(8).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(8).setMaxWidth(0);
+        
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+
+    public ViewUsuarioListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
+        setResizable(false);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+        
+       
+        this.editar = editar;
+        this.excluir = excluir;
+        this.usuario = usuario;
+        
+        initComponents();
+        
+        tableListaUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(5).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(5).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(6).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(7).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(7).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(8).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(8).setMaxWidth(0);
+        
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
+    public ViewUsuarioListarBuscar(boolean buscar) {
+        setResizable(false);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+        
         this.buscar = buscar;
         
         
@@ -98,12 +143,17 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
         model.setNumRows(0);
 
         if(usuarios != null){
-            for(BeanUsuario usuario : usuarios){
+            for(BeanUsuario beanUsuario : usuarios){
                 model.addRow(new Object[]{
-                    usuario.getId_usuario(),
-                    usuario.getId(),
-                    usuario.getNome(),
-                    usuario.getLogin()
+                    beanUsuario.getId_usuario(),
+                    beanUsuario.getId(),
+                    beanUsuario.getNome(),
+                    beanUsuario.getLogin(),
+                    beanUsuario.getSenha(),
+                    beanUsuario.isCriar_novo_usuario(),
+                    beanUsuario.isEditar_usuario(),
+                    beanUsuario.isExcluir_usuario(),
+                    beanUsuario.isListar_usuario()
                 });
             }
         }
@@ -142,11 +192,6 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -185,17 +230,17 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
         tableListaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id Usuario", "Id Pessoa", "Nome", "Login", "Senha"
+                "id Usuario", "Id Pessoa", "Nome", "Login", "Senha", "pode criar", "pode editar", "pode excluir", "pode listar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -206,6 +251,10 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
         if (tableListaUsuarios.getColumnModel().getColumnCount() > 0) {
             tableListaUsuarios.getColumnModel().getColumn(0).setResizable(false);
             tableListaUsuarios.getColumnModel().getColumn(4).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(5).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(6).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(7).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(8).setResizable(false);
         }
 
         cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Login", "Nome" }));
@@ -283,7 +332,7 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         if(tableListaUsuarios.getSelectedRow() >= 0){
             
-            ViewUsuarioEditar usuarioEditar = new ViewUsuarioEditar(this, editar, excluir, usuario, tableListaUsuarios);
+            ViewUsuarioEditar usuarioEditar = new ViewUsuarioEditar(this, editar, excluir, tableListaUsuarios, usuario);
             usuarioEditar.setVisible(true);
         }
         else{
@@ -291,9 +340,9 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
-   private void verificarLista(List<BeanAgendamento> agendamentos){
-       if(!agendamentos.isEmpty() || agendamentos != null || agendamentos.get(0).getContato() != null){
-           montarTabela(agendamentos);
+   private void verificarLista(List<BeanUsuario> usuarios){
+       if(!usuarios.isEmpty() || usuarios != null || usuarios.get(0).getId() != null){
+           montarTabela(usuarios);
        }
        else{
            JOptionPane.showMessageDialog(null, "Usuário Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
@@ -301,60 +350,36 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
    }
     
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
+        BeanUsuario usuarioEntrada = new BeanUsuario();
         String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
                 
-        ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-        List<BeanAgendamento> agendamentos = new ArrayList<>();
+        ControllerUsuario controllerUsuario = new ControllerUsuario();
+        List<BeanUsuario> usuarios = new ArrayList<>();
         
         try {
             if(cbxTipoListagem.getItemCount() > 2 ){
                 switch(cbxTipoListagem.getSelectedIndex()){
                 case 0:
-                   listarTodos(usuario);
+                   listarTodos(usuarioEntrada);
                    break;
                 case 1:
-                    agendamentoEntrada.setHora_agendada(horaFormat.parse(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
+                    usuarioEntrada.setLogin(inputPesquisa.getText());  
                     break;
-
                 case 2:
-                    agendamentoEntrada.setData_agendada(dataFormat.parse(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
-                case 3:
-                    agendamentoEntrada.setDescricao(inputPesquisa.getText());
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
-                case 4:
-                    agendamentoEntrada.setConteudo(inputPesquisa.getText()); 
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
-                case 5:
-                    agendamentoEntrada.setContato(new BeanContato(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
-                case 6:
-                    agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
+                    usuarioEntrada.setNome(inputPesquisa.getText());
+                    break; 
                 default:
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
+                    listarTodos(usuarioEntrada);
                     break;
                 }
+                usuarios = controllerUsuario.listarUsuario(usuarioEntrada, tipoPesquisa);
+                verificarLista(usuarios);
             } else {
                 
-                agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
-                BeanAgendamento agendamentoSaida = controllerAgendamento.buscarAgendamento(agendamentoEntrada);
+                /*agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
+                BeanAgendamento agendamentoSaida = controllerUsuario.buscarAgendamento(agendamentoEntrada);
                 agendamentos.add(agendamentoSaida);
-                verificarLista(agendamentos);
+                verificarLista(agendamentos);*/
             }
             
         } catch (ParseException e) {
@@ -371,9 +396,8 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             if(!buscar){
-                listarTodos(usuario);
+                listarTodos(null);
             }
-            
         } catch (ParseException ex) {
             Logger.getLogger(ViewUsuarioListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -381,8 +405,8 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         if(tableListaUsuarios.getSelectedRow() >= 0){
-            ViewAgendamentoExcluir agendamentoExcluir = new ViewAgendamentoExcluir(this, editar, excluir, usuario, tableListaUsuarios);
-            agendamentoExcluir.setVisible(true);
+            ViewUsuarioExcluir usuarioExcluir = new ViewUsuarioExcluir(this, editar, excluir, tableListaUsuarios, usuario);
+            usuarioExcluir.setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(null, "Nenhum Agendamento Selecionado" , "Selecione um agendamento!", JOptionPane.ERROR_MESSAGE);

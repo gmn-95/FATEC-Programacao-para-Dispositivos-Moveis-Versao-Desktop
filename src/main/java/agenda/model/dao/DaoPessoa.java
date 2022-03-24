@@ -51,7 +51,43 @@ public class DaoPessoa {
                 }
                 
                 connection.commit();
-                connection.close();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanUsuario atualizarPessoa(BeanUsuario usuario) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "UPDATE tb_pessoa SET nome = ? WHERE id = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, usuario.getNome());
+                preparedStatement.setLong(2, usuario.getId());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
                 
                 return usuario;
                 

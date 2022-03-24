@@ -304,40 +304,31 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
                    break;
                 case 1:
                     agendamentoEntrada.setHora_agendada(horaFormat.parse(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
                     break;
 
                 case 2:
                     agendamentoEntrada.setData_agendada(dataFormat.parse(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
                     break;
                 case 3:
                     agendamentoEntrada.setDescricao(inputPesquisa.getText());
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
                     break;
                 case 4:
-                    agendamentoEntrada.setConteudo(inputPesquisa.getText()); 
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
+                    agendamentoEntrada.setConteudo(inputPesquisa.getText());
                     break;
                 case 5:
                     agendamentoEntrada.setContato(new BeanContato(inputPesquisa.getText()));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
                     break;
                 case 6:
-                    agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
+                    agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));  agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
                     verificarLista(agendamentos);
                     break;
                 default:
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
+                    listarTodos(usuario);
                     break;
+             
                 }
+                agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
+                verificarLista(agendamentos);
             } else {
                 
                 agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));

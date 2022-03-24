@@ -6,6 +6,7 @@
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerUsuario.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanUsuario.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerPessoa.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/usuario/ViewUsuarioEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/dao/DaoUsuario.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/agendamento/ViewAgendamentoEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/ViewLogin.java
@@ -15,7 +16,9 @@
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanEnderecoContato.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/ViewMenu.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerEnderecoContato.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/usuario/ViewUsuarioNovo.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanAgendamento.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/usuario/ViewUsuarioExcluir.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/dao/DaoAgendamento.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerContato.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/myproject/agenda/Main.java
@@ -24,3 +27,4 @@
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/agendamento/ViewAgendamentoExcluir.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/dao/DaoEnderecoContato.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/dao/DaoPessoa.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/usuario/ViewUsuarioListarBuscar.java

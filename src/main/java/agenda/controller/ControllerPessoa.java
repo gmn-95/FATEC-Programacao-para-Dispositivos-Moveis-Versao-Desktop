@@ -5,7 +5,6 @@
  */
 package agenda.controller;
 
-import agenda.model.bean.BeanPessoa;
 import agenda.model.bean.BeanUsuario;
 import agenda.model.dao.DaoPessoa;
 
@@ -23,6 +22,10 @@ public class ControllerPessoa {
     
     public BeanUsuario inserirPessoa(BeanUsuario usuario){
         return daoPessoa.inserirPessoa(usuario);
+    }
+
+    public BeanUsuario atualizarPessoa(BeanUsuario usuario) {
+        return daoPessoa.atualizarPessoa(usuario);
     }
     
 }

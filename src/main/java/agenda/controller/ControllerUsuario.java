@@ -33,6 +33,10 @@ public class ControllerUsuario {
         usuario = daoUsuario.validarLogin(usuario);
         return usuario;
     }
+
+    public BeanUsuario atualizarUsuario(BeanUsuario usuario) {
+        return usuario = daoUsuario.atualizarUsuario(usuario);
+    }
     
     
 }

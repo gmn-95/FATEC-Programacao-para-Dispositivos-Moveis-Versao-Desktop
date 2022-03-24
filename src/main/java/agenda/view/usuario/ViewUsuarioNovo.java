@@ -59,6 +59,11 @@ public class ViewUsuarioNovo extends javax.swing.JFrame {
         });
 
         btLimpar.setText("Limpar");
+        btLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimparActionPerformed(evt);
+            }
+        });
 
         radioCriar.setText("Criar usuário");
 
@@ -187,6 +192,10 @@ public class ViewUsuarioNovo extends javax.swing.JFrame {
            }
        }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        limparCamposTela();
+    }//GEN-LAST:event_btLimparActionPerformed
 
     private boolean validarCampos(){
         

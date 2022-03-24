@@ -26,7 +26,6 @@ import javax.swing.text.MaskFormatter;
  * @author gustavo
  */
 public class ViewAgendamentoEditar extends javax.swing.JDialog {
-
     
     private BeanUsuario usuario;
     private boolean editar;
