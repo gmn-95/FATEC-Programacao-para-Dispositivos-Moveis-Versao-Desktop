@@ -37,17 +37,6 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
 
     public ViewAgendamentoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
-        
         
         this.editar = editar;
         this.excluir = excluir;
@@ -61,20 +50,9 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     
     public ViewAgendamentoListarBuscar(boolean buscar, BeanUsuario usuario) {
         setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
         
         this.usuario = usuario;
         this.buscar = buscar;
-        
         
         initComponents();
         verificaOpção();
@@ -290,58 +268,64 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
    }
     
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
-        String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
-                
-        ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-        List<BeanAgendamento> agendamentos = new ArrayList<>();
         
-        try {
-            if(cbxTipoListagem.getItemCount() > 2 ){
-                switch(cbxTipoListagem.getSelectedIndex()){
-                case 0:
-                   listarTodos(usuario);
-                   break;
-                case 1:
-                    agendamentoEntrada.setHora_agendada(horaFormat.parse(inputPesquisa.getText()));
-                    break;
-
-                case 2:
-                    agendamentoEntrada.setData_agendada(dataFormat.parse(inputPesquisa.getText()));
-                    break;
-                case 3:
-                    agendamentoEntrada.setDescricao(inputPesquisa.getText());
-                    break;
-                case 4:
-                    agendamentoEntrada.setConteudo(inputPesquisa.getText());
-                    break;
-                case 5:
-                    agendamentoEntrada.setContato(new BeanContato(inputPesquisa.getText()));
-                    break;
-                case 6:
-                    agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));  agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
-                    break;
-                default:
-                    listarTodos(usuario);
-                    break;
-             
-                }
-                agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                verificarLista(agendamentos);
-            } else {
-                
-                agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
-                BeanAgendamento agendamentoSaida = controllerAgendamento.buscarAgendamento(agendamentoEntrada);
-                agendamentos.add(agendamentoSaida);
-                verificarLista(agendamentos);
-            }
-            
-        } catch (ParseException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "O valor inserido não é válido!", "Valor inválido!", JOptionPane.ERROR_MESSAGE);
-            inputPesquisa.setText("");
+        if((inputPesquisa.getText().equals("") || inputPesquisa == null) && cbxTipoListagem.getSelectedIndex() != 0){
+            JOptionPane.showMessageDialog(null, "Insira o valor a ser pesquisado!");
         }
+        else{
+            BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
+            String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
+
+            ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
+            List<BeanAgendamento> agendamentos = new ArrayList<>();
+
+            try {
+                if(cbxTipoListagem.getItemCount() > 2 ){
+                    switch(cbxTipoListagem.getSelectedIndex()){
+                    case 0:
+                       listarTodos(usuario);
+                       break;
+                    case 1:
+                        agendamentoEntrada.setHora_agendada(horaFormat.parse(inputPesquisa.getText()));
+                        break;
+
+                    case 2:
+                        agendamentoEntrada.setData_agendada(dataFormat.parse(inputPesquisa.getText()));
+                        break;
+                    case 3:
+                        agendamentoEntrada.setDescricao(inputPesquisa.getText());
+                        break;
+                    case 4:
+                        agendamentoEntrada.setConteudo(inputPesquisa.getText());
+                        break;
+                    case 5:
+                        agendamentoEntrada.setContato(new BeanContato(inputPesquisa.getText()));
+                        break;
+                    case 6:
+                        agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));  agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
+                        verificarLista(agendamentos);
+                        break;
+                    default:
+                        listarTodos(usuario);
+                        break;
+
+                    }
+                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
+                    verificarLista(agendamentos);
+                } else {
+
+                    agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
+                    BeanAgendamento agendamentoSaida = controllerAgendamento.buscarAgendamento(agendamentoEntrada);
+                    agendamentos.add(agendamentoSaida);
+                    verificarLista(agendamentos);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "O valor inserido não é válido!", "Valor inválido!", JOptionPane.ERROR_MESSAGE);
+                inputPesquisa.setText("");
+            }
+        }   
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed

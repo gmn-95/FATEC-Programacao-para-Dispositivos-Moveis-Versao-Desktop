@@ -304,13 +304,14 @@ public class DaoAgendamento {
                                 "from tb_agendamento AS age " +
                                 "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
                                 "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
-                                "where age.id = ?";
+                                "where age.id = ? and usu.id = ?";
             
             try {
                 connection = conexaoDb.getConnection();
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setLong(1, agendamento.getId());
+                preparedStatement.setLong(2, agendamento.getUsuario().getId_usuario());
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 

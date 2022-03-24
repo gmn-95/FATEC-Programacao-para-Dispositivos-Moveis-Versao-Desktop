@@ -5,19 +5,13 @@
  */
 package agenda.view.usuario;
 
-import agenda.view.agendamento.*;
-import agenda.controller.ControllerAgendamento;
-import agenda.controller.ControllerContato;
-import agenda.model.bean.BeanAgendamento;
-import agenda.model.bean.BeanContato;
+
+import agenda.controller.ControllerPessoa;
+import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanUsuario;
-import java.text.ParseException;
-import java.util.List;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -44,30 +38,7 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
         this.usuario = usuario;
         
         initComponents();
-        
-        inputConteudo.setEditable(false);
-        inputConteudo.setEnabled(false);
-        
-        inputData.setEditable(false);
-        inputData.setEnabled(false);
-        
-        inputDescricao.setEditable(false);
-        inputDescricao.setEnabled(false);
-        
-        inputHorario.setEditable(false);
-        inputHorario.setEnabled(false);
-        
-        inputId.setEditable(false);
-        inputId.setEnabled(false);
-        
-        inputIdContato.setVisible(false);
-        inputIdContato.setEnabled(false);
-        
-        cbxContato.setEditable(false);
-        cbxContato.setEnabled(false);
-        
-        formataCampoData();
-        formataCampoHorário();
+    
         setLocationRelativeTo(null);
         camposEditar(tabela);
     }
@@ -78,24 +49,24 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        inputData = new javax.swing.JFormattedTextField();
-        inputDescricao = new javax.swing.JTextField();
-        cbxContato = new javax.swing.JComboBox<>();
-        inputHorario = new javax.swing.JFormattedTextField();
-        labelDataExcluir = new javax.swing.JLabel();
-        labelHoraExcluir = new javax.swing.JLabel();
-        labelDescricaoExcluir = new javax.swing.JLabel();
-        labelConteudoExcluir = new javax.swing.JLabel();
-        labelContatoExcluir = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        inputConteudo = new javax.swing.JTextArea();
-        labelId = new javax.swing.JLabel();
-        inputId = new javax.swing.JTextField();
-        inputIdContato = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        btExcluirAgendamento = new javax.swing.JButton();
-        btLimparFormAgendamento = new javax.swing.JButton();
+        labelNome = new javax.swing.JLabel();
+        inputNome = new javax.swing.JTextField();
+        labelLogin = new javax.swing.JLabel();
+        inputLogin = new javax.swing.JTextField();
+        labelSenha = new javax.swing.JLabel();
+        inputSenha = new javax.swing.JPasswordField();
+        labelConfirmarSenha = new javax.swing.JLabel();
+        inputConfirmarSenha = new javax.swing.JPasswordField();
+        btExcluir = new javax.swing.JButton();
+        radioCriar = new javax.swing.JRadioButton();
+        radioEditar = new javax.swing.JRadioButton();
+        labelOpcaoUsuario = new javax.swing.JLabel();
+        radioExcluir = new javax.swing.JRadioButton();
+        radioListarBuscar = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        inputIdUsuario = new javax.swing.JTextField();
+        IdPessoa = new javax.swing.JLabel();
+        inputIdPessoa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -111,162 +82,119 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
             }
         });
 
-        inputData.addActionListener(new java.awt.event.ActionListener() {
+        labelNome.setText("Nome");
+
+        labelLogin.setText("Login");
+
+        labelSenha.setText("Senha");
+
+        labelConfirmarSenha.setText("Confirmar Senha");
+
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputDataActionPerformed(evt);
+                btExcluirActionPerformed(evt);
             }
         });
 
-        cbxContato.setToolTipText("");
-        cbxContato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxContatoActionPerformed(evt);
-            }
-        });
+        radioCriar.setText("Criar usuário");
 
-        inputHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputHorarioActionPerformed(evt);
-            }
-        });
+        radioEditar.setText("Editar usuário");
 
-        labelDataExcluir.setText("Data");
+        labelOpcaoUsuario.setText("Opções de usuário (Opcional)");
 
-        labelHoraExcluir.setText("Horário");
+        radioExcluir.setText("Excluir usuário");
 
-        labelDescricaoExcluir.setText("Descrição");
+        radioListarBuscar.setText("Listar/Buscar usuário");
 
-        labelConteudoExcluir.setText("Conteúdo");
+        jLabel1.setText("Id Usuário");
 
-        labelContatoExcluir.setText("Contato");
+        inputIdUsuario.setEditable(false);
 
-        inputConteudo.setColumns(20);
-        inputConteudo.setRows(5);
-        jScrollPane1.setViewportView(inputConteudo);
+        IdPessoa.setText("Id Pessoa");
 
-        labelId.setText("Id");
-
-        inputIdContato.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputIdContatoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelDataExcluir)
-                                .addComponent(labelHoraExcluir)
-                                .addComponent(labelDescricaoExcluir, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(labelContatoExcluir))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxContato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputDescricao)
-                            .addComponent(inputData)
-                            .addComponent(inputHorario)
-                            .addComponent(inputId, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addComponent(labelConteudoExcluir)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelId)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelId)
-                    .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDataExcluir)
-                    .addComponent(inputData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelHoraExcluir))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDescricaoExcluir))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelContatoExcluir)
-                    .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(labelConteudoExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        btExcluirAgendamento.setText("Excluir");
-        btExcluirAgendamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirAgendamentoActionPerformed(evt);
-            }
-        });
-
-        btLimparFormAgendamento.setText("Limpar");
-        btLimparFormAgendamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btLimparFormAgendamentoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(btExcluirAgendamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(btLimparFormAgendamento)
-                .addGap(31, 31, 31))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btExcluirAgendamento)
-                    .addComponent(btLimparFormAgendamento))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
+        inputIdPessoa.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelOpcaoUsuario)
+                            .addComponent(radioCriar)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(radioListarBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioEditar)
+                                    .addComponent(radioExcluir)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(labelNome)
+                                        .addComponent(labelSenha)
+                                        .addComponent(inputSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                        .addComponent(inputNome))
+                                    .addComponent(jLabel1)
+                                    .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(IdPessoa)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(labelLogin)
+                                        .addComponent(labelConfirmarSenha)
+                                        .addComponent(inputLogin)
+                                        .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(IdPessoa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNome)
+                    .addComponent(labelLogin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSenha)
+                    .addComponent(labelConfirmarSenha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addComponent(labelOpcaoUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioCriar)
+                    .addComponent(radioEditar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioListarBuscar)
+                    .addComponent(radioExcluir))
+                .addGap(35, 35, 35)
+                .addComponent(btExcluir)
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,63 +202,16 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
-
-    }//GEN-LAST:event_inputDataActionPerformed
-
-    private void cbxContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxContatoActionPerformed
-
-    }//GEN-LAST:event_cbxContatoActionPerformed
-
-    private void inputHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHorarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputHorarioActionPerformed
-
-    private void btExcluirAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirAgendamentoActionPerformed
-     
-        BeanAgendamento agendamento = new BeanAgendamento(Long.valueOf(inputId.getText()));
-        ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-        BeanAgendamento agendamento1 = controllerAgendamento.excluirAgendamento(agendamento);
-        JOptionPane.showMessageDialog(null, agendamento1);
-        
-        dispose();
-        v.dispose();
-        this.viewUsuarioListarBuscar = new ViewUsuarioListarBuscar(editar, excluir, usuario);
-        this.viewUsuarioListarBuscar.setVisible(true);
-    }//GEN-LAST:event_btExcluirAgendamentoActionPerformed
-
-    private void btLimparFormAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparFormAgendamentoActionPerformed
-    
-       
-        inputData.setText("");
-        formataCampoData();
-        inputHorario.setText("");
-        formataCampoHorário();
-        inputDescricao.setText("");
-        cbxContato.setSelectedIndex(0);
-        inputConteudo.setText("");
-
-        
-    }//GEN-LAST:event_btLimparFormAgendamentoActionPerformed
-
-    private void inputIdContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputIdContatoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputIdContatoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         v = new ViewUsuarioListarBuscar(editar, excluir, usuario);
@@ -349,64 +230,80 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
    
     }//GEN-LAST:event_formWindowClosed
 
-    private void formataCampoData(){
-        try {
-            MaskFormatter dataFormatada = new MaskFormatter("##-##-####");
-            dataFormatada.install(inputData);
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+           
+            BeanUsuario beanUsuario = new BeanUsuario(Long.valueOf(inputIdUsuario.getText()), Long.valueOf(inputIdPessoa.getText()));
+
+            ControllerUsuario controllerUsuario = new ControllerUsuario();
+            beanUsuario = controllerUsuario.excluirUsuario(beanUsuario);
             
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao formar campo de texto." , "ERRO", JOptionPane.ERROR);
-        }
-    }
-    
-    private void formataCampoHorário(){
-        try {
-        
-            MaskFormatter horaFormatada = new MaskFormatter("##:##");
-            horaFormatada.install(inputHorario);
-            
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao formar campo de texto." , "ERRO", JOptionPane.ERROR);
-        }
-    }
-    
+            ControllerPessoa controllerPessoa = new ControllerPessoa();
+            BeanUsuario beanUsuarioSaida = controllerPessoa.excluirPessoa(beanUsuario);
+
+            JOptionPane.showMessageDialog(null, beanUsuarioSaida);
+
+            dispose();
+            v.dispose();
+            this.viewUsuarioListarBuscar = new ViewUsuarioListarBuscar(editar, excluir, usuario);
+            this.viewUsuarioListarBuscar.setVisible(true);
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+
     private void camposEditar(JTable tabela){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
-        inputId.setText(String.valueOf(model.getValueAt(row, 0)));
-        inputId.setEditable(false);
-        inputDescricao.setText(String.valueOf(model.getValueAt(row, 1)));
-        inputConteudo.setText(String.valueOf(model.getValueAt(row, 2)));
-        inputData.setText(String.valueOf(model.getValueAt(row, 3)));
-        inputHorario.setText(String.valueOf(model.getValueAt(row, 4)));
-        inputIdContato.setText(String.valueOf(model.getValueAt(row, 5)));
-        inputIdContato.setVisible(false);
-        inputIdContato.setEditable(false);
+        inputIdUsuario.setText(String.valueOf(model.getValueAt(row, 0)));
+        inputIdUsuario.setEnabled(false);
+        
+        inputIdPessoa.setText(String.valueOf(model.getValueAt(row, 1)));
+        inputIdPessoa.setEnabled(false);
+        
+        inputNome.setText(String.valueOf(model.getValueAt(row, 2)));
+        inputNome.setEnabled(false);
+        
+        inputLogin.setText(String.valueOf(model.getValueAt(row, 3)));
+        inputLogin.setEnabled(false);
+        
+        inputSenha.setText(String.valueOf(model.getValueAt(row, 4)));
+        inputSenha.setEnabled(false);
+        
+        inputConfirmarSenha.setText(String.valueOf(model.getValueAt(row, 4)));
+        inputConfirmarSenha.setEnabled(false);
+        
+        radioCriar.setSelected((boolean) model.getValueAt(row, 5));
+        radioCriar.setEnabled(false);
+        
+        radioEditar.setSelected((boolean) model.getValueAt(row, 6));
+        radioEditar.setEnabled(false);
+        
+        radioExcluir.setSelected((boolean) model.getValueAt(row, 7));
+        radioExcluir.setEnabled(false);
+        
+        radioListarBuscar.setSelected((boolean) model.getValueAt(row, 8));
+        radioListarBuscar.setEnabled(false);
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btExcluirAgendamento;
-    private javax.swing.JButton btLimparFormAgendamento;
-    private javax.swing.JComboBox<String> cbxContato;
-    private javax.swing.JTextArea inputConteudo;
-    private javax.swing.JFormattedTextField inputData;
-    private javax.swing.JTextField inputDescricao;
-    private javax.swing.JFormattedTextField inputHorario;
-    private javax.swing.JTextField inputId;
-    private javax.swing.JTextField inputIdContato;
+    private javax.swing.JLabel IdPessoa;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JPasswordField inputConfirmarSenha;
+    private javax.swing.JTextField inputIdPessoa;
+    private javax.swing.JTextField inputIdUsuario;
+    private javax.swing.JTextField inputLogin;
+    private javax.swing.JTextField inputNome;
+    private javax.swing.JPasswordField inputSenha;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelContatoExcluir;
-    private javax.swing.JLabel labelConteudoExcluir;
-    private javax.swing.JLabel labelDataExcluir;
-    private javax.swing.JLabel labelDescricaoExcluir;
-    private javax.swing.JLabel labelHoraExcluir;
-    private javax.swing.JLabel labelId;
+    private javax.swing.JLabel labelConfirmarSenha;
+    private javax.swing.JLabel labelLogin;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelOpcaoUsuario;
+    private javax.swing.JLabel labelSenha;
+    private javax.swing.JRadioButton radioCriar;
+    private javax.swing.JRadioButton radioEditar;
+    private javax.swing.JRadioButton radioExcluir;
+    private javax.swing.JRadioButton radioListarBuscar;
     // End of variables declaration//GEN-END:variables
 }

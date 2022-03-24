@@ -10,6 +10,8 @@ import agenda.controller.ControllerContato;
 import agenda.model.bean.BeanAgendamento;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.view.ViewLogin;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -36,6 +39,7 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
     
     public ViewAgendamentoEditar(ViewAgendamentoListarBuscar viewAgendamentoListarBuscar, boolean editar, boolean excluir, BeanUsuario usuario, JTable tabela) {
         super(viewAgendamentoListarBuscar, true);
+       
         this.viewAgendamentoListarBuscar = viewAgendamentoListarBuscar;
         this.viewAgendamentoListarBuscar.setVisible(false);
         this.usuario = usuario;
@@ -309,7 +313,7 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btAtualizarAgendamentoActionPerformed
 
-    
+   
     private void btLimparFormAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparFormAgendamentoActionPerformed
     
        
@@ -367,7 +371,6 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         }
     }
    
-    
     private void camposEditar(JTable tabela){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -400,7 +403,6 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
                 cbxContato.addItem(bc.getNome());
             }
             
-           
             for(int i = 0; i < cbxContato.getItemCount(); i++){
                 if(model.getValueAt(row, 5) == id_contato.get(i)){
                     cbxContato.setSelectedIndex(i + 1);

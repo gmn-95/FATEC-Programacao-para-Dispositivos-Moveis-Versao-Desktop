@@ -35,7 +35,15 @@ public class ControllerUsuario {
     }
 
     public BeanUsuario atualizarUsuario(BeanUsuario usuario) {
-        return usuario = daoUsuario.atualizarUsuario(usuario);
+        return daoUsuario.atualizarUsuario(usuario);
+    }
+
+    public BeanUsuario buscarUsuario(BeanUsuario usuario) {
+        return daoUsuario.buscarUsuario(usuario);
+    }
+
+    public BeanUsuario excluirUsuario(BeanUsuario usuario) {
+        return daoUsuario.excluirUsuario(usuario);
     }
     
     

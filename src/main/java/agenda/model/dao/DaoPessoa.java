@@ -5,7 +5,6 @@
  */
 package agenda.model.dao;
 
-import agenda.model.bean.BeanPessoa;
 import agenda.model.bean.BeanUsuario;
 import agenda.util.ConexaoDb;
 import java.sql.Connection;
@@ -83,6 +82,42 @@ public class DaoPessoa {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, usuario.getNome());
                 preparedStatement.setLong(2, usuario.getId());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanUsuario excluirPessoa(BeanUsuario usuario) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_pessoa WHERE id = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, usuario.getId());
                 
                 preparedStatement.executeUpdate();
                 

@@ -6,7 +6,10 @@
 package myproject.agenda;
 
 import agenda.view.ViewLogin;
-import javax.swing.JOptionPane;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -15,7 +18,18 @@ import javax.swing.JOptionPane;
 public class Main {
     
     public static void main(String[] args) {
-        new ViewLogin().setVisible(true);
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ViewLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ViewLogin().setVisible(true);
+   
+            }
+        });
     }
-    
 }

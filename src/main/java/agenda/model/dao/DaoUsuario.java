@@ -236,6 +236,94 @@ public class DaoUsuario {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanUsuario buscarUsuario(BeanUsuario usuario) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "select * from tb_usuario AS usu inner join tb_pessoa "
+                    + "AS pes ON usu.fk_id_pessoa = pes.id WHERE usu.id = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, usuario.getId_usuario());
+                
+                ResultSet resultSet = preparedStatement.executeQuery();
+                
+                while(resultSet.next()){
+                    usuario = new BeanUsuario(resultSet.getLong("id"), 
+                            resultSet.getString("login"), 
+                            resultSet.getString("senha"), 
+                            resultSet.getBoolean("criar_novo_usuario"), 
+                            resultSet.getBoolean("editar_usuario"), 
+                            resultSet.getBoolean("excluir_usuario"), 
+                            resultSet.getBoolean("listar_usuario"), 
+                            resultSet.getBoolean("buscar_usuario"), 
+                            resultSet.getLong("fk_id_pessoa"), 
+                            resultSet.getString("nome"));
+                }
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        conexaoDb.desconectar();
+        return null;
+    }
+
+    public BeanUsuario excluirUsuario(BeanUsuario usuario) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_usuario WHERE id = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, usuario.getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return usuario;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
             finally{
                 conexaoDb.desconectar();

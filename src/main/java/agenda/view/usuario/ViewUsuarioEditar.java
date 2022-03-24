@@ -312,11 +312,9 @@ public class ViewUsuarioEditar extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
         inputIdUsuario.setText(String.valueOf(model.getValueAt(row, 0)));
-        inputIdUsuario.setEditable(false);
         inputIdUsuario.setEnabled(false);
         
         inputIdPessoa.setText(String.valueOf(model.getValueAt(row, 1)));
-        inputIdPessoa.setEditable(false);
         inputIdPessoa.setEnabled(false);
         
         inputNome.setText(String.valueOf(model.getValueAt(row, 2)));

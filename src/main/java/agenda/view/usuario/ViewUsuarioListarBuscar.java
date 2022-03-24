@@ -32,18 +32,7 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
     
     public ViewUsuarioListarBuscar(boolean buscar, BeanUsuario usuario) {
         setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
         
-       
         this.buscar = buscar;
         this.usuario = usuario;
         
@@ -71,18 +60,7 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
     public ViewUsuarioListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
         
-       
         this.editar = editar;
         this.excluir = excluir;
         this.usuario = usuario;
@@ -111,19 +89,8 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
     
     public ViewUsuarioListarBuscar(boolean buscar) {
         setResizable(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        }
         
         this.buscar = buscar;
-        
         
         initComponents();
         verificaOpção();
@@ -178,7 +145,7 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
             btExcluir.setVisible(true);
             
             cbxTipoListagem.removeAllItems();
-            cbxTipoListagem.addItem("Id Agendamento");
+            cbxTipoListagem.addItem("Id Usuário");
             
         }
     }
@@ -350,43 +317,51 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
    }
     
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        BeanUsuario usuarioEntrada = new BeanUsuario();
-        String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
-                
-        ControllerUsuario controllerUsuario = new ControllerUsuario();
-        List<BeanUsuario> usuarios = new ArrayList<>();
         
-        try {
-            if(cbxTipoListagem.getItemCount() > 2 ){
-                switch(cbxTipoListagem.getSelectedIndex()){
-                case 0:
-                   listarTodos(usuarioEntrada);
-                   break;
-                case 1:
-                    usuarioEntrada.setLogin(inputPesquisa.getText());  
-                    break;
-                case 2:
-                    usuarioEntrada.setNome(inputPesquisa.getText());
-                    break; 
-                default:
-                    listarTodos(usuarioEntrada);
-                    break;
-                }
-                usuarios = controllerUsuario.listarUsuario(usuarioEntrada, tipoPesquisa);
-                verificarLista(usuarios);
-            } else {
-                
-                /*agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
-                BeanAgendamento agendamentoSaida = controllerUsuario.buscarAgendamento(agendamentoEntrada);
-                agendamentos.add(agendamentoSaida);
-                verificarLista(agendamentos);*/
-            }
-            
-        } catch (ParseException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "O valor inserido não é válido!", "Valor inválido!", JOptionPane.ERROR_MESSAGE);
-            inputPesquisa.setText("");
+        if((inputPesquisa.getText().equals("") || inputPesquisa == null) && cbxTipoListagem.getSelectedIndex() != 0){
+            JOptionPane.showMessageDialog(null, "Insira o valor a ser pesquisado!");
         }
+        else{
+            BeanUsuario usuarioEntrada = new BeanUsuario();
+            String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
+
+            ControllerUsuario controllerUsuario = new ControllerUsuario();
+            List<BeanUsuario> usuarios = new ArrayList<>();
+        
+            try {
+                if(cbxTipoListagem.getItemCount() > 2 ){
+                    switch(cbxTipoListagem.getSelectedIndex()){
+                    case 0:
+                       listarTodos(usuarioEntrada);
+                       break;
+                    case 1:
+                        usuarioEntrada.setLogin(inputPesquisa.getText());  
+                        break;
+                    case 2:
+                        usuarioEntrada.setNome(inputPesquisa.getText());
+                        break; 
+                    default:
+                        listarTodos(usuarioEntrada);
+                        break;
+                    }
+                    usuarios = controllerUsuario.listarUsuario(usuarioEntrada, tipoPesquisa);
+                    verificarLista(usuarios);
+                } else {
+
+                    usuarioEntrada.setId_usuario(Long.valueOf(inputPesquisa.getText()));
+                    BeanUsuario usuarioSaida = controllerUsuario.buscarUsuario(usuarioEntrada);
+                    usuarios.add(usuarioSaida);
+                    verificarLista(usuarios);
+                }
+            
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "O valor inserido não é válido!", "Valor inválido!", JOptionPane.ERROR_MESSAGE);
+                inputPesquisa.setText("");
+            }
+        }
+        
+        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed

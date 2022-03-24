@@ -27,5 +27,9 @@ public class ControllerPessoa {
     public BeanUsuario atualizarPessoa(BeanUsuario usuario) {
         return daoPessoa.atualizarPessoa(usuario);
     }
+
+    public BeanUsuario excluirPessoa(BeanUsuario usuario) {
+        return daoPessoa.excluirPessoa(usuario);
+    }
     
 }

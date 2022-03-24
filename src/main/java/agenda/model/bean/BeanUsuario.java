@@ -30,8 +30,11 @@ public class BeanUsuario extends BeanPessoa{
     public BeanUsuario(String nome) {
         super(nome);
     }
-    
-    
+
+    public BeanUsuario(Long id_usuario, Long id) {
+        super(id);
+        this.id_usuario = id_usuario;
+    }
 
     public BeanUsuario(Long id_usuario, String login, String senha, boolean criar_novo_usuario, boolean editar_usuario, boolean excluir_usuario, boolean listar_usuario, boolean buscar_usuario, String nome) {
         super(nome);
