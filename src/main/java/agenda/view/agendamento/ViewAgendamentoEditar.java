@@ -33,6 +33,7 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
     private JTable tabela;
     private ViewAgendamentoListarBuscar viewAgendamentoListarBuscar;
     private ViewAgendamentoListarBuscar v;
+    private Vector<Long> id_contato = new Vector<>();
     
     public ViewAgendamentoEditar(ViewAgendamentoListarBuscar viewAgendamentoListarBuscar, boolean editar, boolean excluir, BeanUsuario usuario, JTable tabela) {
         super(viewAgendamentoListarBuscar, true);
@@ -289,14 +290,20 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
         
         try {
+            
+            
+             
+            BeanContato contato = new BeanContato(Long.valueOf(inputIdContato.getText()));
+            
             BeanAgendamento agendamento = new BeanAgendamento(Long.valueOf(inputId.getText()),
-                    new BeanContato(Long.valueOf(inputIdContato.getText()), cbxContato.getSelectedItem().toString()),
+                    contato,
                     usuario, dataFormat.parse(inputData.getText()), horaFormat.parse(inputHorario.getText()),
                     inputDescricao.getText(), inputConteudo.getText());
             
             ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-            BeanAgendamento agendamento1 = controllerAgendamento.atualizarAgendamento(agendamento);
-            JOptionPane.showMessageDialog(null, agendamento1);
+            
+            BeanAgendamento beanAgendamento = controllerAgendamento.atualizarAgendamento(agendamento, id_contato.get(cbxContato.getSelectedIndex() - 1));
+            JOptionPane.showMessageDialog(null, beanAgendamento);
           
             dispose();
             v.dispose();
@@ -394,7 +401,7 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
             List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
             
             cbxContato.addItem("Selecione");
-            Vector<Long> id_contato = new Vector<>();
+            
             
             for(BeanContato bc : contatos){
                 id_contato.add(bc.getId());

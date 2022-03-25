@@ -30,8 +30,8 @@ public class ControllerContato {
         return daoContato.listarContatos(contato, tiopPesquisa);
     }
     
-    public BeanContato buscarContato(BeanContato contato, BeanUsuario usuario){
-        return daoContato.buscarContato(contato, usuario);
+    public BeanContato buscarContato(BeanContato contato){
+        return daoContato.buscarContato(contato);
     }
     
     

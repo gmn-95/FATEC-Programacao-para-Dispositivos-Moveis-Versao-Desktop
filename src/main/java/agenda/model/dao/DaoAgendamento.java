@@ -183,6 +183,7 @@ public class DaoAgendamento {
                 
                 while(resultSet.next()){
                     BeanContato beanContato = new BeanContato(resultSet.getLong("fk_id_contato"), resultSet.getString("nome"));
+                    
                     BeanAgendamento agendamento1 = new BeanAgendamento();
                     agendamento1.setId(resultSet.getLong("id"));
                     agendamento1.setContato(beanContato);
@@ -212,13 +213,11 @@ public class DaoAgendamento {
             finally{
                 conexaoDb.desconectar();
             }
-            
         }
-        conexaoDb.desconectar();
         return null;
     }
     
-    public BeanAgendamento atualizar(BeanAgendamento agendamento){
+    public BeanAgendamento atualizarAgendamento(BeanAgendamento agendamento, Long novoContato){
         
         if(conexaoDb.conectar()){
             
@@ -231,7 +230,7 @@ public class DaoAgendamento {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setDate(1, new java.sql.Date(agendamento.getData_agendada().getTime()));
                 preparedStatement.setTime(2, new java.sql.Time(agendamento.getHora_agendada().getTime()));
-                preparedStatement.setLong(3, agendamento.getContato().getId());
+                preparedStatement.setLong(3, novoContato);
                 preparedStatement.setString(4, agendamento.getDescricao());
                 preparedStatement.setString(5, agendamento.getConteudo());
                 preparedStatement.setLong(6, agendamento.getId());
@@ -256,11 +255,10 @@ public class DaoAgendamento {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
     
-    public BeanAgendamento excluir(BeanAgendamento agendamento){
+    public BeanAgendamento excluirAgendamento(BeanAgendamento agendamento){
          if(conexaoDb.conectar()){
             
             String sql = "delete from tb_agendamento where id = ?";
@@ -289,7 +287,6 @@ public class DaoAgendamento {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -341,11 +338,7 @@ public class DaoAgendamento {
             finally{
                 conexaoDb.desconectar();
             }
-            
         }
-        conexaoDb.desconectar();
         return null;
-    }
-    
-    
+    }  
 }

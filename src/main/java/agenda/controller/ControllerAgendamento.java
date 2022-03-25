@@ -29,12 +29,12 @@ public class ControllerAgendamento {
         return daoAgendamento.listarAgendamento(agendamento, tipoPesquisa);
     }
     
-    public BeanAgendamento atualizarAgendamento(BeanAgendamento agendamento){
-        return daoAgendamento.atualizar(agendamento);
+    public BeanAgendamento atualizarAgendamento(BeanAgendamento agendamento, Long novoContato){
+        return daoAgendamento.atualizarAgendamento(agendamento, novoContato);
     }
     
     public BeanAgendamento excluirAgendamento(BeanAgendamento agendamento){
-        return daoAgendamento.excluir(agendamento);
+        return daoAgendamento.excluirAgendamento(agendamento);
     }
 
     public BeanAgendamento buscarAgendamento(BeanAgendamento agendamentoEntrada) {

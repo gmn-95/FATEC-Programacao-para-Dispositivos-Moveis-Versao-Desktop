@@ -81,14 +81,69 @@ public class DaoContato {
             
             List<BeanContato> list = new ArrayList<>();
             
-            String sql = "select * from tb_contato, tb_usuario "
-                + "where fk_id_usuario = ? and fk_id_usuario = tb_usuario.id";
+            String sql;
         
             try {
                 connection = conexaoDb.getConnection();
-                 
+                
+                sql = "SELECT * FROM tb_contato " +
+                "WHERE fk_id_usuario = ? ORDER BY tb_contato.id";
+                
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setLong(1, contato.getUsuario().getId_usuario());
+                
+                switch(tipoPesquisa){
+                    case "Todos" : 
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setLong(1, contato.getUsuario().getId_usuario());
+                        break;
+                    
+                    case "Nome":
+                        sql = "SELECT * FROM tb_contato WHERE nome LIKE UPPER(?) "
+                                + "AND fk_id_usuario = ? ORDER BY tb_contato.id";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + contato.getNome() + "%");
+                        preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                        
+                        break;
+                        
+                    case "Telefone":
+                        sql = "SELECT * FROM tb_contato WHERE telefone_fixo LIKE UPPER(?) "
+                                + "AND fk_id_usuario = ? ORDER BY tb_contato.id";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + contato.getTelefone_fixo() + "%");
+                        preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                        break;
+                        
+                    case "Celular":
+                        sql = "SELECT * FROM tb_contato WHERE celular LIKE UPPER(?) "
+                                + "AND fk_id_usuario = ? ORDER BY tb_contato.id";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + contato.getCelular() + "%");
+                        preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                        break;
+                        
+                    case "Email":
+                        sql = "SELECT * FROM tb_contato WHERE email LIKE UPPER(?) "
+                                + "AND fk_id_usuario = ? ORDER BY tb_contato.id";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + contato.getEmail() + "%");
+                        preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                        break;
+                        
+                    case "Obs":
+                        sql = "SELECT * FROM tb_contato WHERE obs LIKE UPPER(?) "
+                                + "AND fk_id_usuario = ? ORDER BY tb_contato.id";
+                        
+                        preparedStatement = connection.prepareStatement(sql);
+                        preparedStatement.setString(1, "%" + contato.getObs()+ "%");
+                        preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                        break;
+                    
+                }
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -125,24 +180,28 @@ public class DaoContato {
         
     }
     
-    public BeanContato buscarContato(BeanContato contato, BeanUsuario usuario){
+    public BeanContato buscarContato(BeanContato contato){
         
         if(conexaoDb.conectar()){
             
-            String sql = "select * from tb_contato, tb_usuario where tb_contato.nome = ? "
+            String sql = "select * from tb_contato, tb_usuario where tb_contato.id = ? "
                     + "and fk_id_usuario = ? and fk_id_usuario = tb_usuario.id";
             
             try {
                 connection = conexaoDb.getConnection();
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, contato.getNome());
-                preparedStatement.setLong(2, usuario.getId_usuario());
+                preparedStatement.setLong(1, contato.getId());
+                preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 
                 if(resultSet.next()){
-                    contato.setId(resultSet.getLong("id"));
+                    contato = new BeanContato(resultSet.getLong("id"), 
+                            new BeanUsuario(resultSet.getLong("fk_id_usuario")), 
+                            resultSet.getString("nome"), resultSet.getString("telefone_fixo"), 
+                            resultSet.getString("celular"), resultSet.getString("email"), 
+                            resultSet.getString("obs"));
                     
                     connection.commit();
                     conexaoDb.desconectar();

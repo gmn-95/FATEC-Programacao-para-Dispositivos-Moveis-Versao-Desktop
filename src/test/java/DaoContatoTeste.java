@@ -21,15 +21,7 @@ public class DaoContatoTeste {
     
     @Test
     public void listar(){
-        DaoContato contato = new DaoContato();
-        BeanUsuario beanUsuario = new BeanUsuario(1l);
-        System.out.println(beanUsuario.getId_usuario());
-        if(contato.listarContatos(beanUsuario) != null){
-            JOptionPane.showMessageDialog(null, "Sucesso");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "erro");
-        }
+      
     }
     
 }

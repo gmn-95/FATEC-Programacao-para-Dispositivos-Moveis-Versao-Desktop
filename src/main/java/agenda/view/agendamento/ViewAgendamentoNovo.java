@@ -256,9 +256,10 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
         SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
         
         BeanContato contatoEntrada = new BeanContato(cbxContato.getSelectedItem().toString());
+        contatoEntrada.setUsuario(usuario);
         
         ControllerContato controllerContato = new ControllerContato();
-        BeanContato contatoSaida = controllerContato.buscarContato(contatoEntrada, usuario);
+        BeanContato contatoSaida = controllerContato.buscarContato(contatoEntrada);
         
         if(contatoSaida != null){
             

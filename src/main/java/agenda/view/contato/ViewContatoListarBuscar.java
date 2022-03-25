@@ -287,36 +287,45 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Insira o valor a ser pesquisado!");
         }
         else{
-            BeanUsuario usuarioEntrada = new BeanUsuario();
+            BeanContato contatoEntrada = new BeanContato(usuario);
             String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
 
-            ControllerUsuario controllerUsuario = new ControllerUsuario();
-            List<BeanUsuario> usuarios = new ArrayList<>();
+            ControllerContato controllerContato = new ControllerContato();
+            List<BeanContato> contatos = new ArrayList<>();
         
             try {
                 if(cbxTipoListagem.getItemCount() > 2 ){
                     switch(cbxTipoListagem.getSelectedIndex()){
                     case 0:
-                       listarTodos(usuarioEntrada);
+                       listarTodos(contatoEntrada);
                        break;
                     case 1:
-                        usuarioEntrada.setLogin(inputPesquisa.getText());  
+                        contatoEntrada.setNome(inputPesquisa.getText());  
                         break;
                     case 2:
-                        usuarioEntrada.setNome(inputPesquisa.getText());
+                        contatoEntrada.setTelefone_fixo(inputPesquisa.getText());
+                        break; 
+                    case 3:
+                        contatoEntrada.setCelular(inputPesquisa.getText());
+                        break; 
+                    case 4:
+                        contatoEntrada.setEmail(inputPesquisa.getText());
+                        break;
+                    case 5:
+                        contatoEntrada.setObs(inputPesquisa.getText());
                         break; 
                     default:
-                        listarTodos(usuarioEntrada);
+                        listarTodos(contatoEntrada);
                         break;
                     }
-                    usuarios = controllerUsuario.listarUsuario(usuarioEntrada, tipoPesquisa);
-                    verificarLista(usuarios);
+                    contatos = controllerContato.listarContatos(contatoEntrada, tipoPesquisa);
+                    verificarLista(contatos);
                 } else {
 
-                    usuarioEntrada.setId_usuario(Long.valueOf(inputPesquisa.getText()));
-                    BeanUsuario usuarioSaida = controllerUsuario.buscarUsuario(usuarioEntrada);
-                    usuarios.add(usuarioSaida);
-                    verificarLista(usuarios);
+                    contatoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
+                    BeanContato contatoSaida = controllerContato.buscarContato(contatoEntrada);
+                    contatos.add(contatoSaida);
+                    verificarLista(contatos);
                 }
             
             } catch (ParseException e) {
