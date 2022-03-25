@@ -133,13 +133,13 @@ public class DaoPessoa {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 }

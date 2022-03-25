@@ -10,8 +10,6 @@ import agenda.controller.ControllerContato;
 import agenda.model.bean.BeanAgendamento;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
-import agenda.view.ViewLogin;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -20,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -393,7 +390,8 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         try {
             ControllerContato controllerContato = new ControllerContato();
             
-            List<BeanContato> contatos = controllerContato.listarContatos(usuario);
+            BeanContato contato = new BeanContato(usuario);
+            List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
             
             cbxContato.addItem("Selecione");
             Vector<Long> id_contato = new Vector<>();

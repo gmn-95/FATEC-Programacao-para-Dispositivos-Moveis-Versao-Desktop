@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agenda.view.agendamento;
+package agenda.view.contato;
 
-import agenda.controller.ControllerAgendamento;
-import agenda.model.bean.BeanAgendamento;
+import agenda.controller.ControllerContato;
+import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,20 +21,30 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author gustavo
  */
-public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
+public class ViewContatoListarBuscar extends javax.swing.JFrame {
 
     private boolean editar;
     private boolean excluir;
     private boolean buscar;
     private BeanUsuario usuario;
-    private SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
-    private SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
     
-    public ViewAgendamentoListarBuscar() {
+    public ViewContatoListarBuscar() {
         initComponents();
     }
+    
+    public ViewContatoListarBuscar(boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.buscar = buscar;
+        this.usuario = usuario;
+        
+        initComponents();
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
 
-    public ViewAgendamentoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
+    public ViewContatoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
         
         this.editar = editar;
@@ -48,10 +57,9 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
-    public ViewAgendamentoListarBuscar(boolean buscar, BeanUsuario usuario) {
+    public ViewContatoListarBuscar(boolean buscar) {
         setResizable(false);
         
-        this.usuario = usuario;
         this.buscar = buscar;
         
         initComponents();
@@ -60,34 +68,33 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
-    public void listarTodos(BeanUsuario usuario) throws ParseException{
+    public void listarTodos(BeanContato contato) throws ParseException{
         
-        BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
-        ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-        List<BeanAgendamento> agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, "Todos");
-        montarTabela(agendamentos);
+        ControllerContato controllerContato = new ControllerContato();
+        List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
+        montarTabela(contatos);
     }
     
-    private void montarTabela(List<BeanAgendamento> agendamentos){
-        DefaultTableModel model = (DefaultTableModel) tableListaAgendamendo.getModel();
+    private void montarTabela(List<BeanContato> contatos){
+        DefaultTableModel model = (DefaultTableModel) tableListaUsuarios.getModel();
         model.setNumRows(0);
 
-        if(agendamentos != null){
-            for(BeanAgendamento agendamento : agendamentos){
+        if(contatos != null || !contatos.isEmpty()){
+            for(BeanContato contato : contatos){
                 model.addRow(new Object[]{
-                    agendamento.getId(),
-                    agendamento.getDescricao(),
-                    agendamento.getConteudo(),
-                    dataFormat.format(agendamento.getData_agendada()),
-                    horaFormat.format(agendamento.getHora_agendada()),
-                    agendamento.getContato().getId(),
-                    agendamento.getContato().getNome()
+                    contato.getId(),
+                    contato.getNome(),
+                    contato.getTelefone_fixo(),
+                    contato.getCelular(),
+                    contato.getEmail(),
+                    contato.getObs()
                 });
             }
         }
     }
     
     private void verificaOpção(){
+
         if(editar == true && excluir != true){
             btExcluir.setVisible(false);
             btEditar.setVisible(true);
@@ -105,23 +112,27 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             btExcluir.setVisible(true);
             
             cbxTipoListagem.removeAllItems();
-            cbxTipoListagem.addItem("Id Agendamento");
+            cbxTipoListagem.addItem("Id Contato");
             
         }
     }
+    
+    private void formatarInputDePequisa(){
+        if(cbxTipoListagem.getSelectedIndex() == 0 && cbxTipoListagem.getItemCount() > 1){
+            inputPesquisa.setEditable(false);
+        }
+        else{
+            inputPesquisa.setEditable(true);
+        }
+    }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableListaAgendamendo = new javax.swing.JTable();
+        tableListaUsuarios = new javax.swing.JTable();
         inputPesquisa = new javax.swing.JTextField();
         cbxTipoListagem = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
@@ -151,31 +162,34 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
-        tableListaAgendamendo.setModel(new javax.swing.table.DefaultTableModel(
+        tableListaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Descrição", "Conteúdo", "Data agendada", "Hora agendada", "Id contato", "Contato"
+                "Id", "Nome", "Telefone", "Celular", "Email", "Obs"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableListaAgendamendo);
-        if (tableListaAgendamendo.getColumnModel().getColumnCount() > 0) {
-            tableListaAgendamendo.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(tableListaUsuarios);
+        if (tableListaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tableListaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(4).setResizable(false);
+            tableListaUsuarios.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hora", "Data", "Descricao", "Conteudo", "Contato", "Id_contato" }));
+        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Nome", "Telefone", "Celular", "Email", "Obs" }));
         cbxTipoListagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoListagemActionPerformed(evt);
@@ -248,22 +262,22 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        if(tableListaAgendamendo.getSelectedRow() >= 0){
+        if(tableListaUsuarios.getSelectedRow() >= 0){
             
-            ViewAgendamentoEditar agendamentoEditar = new ViewAgendamentoEditar(this, editar, excluir, usuario, tableListaAgendamendo);
-            agendamentoEditar.setVisible(true);
+            ViewContatoEditar usuarioEditar = new ViewContatoEditar(this, editar, excluir, tableListaUsuarios, usuario);
+            usuarioEditar.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhum Agendamento Selecionado" , "Selecione um agendamento!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Contato Selecionado" , "Selecione um Contato!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
-   private void verificarLista(List<BeanAgendamento> agendamentos){
-       if(!agendamentos.isEmpty() || agendamentos != null || agendamentos.get(0).getContato() != null){
-           montarTabela(agendamentos);
+   private void verificarLista(List<BeanContato> contatos){
+       if(!contatos.isEmpty() || contatos != null || contatos.get(0).getId() != null){
+           montarTabela(contatos);
        }
        else{
-           JOptionPane.showMessageDialog(null, "Agendamento Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(null, "Contato Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
        }
    }
     
@@ -273,59 +287,46 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Insira o valor a ser pesquisado!");
         }
         else{
-            BeanAgendamento agendamentoEntrada = new BeanAgendamento(usuario);
+            BeanUsuario usuarioEntrada = new BeanUsuario();
             String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
 
-            ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-            List<BeanAgendamento> agendamentos = new ArrayList<>();
-
+            ControllerUsuario controllerUsuario = new ControllerUsuario();
+            List<BeanUsuario> usuarios = new ArrayList<>();
+        
             try {
                 if(cbxTipoListagem.getItemCount() > 2 ){
                     switch(cbxTipoListagem.getSelectedIndex()){
                     case 0:
-                       listarTodos(usuario);
+                       listarTodos(usuarioEntrada);
                        break;
                     case 1:
-                        agendamentoEntrada.setHora_agendada(horaFormat.parse(inputPesquisa.getText()));
+                        usuarioEntrada.setLogin(inputPesquisa.getText());  
                         break;
-
                     case 2:
-                        agendamentoEntrada.setData_agendada(dataFormat.parse(inputPesquisa.getText()));
-                        break;
-                    case 3:
-                        agendamentoEntrada.setDescricao(inputPesquisa.getText());
-                        break;
-                    case 4:
-                        agendamentoEntrada.setConteudo(inputPesquisa.getText());
-                        break;
-                    case 5:
-                        agendamentoEntrada.setContato(new BeanContato(inputPesquisa.getText()));
-                        break;
-                    case 6:
-                        agendamentoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));  agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                        verificarLista(agendamentos);
-                        break;
+                        usuarioEntrada.setNome(inputPesquisa.getText());
+                        break; 
                     default:
-                        listarTodos(usuario);
+                        listarTodos(usuarioEntrada);
                         break;
-
                     }
-                    agendamentos = controllerAgendamento.listaAgendamentos(agendamentoEntrada, tipoPesquisa);
-                    verificarLista(agendamentos);
+                    usuarios = controllerUsuario.listarUsuario(usuarioEntrada, tipoPesquisa);
+                    verificarLista(usuarios);
                 } else {
 
-                    agendamentoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
-                    BeanAgendamento agendamentoSaida = controllerAgendamento.buscarAgendamento(agendamentoEntrada);
-                    agendamentos.add(agendamentoSaida);
-                    verificarLista(agendamentos);
+                    usuarioEntrada.setId_usuario(Long.valueOf(inputPesquisa.getText()));
+                    BeanUsuario usuarioSaida = controllerUsuario.buscarUsuario(usuarioEntrada);
+                    usuarios.add(usuarioSaida);
+                    verificarLista(usuarios);
                 }
-
+            
             } catch (ParseException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "O valor inserido não é válido!", "Valor inválido!", JOptionPane.ERROR_MESSAGE);
                 inputPesquisa.setText("");
             }
-        }   
+        }
+        
+        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed
@@ -335,18 +336,18 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             if(!buscar){
-                listarTodos(usuario);
+                BeanContato contato = new BeanContato(usuario);
+                listarTodos(contato);
             }
-            
         } catch (ParseException ex) {
-            Logger.getLogger(ViewAgendamentoListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewContatoListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if(tableListaAgendamendo.getSelectedRow() >= 0){
-            ViewAgendamentoExcluir agendamentoExcluir = new ViewAgendamentoExcluir(this, editar, excluir, usuario, tableListaAgendamendo);
-            agendamentoExcluir.setVisible(true);
+        if(tableListaUsuarios.getSelectedRow() >= 0){
+            ViewContatoExcluir usuarioExcluir = new ViewContatoExcluir(this, editar, excluir, tableListaUsuarios, usuario);
+            usuarioExcluir.setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(null, "Nenhum Agendamento Selecionado" , "Selecione um agendamento!", JOptionPane.ERROR_MESSAGE);
@@ -357,14 +358,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
       
     }//GEN-LAST:event_formMouseClicked
 
-    private void formatarInputDePequisa(){
-        if(cbxTipoListagem.getSelectedIndex() == 0 && cbxTipoListagem.getItemCount() > 1){
-            inputPesquisa.setEditable(false);
-        }
-        else{
-            inputPesquisa.setEditable(true);
-        }
-    }
+ 
     /**
      * @param args the command line arguments
      */
@@ -378,6 +372,6 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
     private javax.swing.JTextField inputPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableListaAgendamendo;
+    private javax.swing.JTable tableListaUsuarios;
     // End of variables declaration//GEN-END:variables
 }

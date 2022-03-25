@@ -8,6 +8,8 @@ package agenda.view;
 import agenda.view.agendamento.ViewAgendamentoNovo;
 import agenda.model.bean.BeanUsuario;
 import agenda.view.agendamento.ViewAgendamentoListarBuscar;
+import agenda.view.contato.ViewContatoListarBuscar;
+import agenda.view.contato.ViewContatoNovo;
 import agenda.view.usuario.ViewUsuarioExcluir;
 import agenda.view.usuario.ViewUsuarioListarBuscar;
 import agenda.view.usuario.ViewUsuarioNovo;
@@ -632,23 +634,23 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoEnderecoActionPerformed
 
     private void btListarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarContatoActionPerformed
-
+        new ViewContatoListarBuscar(true, true, usuario).setVisible(true);
     }//GEN-LAST:event_btListarContatoActionPerformed
 
     private void btExcluirContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirContatoActionPerformed
-        //new ViewAgendamentoListarBuscar(false, true, usuario).setVisible(true);
+        new ViewContatoListarBuscar(false, true, usuario).setVisible(true);
     }//GEN-LAST:event_btExcluirContatoActionPerformed
 
     private void btEditarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarContatoActionPerformed
-
+        new ViewContatoListarBuscar(true, false, usuario).setVisible(true);
     }//GEN-LAST:event_btEditarContatoActionPerformed
 
     private void btBuscarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarContatoActionPerformed
-
+        new ViewContatoListarBuscar(true, usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarContatoActionPerformed
 
     private void btNovoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoContatoActionPerformed
-
+        new ViewContatoNovo(usuario).setVisible(true);
     }//GEN-LAST:event_btNovoContatoActionPerformed
 
     private void btListarAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarAgendamentoActionPerformed

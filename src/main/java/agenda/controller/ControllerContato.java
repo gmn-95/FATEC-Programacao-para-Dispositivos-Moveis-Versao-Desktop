@@ -22,8 +22,12 @@ public class ControllerContato {
         daoContato = new DaoContato();
     }
     
-    public List<BeanContato> listarContatos(BeanUsuario usuario){
-        return daoContato.listarContatos(usuario);
+    public BeanContato inserirContato(BeanContato contato){
+        return daoContato.inserirContato(contato);
+    }
+    
+    public List<BeanContato> listarContatos(BeanContato contato, String tiopPesquisa){
+        return daoContato.listarContatos(contato, tiopPesquisa);
     }
     
     public BeanContato buscarContato(BeanContato contato, BeanUsuario usuario){

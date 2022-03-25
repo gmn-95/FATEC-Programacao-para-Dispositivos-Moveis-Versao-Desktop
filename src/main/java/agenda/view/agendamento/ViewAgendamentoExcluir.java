@@ -394,8 +394,8 @@ public class ViewAgendamentoExcluir extends javax.swing.JDialog{
     private void contatoComboBox(DefaultTableModel model, int row){
         try {
             ControllerContato controllerContato = new ControllerContato();
-            
-            List<BeanContato> contatos = controllerContato.listarContatos(usuario);
+            BeanContato contato = new BeanContato(usuario);
+            List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
             
             cbxContato.addItem("Selecione");
             Vector<Long> id_contato = new Vector<>();

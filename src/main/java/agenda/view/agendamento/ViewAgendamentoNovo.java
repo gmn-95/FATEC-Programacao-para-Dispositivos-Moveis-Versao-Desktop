@@ -307,8 +307,8 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
             
             
             ControllerContato controllerContato = new ControllerContato();
-            
-            List<BeanContato> contatos = controllerContato.listarContatos(usuario);
+            BeanContato contato = new BeanContato(usuario);
+            List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
             
             cbxContato.addItem("Selecione");
             

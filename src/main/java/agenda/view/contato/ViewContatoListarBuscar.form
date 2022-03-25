@@ -96,17 +96,16 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableListaAgendamendo">
+        <Component class="javax.swing.JTable" name="tableListaUsuarios">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="false" title="id" type="java.lang.Object"/>
-                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
-                <Column editable="false" title="Conte&#xfa;do" type="java.lang.Object"/>
-                <Column editable="false" title="Data agendada" type="java.lang.Object"/>
-                <Column editable="false" title="Hora agendada" type="java.lang.Object"/>
-                <Column editable="false" title="Id contato" type="java.lang.Object"/>
-                <Column editable="false" title="Contato" type="java.lang.Object"/>
+              <Table columnCount="6" rowCount="4">
+                <Column editable="false" title="Id" type="java.lang.Object"/>
+                <Column editable="false" title="Nome" type="java.lang.Object"/>
+                <Column editable="false" title="Telefone" type="java.lang.Object"/>
+                <Column editable="false" title="Celular" type="java.lang.Object"/>
+                <Column editable="false" title="Email" type="java.lang.Object"/>
+                <Column editable="false" title="Obs" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -126,22 +125,17 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -160,14 +154,13 @@
     <Component class="javax.swing.JComboBox" name="cbxTipoListagem">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="6">
             <StringItem index="0" value="Todos"/>
-            <StringItem index="1" value="Hora"/>
-            <StringItem index="2" value="Data"/>
-            <StringItem index="3" value="Descricao"/>
-            <StringItem index="4" value="Conteudo"/>
-            <StringItem index="5" value="Contato"/>
-            <StringItem index="6" value="Id_contato"/>
+            <StringItem index="1" value="Nome"/>
+            <StringItem index="2" value="Telefone"/>
+            <StringItem index="3" value="Celular"/>
+            <StringItem index="4" value="Email"/>
+            <StringItem index="5" value="Obs"/>
           </StringArray>
         </Property>
       </Properties>
