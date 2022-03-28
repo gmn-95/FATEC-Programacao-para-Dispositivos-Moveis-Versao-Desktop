@@ -1,50 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.view.contato;
 
-
-import agenda.view.usuario.*;
-import agenda.controller.ControllerPessoa;
-import agenda.controller.ControllerUsuario;
+import agenda.controller.ControllerContato;
+import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
 
 /**
  *
  * @author gustavo
  */
-public class ViewContatoExcluir extends javax.swing.JDialog{
-    
+public class ViewContatoExcluir extends javax.swing.JDialog {
+
     private boolean editar;
     private boolean excluir;
     private BeanUsuario usuario;
-    
     private JTable tabela;
-    private ViewContatoListarBuscar viewUsuarioListarBuscar;
+    private ViewContatoListarBuscar viewContatoListarBuscar;
     private ViewContatoListarBuscar v;
+    
+    public ViewContatoExcluir(ViewContatoListarBuscar viewContatoListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
+        super(viewContatoListarBuscar, true);
         
-    public ViewContatoExcluir(ViewContatoListarBuscar viewUsuarioListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
-        super(viewUsuarioListarBuscar, true);
+        this.viewContatoListarBuscar = viewContatoListarBuscar;
+        this.viewContatoListarBuscar.setVisible(false);
         
-        this.viewUsuarioListarBuscar = viewUsuarioListarBuscar;
-        this.viewUsuarioListarBuscar.setVisible(false);
-        
+        this.usuario = usuario;
         this.editar = editar;
         this.excluir = excluir;
-        this.usuario = usuario;
+        this.tabela = tabela;
         
         initComponents();
-    
         setLocationRelativeTo(null);
+        formartarCampoCelularTelefone();
         camposEditar(tabela);
+        
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,22 +48,18 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
         jPanel1 = new javax.swing.JPanel();
         labelNome = new javax.swing.JLabel();
         inputNome = new javax.swing.JTextField();
-        labelLogin = new javax.swing.JLabel();
-        inputLogin = new javax.swing.JTextField();
-        labelSenha = new javax.swing.JLabel();
-        inputSenha = new javax.swing.JPasswordField();
-        labelConfirmarSenha = new javax.swing.JLabel();
-        inputConfirmarSenha = new javax.swing.JPasswordField();
+        labelTelefone = new javax.swing.JLabel();
+        labelCelular = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
         btExcluir = new javax.swing.JButton();
-        radioCriar = new javax.swing.JRadioButton();
-        radioEditar = new javax.swing.JRadioButton();
-        labelOpcaoUsuario = new javax.swing.JLabel();
-        radioExcluir = new javax.swing.JRadioButton();
-        radioListarBuscar = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        inputIdUsuario = new javax.swing.JTextField();
-        IdPessoa = new javax.swing.JLabel();
-        inputIdPessoa = new javax.swing.JTextField();
+        inputTelefone = new javax.swing.JFormattedTextField();
+        inputCelular = new javax.swing.JFormattedTextField();
+        labelObs = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaObs = new javax.swing.JTextArea();
+        inputEmail = new javax.swing.JTextField();
+        labelIdContato = new javax.swing.JLabel();
+        inputIdContato = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -85,11 +77,11 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
 
         labelNome.setText("Nome");
 
-        labelLogin.setText("Login");
+        labelTelefone.setText("Telefone");
 
-        labelSenha.setText("Senha");
+        labelCelular.setText("Celular");
 
-        labelConfirmarSenha.setText("Confirmar Senha");
+        labelEmail.setText("Email");
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -98,104 +90,85 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
             }
         });
 
-        radioCriar.setText("Criar usuário");
+        inputTelefone.setMaximumSize(new java.awt.Dimension(157, 24));
+        inputTelefone.setMinimumSize(new java.awt.Dimension(157, 24));
 
-        radioEditar.setText("Editar usuário");
+        labelObs.setText("Obs");
 
-        labelOpcaoUsuario.setText("Opções de usuário (Opcional)");
+        textAreaObs.setColumns(20);
+        textAreaObs.setRows(5);
+        jScrollPane1.setViewportView(textAreaObs);
 
-        radioExcluir.setText("Excluir usuário");
+        inputEmail.setMaximumSize(new java.awt.Dimension(157, 24));
+        inputEmail.setMinimumSize(new java.awt.Dimension(157, 24));
 
-        radioListarBuscar.setText("Listar/Buscar usuário");
+        labelIdContato.setText("Id contato");
 
-        jLabel1.setText("Id Usuário");
-
-        inputIdUsuario.setEditable(false);
-
-        IdPessoa.setText("Id Pessoa");
-
-        inputIdPessoa.setEditable(false);
+        inputIdContato.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelOpcaoUsuario)
-                            .addComponent(radioCriar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(radioListarBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioEditar)
-                                    .addComponent(radioExcluir)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelNome)
-                                        .addComponent(labelSenha)
-                                        .addComponent(inputSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                        .addComponent(inputNome))
-                                    .addComponent(jLabel1)
-                                    .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(IdPessoa)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelLogin)
-                                        .addComponent(labelConfirmarSenha)
-                                        .addComponent(inputLogin)
-                                        .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))))
+                    .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIdContato)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelObs)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                .addComponent(labelNome)
+                                .addComponent(labelCelular)
+                                .addComponent(inputNome))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(labelTelefone)
+                                        .addComponent(labelEmail))
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(inputEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inputTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(IdPessoa))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(labelIdContato)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
-                    .addComponent(labelLogin))
+                    .addComponent(labelTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelSenha)
-                    .addComponent(labelConfirmarSenha))
+                    .addComponent(labelCelular)
+                    .addComponent(labelEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(labelOpcaoUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioCriar)
-                    .addComponent(radioEditar))
+                    .addComponent(inputCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(labelObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioListarBuscar)
-                    .addComponent(radioExcluir))
-                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(btExcluir)
-                .addGap(43, 43, 43))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +177,7 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,6 +186,12 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+  
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
+        this.viewContatoListarBuscar.setVisible(true);
+        v.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         v = new ViewContatoListarBuscar(editar, excluir, usuario);
@@ -220,91 +199,90 @@ public class ViewContatoExcluir extends javax.swing.JDialog{
         v.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
-    
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.viewUsuarioListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
-        this.viewUsuarioListarBuscar.setVisible(true);
-        v.dispose();
-    }//GEN-LAST:event_formWindowClosing
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-   
+
     }//GEN-LAST:event_formWindowClosed
 
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-           
-            BeanUsuario beanUsuario = new BeanUsuario(Long.valueOf(inputIdUsuario.getText()), Long.valueOf(inputIdPessoa.getText()));
-
-            ControllerUsuario controllerUsuario = new ControllerUsuario();
-            beanUsuario = controllerUsuario.excluirUsuario(beanUsuario);
+    private void formartarCampoCelularTelefone(){
+        try {
+            MaskFormatter celularFormatado = new MaskFormatter("(##) #####-####");
+            celularFormatado.install(inputCelular);
             
-            ControllerPessoa controllerPessoa = new ControllerPessoa();
-            BeanUsuario beanUsuarioSaida = controllerPessoa.excluirPessoa(beanUsuario);
+            MaskFormatter telefoneFormatado = new MaskFormatter("(##) ####-####");
+            telefoneFormatado.install(inputTelefone);
+            
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao formar campo." , "ERRO", JOptionPane.ERROR);
+        }
+    }
+    
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        
+            BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario);
 
-            JOptionPane.showMessageDialog(null, beanUsuarioSaida);
+            ControllerContato controllerContato = new ControllerContato();
 
+            BeanContato contatoSaida = controllerContato.excluirContato(contatoEntrada);
+            JOptionPane.showMessageDialog(null, contatoSaida);
+            
             dispose();
             v.dispose();
-            this.viewUsuarioListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
-            this.viewUsuarioListarBuscar.setVisible(true);
+            this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
+            this.viewContatoListarBuscar.setVisible(true);
+            
     }//GEN-LAST:event_btExcluirActionPerformed
+    
+    private void limparCamposTela(){
+        
+        inputNome.setText("");
+        inputCelular.setText("");
+        inputTelefone.setText("");
+        formartarCampoCelularTelefone();
+        inputEmail.setText("");
+        textAreaObs.setText("");
 
-
+    }
+ 
     private void camposEditar(JTable tabela){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
-        inputIdUsuario.setText(String.valueOf(model.getValueAt(row, 0)));
-        inputIdUsuario.setEnabled(false);
+        inputIdContato.setText(String.valueOf(model.getValueAt(row, 0)));
+        inputIdContato.setEnabled(false);
         
-        inputIdPessoa.setText(String.valueOf(model.getValueAt(row, 1)));
-        inputIdPessoa.setEnabled(false);
-        
-        inputNome.setText(String.valueOf(model.getValueAt(row, 2)));
+        inputNome.setText(String.valueOf(model.getValueAt(row, 1)));
         inputNome.setEnabled(false);
         
-        inputLogin.setText(String.valueOf(model.getValueAt(row, 3)));
-        inputLogin.setEnabled(false);
+        inputTelefone.setText(String.valueOf(model.getValueAt(row, 2)));
+        inputTelefone.setEnabled(false);
         
-        inputSenha.setText(String.valueOf(model.getValueAt(row, 4)));
-        inputSenha.setEnabled(false);
+        inputCelular.setText(String.valueOf(model.getValueAt(row, 3)));
+        inputCelular.setEnabled(false);
         
-        inputConfirmarSenha.setText(String.valueOf(model.getValueAt(row, 4)));
-        inputConfirmarSenha.setEnabled(false);
+        inputEmail.setText(String.valueOf(model.getValueAt(row, 4)));
+        inputEmail.setEnabled(false);
         
-        radioCriar.setSelected((boolean) model.getValueAt(row, 5));
-        radioCriar.setEnabled(false);
-        
-        radioEditar.setSelected((boolean) model.getValueAt(row, 6));
-        radioEditar.setEnabled(false);
-        
-        radioExcluir.setSelected((boolean) model.getValueAt(row, 7));
-        radioExcluir.setEnabled(false);
-        
-        radioListarBuscar.setSelected((boolean) model.getValueAt(row, 8));
-        radioListarBuscar.setEnabled(false);
+        textAreaObs.setText(String.valueOf(model.getValueAt(row, 5)));
+        textAreaObs.setEnabled(false);
         
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel IdPessoa;
     private javax.swing.JButton btExcluir;
-    private javax.swing.JPasswordField inputConfirmarSenha;
-    private javax.swing.JTextField inputIdPessoa;
-    private javax.swing.JTextField inputIdUsuario;
-    private javax.swing.JTextField inputLogin;
+    private javax.swing.JFormattedTextField inputCelular;
+    private javax.swing.JTextField inputEmail;
+    private javax.swing.JTextField inputIdContato;
     private javax.swing.JTextField inputNome;
-    private javax.swing.JPasswordField inputSenha;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFormattedTextField inputTelefone;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelConfirmarSenha;
-    private javax.swing.JLabel labelLogin;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelCelular;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelIdContato;
     private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelOpcaoUsuario;
-    private javax.swing.JLabel labelSenha;
-    private javax.swing.JRadioButton radioCriar;
-    private javax.swing.JRadioButton radioEditar;
-    private javax.swing.JRadioButton radioExcluir;
-    private javax.swing.JRadioButton radioListarBuscar;
+    private javax.swing.JLabel labelObs;
+    private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTextArea textAreaObs;
     // End of variables declaration//GEN-END:variables
 }

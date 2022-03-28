@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author gustavo
@@ -232,6 +230,7 @@ public class DaoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -273,6 +272,41 @@ public class DaoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
+
+    public BeanContato excluirContato(BeanContato contato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_contato WHERE id = ? AND fk_id_usuario = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, contato.getId());
+                preparedStatement.setLong(2, contato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+
+                return  contato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();

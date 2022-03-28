@@ -18,10 +18,15 @@ public class BeanContato {
     private String celular;
     private String email;
     private String obs;
-
+    
     public BeanContato() {
     }
 
+    public BeanContato(Long id, BeanUsuario usuario) {
+        this.id = id;
+        this.usuario = usuario;
+    }
+    
     public BeanContato(String nome) {
         this.nome = nome;
     }
@@ -30,6 +35,8 @@ public class BeanContato {
         this.id = id;
         this.nome = nome;
     }
+    
+    
 
     public BeanContato(BeanUsuario usuario, String nome, String telefone_fixo, String celular, String email, String obs) {
         this.usuario = usuario;
@@ -39,8 +46,6 @@ public class BeanContato {
         this.email = email;
         this.obs = obs;
     }
-    
-    
     
     public BeanContato(Long id, String nome, String telefone_fixo, String celular, String email, String obs) {
         this.id = id;

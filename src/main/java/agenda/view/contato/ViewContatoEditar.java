@@ -20,14 +20,14 @@ public class ViewContatoEditar extends javax.swing.JDialog {
     private boolean excluir;
     private BeanUsuario usuario;
     private JTable tabela;
-    private ViewContatoListarBuscar viewUsuarioListarBuscar;
+    private ViewContatoListarBuscar viewContatoListarBuscar;
     private ViewContatoListarBuscar v;
     
-    public ViewContatoEditar(ViewContatoListarBuscar viewUsuarioListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
-        super(viewUsuarioListarBuscar, true);
+    public ViewContatoEditar(ViewContatoListarBuscar viewContatoListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
+        super(viewContatoListarBuscar, true);
         
-        this.viewUsuarioListarBuscar = viewUsuarioListarBuscar;
-        this.viewUsuarioListarBuscar.setVisible(false);
+        this.viewContatoListarBuscar = viewContatoListarBuscar;
+        this.viewContatoListarBuscar.setVisible(false);
         
         this.usuario = usuario;
         this.editar = editar;
@@ -196,8 +196,8 @@ public class ViewContatoEditar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
   
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.viewUsuarioListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
-        this.viewUsuarioListarBuscar.setVisible(true);
+        this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
+        this.viewContatoListarBuscar.setVisible(true);
         v.dispose();
     }//GEN-LAST:event_formWindowClosing
 
@@ -248,7 +248,11 @@ public class ViewContatoEditar extends javax.swing.JDialog {
 
             BeanContato contatoSaida = controllerContato.alterarContato(contatoEntrada);
             JOptionPane.showMessageDialog(null, contatoSaida);
-
+            
+            dispose();
+            v.dispose();
+            this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
+            this.viewContatoListarBuscar.setVisible(true);
 
         }
     }//GEN-LAST:event_btAtualizarActionPerformed

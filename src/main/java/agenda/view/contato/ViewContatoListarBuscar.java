@@ -359,7 +359,7 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
             usuarioExcluir.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhum Agendamento Selecionado" , "Selecione um agendamento!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Contato Selecionado" , "Selecione um Contato!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
