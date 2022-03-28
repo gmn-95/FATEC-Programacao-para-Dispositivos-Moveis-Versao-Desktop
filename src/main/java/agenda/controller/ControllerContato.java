@@ -6,7 +6,6 @@
 package agenda.controller;
 
 import agenda.model.bean.BeanContato;
-import agenda.model.bean.BeanUsuario;
 import agenda.model.dao.DaoContato;
 import java.util.List;
 
@@ -32,6 +31,10 @@ public class ControllerContato {
     
     public BeanContato buscarContato(BeanContato contato){
         return daoContato.buscarContato(contato);
+    }
+    
+    public BeanContato alterarContato(BeanContato contato){
+        return daoContato.alterarContato(contato);
     }
     
     

@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author gustavo
@@ -148,11 +150,16 @@ public class DaoContato {
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 while(resultSet.next()){
+                    String obs = resultSet.getString("obs");
+                    
+                    if(obs == null || obs.equals("null")){
+                        obs = " ";
+                    }
                     contato = new BeanContato(resultSet.getLong("id"), 
                             new BeanUsuario(resultSet.getLong("fk_id_usuario")), 
                             resultSet.getString("nome"), resultSet.getString("telefone_fixo"), 
                             resultSet.getString("celular"), resultSet.getString("email"), 
-                            resultSet.getString("obs"));
+                            obs);
                     
                     list.add(contato);
                 }
@@ -197,11 +204,17 @@ public class DaoContato {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 
                 if(resultSet.next()){
+                    String obs = resultSet.getString("obs");
+                    
+                    if(obs == null || obs.equals("null")){
+                        obs = " ";
+                    }
+                    
                     contato = new BeanContato(resultSet.getLong("id"), 
                             new BeanUsuario(resultSet.getLong("fk_id_usuario")), 
                             resultSet.getString("nome"), resultSet.getString("telefone_fixo"), 
                             resultSet.getString("celular"), resultSet.getString("email"), 
-                            resultSet.getString("obs"));
+                            obs);
                     
                     connection.commit();
                     conexaoDb.desconectar();
@@ -227,6 +240,45 @@ public class DaoContato {
         return null;
     }
 
-    
+    public BeanContato alterarContato(BeanContato contato){
+        
+        if(conexaoDb.conectar()){
+            
+            String sql = "UPDATE tb_contato SET nome = ?, telefone_fixo = ?, celular = ?, " +
+            "email = ?, obs = ? WHERE id = ? and fk_id_usuario = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, contato.getNome());
+                preparedStatement.setString(2, contato.getTelefone_fixo());
+                preparedStatement.setString(3, contato.getCelular());
+                preparedStatement.setString(4, contato.getEmail());
+                preparedStatement.setString(5, contato.getObs());
+                preparedStatement.setLong(6, contato.getId());
+                preparedStatement.setLong(7, contato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return contato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
     
 }

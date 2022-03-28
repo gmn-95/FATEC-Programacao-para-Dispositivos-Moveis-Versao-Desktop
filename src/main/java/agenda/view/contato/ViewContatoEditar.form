@@ -31,7 +31,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,100 +47,79 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelOpcaoUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioCriar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioListarBuscar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="radioEditar" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="radioExcluir" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="inputIdContato" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelIdContato" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="labelObs" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="inputCelular" alignment="0" max="32767" attributes="0"/>
                                   <Component id="labelNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="inputSenha" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelCelular" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="inputNome" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btAtualizar" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                                  <Component id="btAtualizar" alignment="0" pref="139" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="inputIdUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="inputIdPessoa" min="-2" max="-2" attributes="0"/>
-                              <Component id="IdPessoa" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="labelLogin" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="labelConfirmarSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="inputLogin" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inputConfirmarSenha" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btLimpar" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="labelTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="inputEmail" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="inputTelefone" alignment="1" min="-2" pref="157" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btLimpar" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane1" alignment="0" pref="314" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="IdPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="labelIdContato" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="inputIdUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="inputIdPessoa" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <Component id="inputIdContato" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="inputNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="inputLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelConfirmarSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="inputSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="inputConfirmarSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="labelOpcaoUsuario" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="radioCriar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="labelObs" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="radioListarBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,26 +132,20 @@
         </Component>
         <Component class="javax.swing.JTextField" name="inputNome">
         </Component>
-        <Component class="javax.swing.JLabel" name="labelLogin">
+        <Component class="javax.swing.JLabel" name="labelTelefone">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="text" type="java.lang.String" value="Telefone"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="inputLogin">
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelSenha">
+        <Component class="javax.swing.JLabel" name="labelCelular">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Senha"/>
+            <Property name="text" type="java.lang.String" value="Celular"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="inputSenha">
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelConfirmarSenha">
+        <Component class="javax.swing.JLabel" name="labelEmail">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Confirmar Senha"/>
+            <Property name="text" type="java.lang.String" value="Email"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="inputConfirmarSenha">
         </Component>
         <Component class="javax.swing.JButton" name="btAtualizar">
           <Properties>
@@ -190,47 +163,54 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLimparActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioCriar">
+        <Component class="javax.swing.JFormattedTextField" name="inputTelefone">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Criar usu&#xe1;rio"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[157, 24]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[157, 24]"/>
+            </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioEditar">
+        <Component class="javax.swing.JFormattedTextField" name="inputCelular">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelObs">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Editar usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Obs"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelOpcaoUsuario">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="textAreaObs">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JTextField" name="inputEmail">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es de usu&#xe1;rio (Opcional)"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[157, 24]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[157, 24]"/>
+            </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioExcluir">
+        <Component class="javax.swing.JLabel" name="labelIdContato">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Id contato"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioListarBuscar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Listar/Buscar usu&#xe1;rio"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Id Usu&#xe1;rio"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="inputIdUsuario">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="IdPessoa">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Id Pessoa"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="inputIdPessoa">
+        <Component class="javax.swing.JTextField" name="inputIdContato">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>

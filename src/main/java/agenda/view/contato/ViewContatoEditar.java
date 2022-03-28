@@ -1,12 +1,13 @@
 package agenda.view.contato;
 
-import agenda.view.usuario.*;
-import agenda.controller.ControllerPessoa;
-import agenda.controller.ControllerUsuario;
+import agenda.controller.ControllerContato;
+import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 
 /**
@@ -31,10 +32,11 @@ public class ViewContatoEditar extends javax.swing.JDialog {
         this.usuario = usuario;
         this.editar = editar;
         this.excluir = excluir;
+        this.tabela = tabela;
         
         initComponents();
         setLocationRelativeTo(null);
-        this.tabela = tabela;
+        formartarCampoCelularTelefone();
         camposEditar(tabela);
         
     }
@@ -46,23 +48,19 @@ public class ViewContatoEditar extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         labelNome = new javax.swing.JLabel();
         inputNome = new javax.swing.JTextField();
-        labelLogin = new javax.swing.JLabel();
-        inputLogin = new javax.swing.JTextField();
-        labelSenha = new javax.swing.JLabel();
-        inputSenha = new javax.swing.JPasswordField();
-        labelConfirmarSenha = new javax.swing.JLabel();
-        inputConfirmarSenha = new javax.swing.JPasswordField();
+        labelTelefone = new javax.swing.JLabel();
+        labelCelular = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
         btAtualizar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
-        radioCriar = new javax.swing.JRadioButton();
-        radioEditar = new javax.swing.JRadioButton();
-        labelOpcaoUsuario = new javax.swing.JLabel();
-        radioExcluir = new javax.swing.JRadioButton();
-        radioListarBuscar = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        inputIdUsuario = new javax.swing.JTextField();
-        IdPessoa = new javax.swing.JLabel();
-        inputIdPessoa = new javax.swing.JTextField();
+        inputTelefone = new javax.swing.JFormattedTextField();
+        inputCelular = new javax.swing.JFormattedTextField();
+        labelObs = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaObs = new javax.swing.JTextArea();
+        inputEmail = new javax.swing.JTextField();
+        labelIdContato = new javax.swing.JLabel();
+        inputIdContato = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -80,11 +78,11 @@ public class ViewContatoEditar extends javax.swing.JDialog {
 
         labelNome.setText("Nome");
 
-        labelLogin.setText("Login");
+        labelTelefone.setText("Telefone");
 
-        labelSenha.setText("Senha");
+        labelCelular.setText("Celular");
 
-        labelConfirmarSenha.setText("Confirmar Senha");
+        labelEmail.setText("Email");
 
         btAtualizar.setText("Atualizar");
         btAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,103 +98,85 @@ public class ViewContatoEditar extends javax.swing.JDialog {
             }
         });
 
-        radioCriar.setText("Criar usuário");
+        inputTelefone.setMaximumSize(new java.awt.Dimension(157, 24));
+        inputTelefone.setMinimumSize(new java.awt.Dimension(157, 24));
 
-        radioEditar.setText("Editar usuário");
+        labelObs.setText("Obs");
 
-        labelOpcaoUsuario.setText("Opções de usuário (Opcional)");
+        textAreaObs.setColumns(20);
+        textAreaObs.setRows(5);
+        jScrollPane1.setViewportView(textAreaObs);
 
-        radioExcluir.setText("Excluir usuário");
+        inputEmail.setMaximumSize(new java.awt.Dimension(157, 24));
+        inputEmail.setMinimumSize(new java.awt.Dimension(157, 24));
 
-        radioListarBuscar.setText("Listar/Buscar usuário");
+        labelIdContato.setText("Id contato");
 
-        jLabel1.setText("Id Usuário");
-
-        inputIdUsuario.setEditable(false);
-
-        IdPessoa.setText("Id Pessoa");
-
-        inputIdPessoa.setEditable(false);
+        inputIdContato.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelOpcaoUsuario)
-                    .addComponent(radioCriar)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(radioListarBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(radioEditar)
-                            .addComponent(radioExcluir)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIdContato)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelObs)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputCelular)
                                 .addComponent(labelNome)
-                                .addComponent(labelSenha)
-                                .addComponent(inputSenha)
+                                .addComponent(labelCelular)
                                 .addComponent(inputNome)
-                                .addComponent(btAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1)
-                            .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IdPessoa)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(labelLogin)
-                                .addComponent(labelConfirmarSenha)
-                                .addComponent(inputLogin)
-                                .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(20, 20, 20))
+                                .addComponent(btAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(labelTelefone)
+                                        .addComponent(labelEmail))
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(inputEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(inputTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(IdPessoa))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(labelIdContato)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputIdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
-                    .addComponent(labelLogin))
+                    .addComponent(labelTelefone))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelSenha)
-                    .addComponent(labelConfirmarSenha))
+                    .addComponent(labelCelular)
+                    .addComponent(labelEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(labelOpcaoUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioCriar)
-                    .addComponent(radioEditar))
+                    .addComponent(inputCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(labelObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioListarBuscar)
-                    .addComponent(radioExcluir))
-                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAtualizar)
                     .addComponent(btLimpar))
-                .addGap(48, 48, 48))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,7 +185,7 @@ public class ViewContatoEditar extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,80 +211,64 @@ public class ViewContatoEditar extends javax.swing.JDialog {
 
     }//GEN-LAST:event_formWindowClosed
 
+    private void formartarCampoCelularTelefone(){
+        try {
+            MaskFormatter celularFormatado = new MaskFormatter("(##) #####-####");
+            celularFormatado.install(inputCelular);
+            
+            MaskFormatter telefoneFormatado = new MaskFormatter("(##) ####-####");
+            telefoneFormatado.install(inputTelefone);
+            
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao formar campo." , "ERRO", JOptionPane.ERROR);
+        }
+    }
+    
     private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
         if(validarCampos() == false){
             JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!", "Preencha todos os campos!", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            if(confirmaSenha() == false){
-                JOptionPane.showMessageDialog(null, "Confirme sua senha corretamente!", "Senha errada!", JOptionPane.WARNING_MESSAGE);
+            String celular = inputCelular.getText();
+            String telefone = inputTelefone.getText();
+
+            if(celular.equals("(  )      -    ")){
+                celular = "";
             }
-            else{
 
-                boolean podeCriar = radioCriar.isSelected();
-                boolean podeEditar = radioEditar.isSelected();
-                boolean podeListar = radioListarBuscar.isSelected();
-                boolean podeExcluir = radioExcluir.isSelected();
-                boolean podeBuscar = radioListarBuscar.isSelected();
-
-                String senha = String.valueOf(inputSenha.getPassword());
-
-                BeanUsuario beanUsuario = new BeanUsuario(
-                        Long.valueOf(inputIdUsuario.getText()),
-                    inputLogin.getText(), senha, podeCriar,
-                    podeEditar, podeExcluir, podeListar, podeBuscar, Long.valueOf(inputIdPessoa.getText()), inputNome.getText());
-
-                ControllerPessoa controllerPessoa = new ControllerPessoa();
-                beanUsuario = controllerPessoa.atualizarPessoa(beanUsuario);
-
-                ControllerUsuario controllerUsuario = new ControllerUsuario();
-                BeanUsuario beanUsuarioSaida = controllerUsuario.atualizarUsuario(beanUsuario);
-
-                JOptionPane.showMessageDialog(null, beanUsuarioSaida);
-
-                limparCamposTela();
-                
-                dispose();
-                v.dispose();
-                this.viewUsuarioListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
-                this.viewUsuarioListarBuscar.setVisible(true);
-
+            if(telefone.equals("(  )     -    ")){
+                telefone = "";
             }
+
+            BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario, inputNome.getText(),
+                telefone, celular, inputEmail.getText(), textAreaObs.getText());
+
+            ControllerContato controllerContato = new ControllerContato();
+
+            BeanContato contatoSaida = controllerContato.alterarContato(contatoEntrada);
+            JOptionPane.showMessageDialog(null, contatoSaida);
+
+
         }
     }//GEN-LAST:event_btAtualizarActionPerformed
 
-    private boolean confirmaSenha(){
-        String senha = String.valueOf(inputSenha.getPassword());
-        String confirmaSenha = String.valueOf(inputConfirmarSenha.getPassword());
-        
-        return senha.equals(confirmaSenha);
-    }
-    
-    private boolean validarCampos(){
-        
-        String senha = String.valueOf(inputSenha.getPassword());
-        String confirmaSenha = String.valueOf(inputConfirmarSenha.getPassword());
-        
-        return !(inputLogin.getText().isEmpty() || senha.isEmpty() || senha == null || confirmaSenha.isEmpty()
-                || confirmaSenha == null || inputNome.getText().isEmpty());
-    }
-    
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limparCamposTela();
     }//GEN-LAST:event_btLimparActionPerformed
-
+    
+    private boolean validarCampos(){
+        return !(inputNome.getText().isEmpty() || inputNome.getText() == null);
+    }
+    
     private void limparCamposTela(){
-       
-        inputIdPessoa.setText("");
-        inputIdUsuario.setText("");
+        
         inputNome.setText("");
-        inputLogin.setText("");
-        inputSenha.setText("");
-        inputConfirmarSenha.setText("");
-        radioCriar.setSelected(false);
-        radioEditar.setSelected(false);
-        radioExcluir.setSelected(false);
-        radioListarBuscar.setSelected(false);
+        inputCelular.setText("");
+        inputTelefone.setText("");
+        formartarCampoCelularTelefone();
+        inputEmail.setText("");
+        textAreaObs.setText("");
 
     }
  
@@ -312,65 +276,35 @@ public class ViewContatoEditar extends javax.swing.JDialog {
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
-        inputIdUsuario.setText(String.valueOf(model.getValueAt(row, 0)));
-        inputIdUsuario.setEnabled(false);
+        inputIdContato.setText(String.valueOf(model.getValueAt(row, 0)));
+        inputIdContato.setEnabled(false);
         
-        inputIdPessoa.setText(String.valueOf(model.getValueAt(row, 1)));
-        inputIdPessoa.setEnabled(false);
+        inputNome.setText(String.valueOf(model.getValueAt(row, 1)));
         
-        inputNome.setText(String.valueOf(model.getValueAt(row, 2)));
-        inputLogin.setText(String.valueOf(model.getValueAt(row, 3)));
+        inputTelefone.setText(String.valueOf(model.getValueAt(row, 2)));
+        inputCelular.setText(String.valueOf(model.getValueAt(row, 3)));
         
-        inputSenha.setText(String.valueOf(model.getValueAt(row, 4)));
-        inputConfirmarSenha.setText(String.valueOf(model.getValueAt(row, 4)));
-        
-        radioCriar.setSelected((boolean) model.getValueAt(row, 5));
-        radioEditar.setSelected((boolean) model.getValueAt(row, 6));
-        radioExcluir.setSelected((boolean) model.getValueAt(row, 7));
-        radioListarBuscar.setSelected((boolean) model.getValueAt(row, 8));
-        
-        if(!usuario.isCriar_novo_usuario()){
-            radioCriar.setEnabled(false);
-            radioExcluir.setEnabled(false);
-            radioEditar.setEnabled(false);
-            radioListarBuscar.setEnabled(false);
-            
-            btLimpar.setEnabled(false);
-            
-            if(!String.valueOf(usuario.getId_usuario()).equals(String.valueOf(model.getValueAt(row, 0)))){
-                inputNome.setEnabled(false);
-                inputSenha.setEnabled(false);
-                inputConfirmarSenha.setEnabled(false);
-                inputLogin.setEnabled(false);
-                
-                btAtualizar.setEnabled(false);
-            }
-            
-            
-        }
+        inputEmail.setText(String.valueOf(model.getValueAt(row, 4)));
+        textAreaObs.setText(String.valueOf(model.getValueAt(row, 5)));
         
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel IdPessoa;
     private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btLimpar;
-    private javax.swing.JPasswordField inputConfirmarSenha;
-    private javax.swing.JTextField inputIdPessoa;
-    private javax.swing.JTextField inputIdUsuario;
-    private javax.swing.JTextField inputLogin;
+    private javax.swing.JFormattedTextField inputCelular;
+    private javax.swing.JTextField inputEmail;
+    private javax.swing.JTextField inputIdContato;
     private javax.swing.JTextField inputNome;
-    private javax.swing.JPasswordField inputSenha;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFormattedTextField inputTelefone;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelConfirmarSenha;
-    private javax.swing.JLabel labelLogin;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelCelular;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelIdContato;
     private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelOpcaoUsuario;
-    private javax.swing.JLabel labelSenha;
-    private javax.swing.JRadioButton radioCriar;
-    private javax.swing.JRadioButton radioEditar;
-    private javax.swing.JRadioButton radioExcluir;
-    private javax.swing.JRadioButton radioListarBuscar;
+    private javax.swing.JLabel labelObs;
+    private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTextArea textAreaObs;
     // End of variables declaration//GEN-END:variables
 }

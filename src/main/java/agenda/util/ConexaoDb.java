@@ -8,6 +8,7 @@ package agenda.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class ConexaoDb {
     public ConexaoDb() {
     }
     
+    
     public boolean conectar(){
         try {
          
@@ -34,7 +36,7 @@ public class ConexaoDb {
          
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.out.println("Não foi possível se conectar ao Banco de dados");
+            JOptionPane.showMessageDialog(null, "Não foi possível se conectar ao Banco de dados");
             System.out.println("Status--> Erro " + e.getMessage());
             return false;
         }

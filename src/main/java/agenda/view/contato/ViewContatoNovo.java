@@ -2,8 +2,6 @@
 package agenda.view.contato;
 
 import agenda.controller.ControllerContato;
-import agenda.controller.ControllerPessoa;
-import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
 import java.text.ParseException;

@@ -131,8 +131,6 @@ public class BeanUsuario extends BeanPessoa{
         this.buscar_usuario = buscar_usuario;
     }
     
-    
-
     public boolean isEditar_usuario() {
         return editar_usuario;
     }
@@ -161,9 +159,5 @@ public class BeanUsuario extends BeanPessoa{
     public String toString() {
         return "BeanUsuario{" + "id_usuario=" + id_usuario + ", id_pessoa=" + getNome() + ", login=" + login + ", senha=" + senha + ", criar_novo_usuario=" + criar_novo_usuario + ", editar_usuario=" + editar_usuario + ", excluir_usuario=" + excluir_usuario + ", listar_usuario=" + listar_usuario + '}';
     }
-
-    
-    
-    
     
 }
