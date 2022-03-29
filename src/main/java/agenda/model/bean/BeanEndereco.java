@@ -19,8 +19,29 @@ public class BeanEndereco {
     private String logradouro;
     private String numero;
     private String complemento;
+    private BeanUsuario usuario;
 
-    public BeanEndereco(Long id, String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento) {
+    public BeanEndereco(Long id, BeanUsuario usuario) {
+        this.id = id;
+        this.usuario = usuario;
+    }
+
+    public BeanEndereco(String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento, BeanUsuario usuario) {
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.usuario = usuario;
+    }
+
+    public BeanEndereco(BeanUsuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public BeanEndereco(Long id, String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento, BeanUsuario usuario) {
         this.id = id;
         this.bairro = bairro;
         this.cidade = cidade;
@@ -29,16 +50,15 @@ public class BeanEndereco {
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
+        this.usuario = usuario;
     }
 
-    public BeanEndereco(String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento) {
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = complemento;
+    public BeanUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(BeanUsuario usuario) {
+        this.usuario = usuario;
     }
 
     public BeanEndereco(Long id) {
@@ -107,6 +127,11 @@ public class BeanEndereco {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    @Override
+    public String toString() {
+        return "BeanEndereco{" + "id=" + id + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", usuario=" + usuario + '}';
     }
     
     

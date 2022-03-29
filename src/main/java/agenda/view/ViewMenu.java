@@ -10,6 +10,8 @@ import agenda.model.bean.BeanUsuario;
 import agenda.view.agendamento.ViewAgendamentoListarBuscar;
 import agenda.view.contato.ViewContatoListarBuscar;
 import agenda.view.contato.ViewContatoNovo;
+import agenda.view.endereco.ViewEnderecoListarBuscar;
+import agenda.view.endereco.ViewEnderecoNovo;
 import agenda.view.usuario.ViewUsuarioExcluir;
 import agenda.view.usuario.ViewUsuarioListarBuscar;
 import agenda.view.usuario.ViewUsuarioNovo;
@@ -482,7 +484,7 @@ public class ViewMenu extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        menu.addTab("Endereço_Contato", jPanel5);
+        menu.addTab("Endereço do Contato", jPanel5);
 
         btNovoUsuario.setText("Novo");
         btNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -614,23 +616,23 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMouseClicked
 
     private void btListarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarEnderecoActionPerformed
-        
+        new ViewEnderecoListarBuscar(true, true, usuario).setVisible(true);
     }//GEN-LAST:event_btListarEnderecoActionPerformed
 
     private void btExcluirEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirEnderecoActionPerformed
-        
+        new ViewEnderecoListarBuscar(false, true, usuario).setVisible(true);
     }//GEN-LAST:event_btExcluirEnderecoActionPerformed
 
     private void btEditarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarEnderecoActionPerformed
-        
+        new ViewEnderecoListarBuscar(true, false, usuario).setVisible(true);
     }//GEN-LAST:event_btEditarEnderecoActionPerformed
 
     private void btBuscarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarEnderecoActionPerformed
-        
+        new ViewEnderecoListarBuscar(true, usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarEnderecoActionPerformed
 
     private void btNovoEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoEnderecoActionPerformed
-        
+        new ViewEnderecoNovo(usuario).setVisible(true);
     }//GEN-LAST:event_btNovoEnderecoActionPerformed
 
     private void btListarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarContatoActionPerformed
@@ -721,31 +723,26 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JButton btBuscarEndereco;
     private javax.swing.JButton btBuscarEnderecoContato;
     private javax.swing.JButton btBuscarUsuario;
-    private javax.swing.JButton btBuscarUsuario1;
     private javax.swing.JButton btEditarAgendamento;
     private javax.swing.JButton btEditarContato;
     private javax.swing.JButton btEditarEndereco;
     private javax.swing.JButton btEditarEnderecoContato;
     private javax.swing.JButton btEditarUsuario;
-    private javax.swing.JButton btEditarUsuario1;
     private javax.swing.JButton btExcluirAgendamento;
     private javax.swing.JButton btExcluirContato;
     private javax.swing.JButton btExcluirEndereco;
     private javax.swing.JButton btExcluirEnderecoContato;
     private javax.swing.JButton btExcluirUsuario;
-    private javax.swing.JButton btExcluirUsuario1;
     private javax.swing.JButton btListarAgendamento;
     private javax.swing.JButton btListarContato;
     private javax.swing.JButton btListarEndereco;
     private javax.swing.JButton btListarEnderecoContato;
     private javax.swing.JButton btListarUsuario;
-    private javax.swing.JButton btListarUsuario1;
     private javax.swing.JButton btNovoAgendamento;
     private javax.swing.JButton btNovoContato;
     private javax.swing.JButton btNovoEndereco;
     private javax.swing.JButton btNovoEnderecoContato;
     private javax.swing.JButton btNovoUsuario;
-    private javax.swing.JButton btNovoUsuario1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -753,7 +750,6 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
