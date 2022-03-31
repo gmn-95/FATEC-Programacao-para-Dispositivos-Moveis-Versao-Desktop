@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.model.bean;
 
 /**
@@ -15,29 +10,41 @@ public class BeanEnderecoContato {
     private BeanEndereco endereco;
     private BeanContato contato;
     private String obs;
+    private BeanUsuario usuario;
 
     public BeanEnderecoContato(Long id) {
         this.id = id;
     }
 
-    public BeanEnderecoContato(BeanEndereco endereco, BeanContato contato, String obs) {
+    public BeanEnderecoContato(BeanUsuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    public BeanEnderecoContato(Long id, BeanEndereco endereco, BeanContato contato, String obs) {
+        this.id = id;
         this.endereco = endereco;
         this.contato = contato;
         this.obs = obs;
     }
-    
-    public BeanEnderecoContato(Long id, BeanEndereco endereco, BeanContato contato) {
+
+    public BeanEnderecoContato(Long id, BeanEndereco endereco, BeanContato contato, String obs, BeanUsuario usuario) {
         this.id = id;
         this.endereco = endereco;
         this.contato = contato;
+        this.obs = obs;
+        this.usuario = usuario;
     }
 
-    public BeanEnderecoContato(BeanEndereco endereco) {
+    public BeanEnderecoContato(BeanEndereco endereco, BeanContato contato, String obs, BeanUsuario usuario) {
         this.endereco = endereco;
+        this.contato = contato;
+        this.obs = obs;
+        this.usuario = usuario;
     }
 
-    public BeanEnderecoContato(BeanContato contato) {
-        this.contato = contato;
+    public BeanEnderecoContato(Long id, BeanUsuario usuario) {
+        this.id = id;
+        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -72,10 +79,16 @@ public class BeanEnderecoContato {
         this.obs = obs;
     }
 
+    public BeanUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(BeanUsuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public String toString() {
-        return "BeanEnderecoContato{" + "id=" + id + ", endereco=" + endereco + ", contato=" + contato + ", obs=" + obs + '}';
+        return "BeanEnderecoContato{" + "id=" + id + ", endereco=" + endereco + ", contato=" + contato + ", obs=" + obs + ", usuario=" + usuario + '}';
     }
-    
-    
 }

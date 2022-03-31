@@ -26,6 +26,19 @@ public class BeanEndereco {
         this.usuario = usuario;
     }
 
+    public BeanEndereco(Long id, String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento) {
+        this.id = id;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+    }
+    
+    
+
     public BeanEndereco(String bairro, String cidade, String estado, String cep, String logradouro, String numero, String complemento, BeanUsuario usuario) {
         this.bairro = bairro;
         this.cidade = cidade;

@@ -1,7 +1,9 @@
-package agenda.view.endereco;
+package agenda.view.enderecoContato;
 
-import agenda.controller.ControllerEndereco;
+import agenda.controller.ControllerEnderecoContato;
+import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanEndereco;
+import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,30 +17,34 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author gustavo
  */
-public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
+public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
 
     private boolean editar;
     private boolean excluir;
     private boolean buscar;
     private BeanUsuario usuario;
     
-    public ViewEnderecoListarBuscar() {
+    public ViewEnderecoContatoListarBuscar() {
         initComponents();
     }
     
-    public ViewEnderecoListarBuscar(boolean buscar, BeanUsuario usuario) {
+    public ViewEnderecoContatoListarBuscar(boolean buscar, BeanUsuario usuario) {
         setResizable(false);
         
         this.buscar = buscar;
         this.usuario = usuario;
         
         initComponents();
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
+        
         verificaOpção();
         setLocationRelativeTo(null);
         formatarInputDePequisa();
     }
 
-    public ViewEnderecoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
+    public ViewEnderecoContatoListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
         
         this.editar = editar;
@@ -51,7 +57,7 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
-    public ViewEnderecoListarBuscar(boolean buscar) {
+    public ViewEnderecoContatoListarBuscar(boolean buscar) {
         setResizable(false);
         
         this.buscar = buscar;
@@ -62,28 +68,32 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
-    public void listarTodos(BeanEndereco endereco) throws ParseException{
+    public void listarTodos(BeanEnderecoContato enderecoContato) throws ParseException{
         
-        ControllerEndereco controllerEndereco = new ControllerEndereco();
-        List<BeanEndereco> enderecos = controllerEndereco.listarEnderecos(endereco, "Todos");
-        montarTabela(enderecos);
+        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
+        List<BeanEnderecoContato> enderecoContatos = controllerEnderecoContato.listarEnderecoContato(enderecoContato, "Todos");
+        montarTabela(enderecoContatos);
     }
     
-    private void montarTabela(List<BeanEndereco> enderecos){
-        DefaultTableModel model = (DefaultTableModel) tableListaEnderecos.getModel();
+    private void montarTabela(List<BeanEnderecoContato> beanEnderecoContatos){
+        DefaultTableModel model = (DefaultTableModel) tableListaEnderecoContato.getModel();
         model.setNumRows(0);
 
-        if(enderecos != null || !enderecos.isEmpty()){
-            for(BeanEndereco endereco : enderecos){
+        if(beanEnderecoContatos != null || !beanEnderecoContatos.isEmpty()){
+            for(BeanEnderecoContato enderecoContato : beanEnderecoContatos){
                 model.addRow(new Object[]{
-                    endereco.getId(),
-                    endereco.getBairro(),
-                    endereco.getCidade(),
-                    endereco.getEstado(),
-                    endereco.getCep(),
-                    endereco.getLogradouro(),
-                    endereco.getNumero(),
-                    endereco.getComplemento()
+                    enderecoContato.getId(),
+                    enderecoContato.getContato().getNome(),
+                    enderecoContato.getEndereco().getBairro(),
+                    enderecoContato.getEndereco().getCidade(),
+                    enderecoContato.getEndereco().getEstado(),
+                    enderecoContato.getEndereco().getCep(),
+                    enderecoContato.getEndereco().getLogradouro(),
+                    enderecoContato.getEndereco().getNumero(),
+                    enderecoContato.getEndereco().getComplemento(),
+                    enderecoContato.getObs(),
+                    enderecoContato.getContato().getId(),
+                    enderecoContato.getEndereco().getId()
                 });
             }
         }
@@ -108,7 +118,7 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
             btExcluir.setVisible(true);
             
             cbxTipoListagem.removeAllItems();
-            cbxTipoListagem.addItem("Id Endereco");
+            cbxTipoListagem.addItem("Id endereço de contato");
             
         }
     }
@@ -128,7 +138,7 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableListaEnderecos = new javax.swing.JTable();
+        tableListaEnderecoContato = new javax.swing.JTable();
         inputPesquisa = new javax.swing.JTextField();
         cbxTipoListagem = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
@@ -151,39 +161,40 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 724, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
-        tableListaEnderecos.setModel(new javax.swing.table.DefaultTableModel(
+        tableListaEnderecoContato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Bairro", "Cidade", "Estado", "Cep", "Logradouro", "Número", "Complemento"
+                "Id", "Contato", "Bairro", "Cidade", "Estado", "Cep", "Logradouro", "Número", "Complemento", "Obs", "id contato", "id endereco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableListaEnderecos);
-        if (tableListaEnderecos.getColumnModel().getColumnCount() > 0) {
-            tableListaEnderecos.getColumnModel().getColumn(0).setResizable(false);
-            tableListaEnderecos.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(tableListaEnderecoContato);
+        if (tableListaEnderecoContato.getColumnModel().getColumnCount() > 0) {
+            tableListaEnderecoContato.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tableListaEnderecoContato.getColumnModel().getColumn(10).setResizable(false);
+            tableListaEnderecoContato.getColumnModel().getColumn(11).setResizable(false);
         }
 
-        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Bairro", "Cidade", "Estado", "Cep", "Logradouro", "Numero", "Complemento" }));
+        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Id endereco", "Id contato", "Obs" }));
         cbxTipoListagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoListagemActionPerformed(evt);
@@ -218,19 +229,19 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbxTipoListagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btExcluir)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxTipoListagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(inputPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,22 +267,22 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        if(tableListaEnderecos.getSelectedRow() >= 0){
+        if(tableListaEnderecoContato.getSelectedRow() >= 0){
             
-            ViewEnderecoEditar usuarioEditar = new ViewEnderecoEditar(this, editar, excluir, tableListaEnderecos, usuario);
+            ViewEnderecoContatoEditar usuarioEditar = new ViewEnderecoContatoEditar(this, editar, excluir, tableListaEnderecoContato, usuario);
             usuarioEditar.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhum Endereço Selecionado" , "Selecione um Endereço!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Endereço do Contato Selecionado" , "Selecione um Endereço de Contato!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btEditarActionPerformed
 
-   private void verificarLista(List<BeanEndereco> enderecos){
-       if(!enderecos.isEmpty() || enderecos != null || enderecos.get(0).getId() != null){
-           montarTabela(enderecos);
+   private void verificarLista(List<BeanEnderecoContato> enderecoContatos){
+       if(!enderecoContatos.isEmpty() || enderecoContatos != null || enderecoContatos.get(0).getId() != null){
+           montarTabela(enderecoContatos);
        }
        else{
-           JOptionPane.showMessageDialog(null, "Endereço Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
+           JOptionPane.showMessageDialog(null, "Endereço do Contato Não Encontrado!", "Não Encontrado!", JOptionPane.WARNING_MESSAGE);
        }
    }
     
@@ -281,51 +292,39 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Insira o valor a ser pesquisado!");
         }
         else{
-            BeanEndereco enderecoEntrada = new BeanEndereco(usuario);
+            BeanEnderecoContato enderecoContatoEntrada = new BeanEnderecoContato(usuario);
             String tipoPesquisa = cbxTipoListagem.getSelectedItem().toString();
 
-            ControllerEndereco controllerEndereco = new ControllerEndereco();
-            List<BeanEndereco> enderecos = new ArrayList<>();
+            ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
+            List<BeanEnderecoContato> enderecoContatos = new ArrayList<>();
         
             try {
                 if(cbxTipoListagem.getItemCount() > 2 ){
                     switch(cbxTipoListagem.getSelectedIndex()){
                     case 0:
-                       listarTodos(enderecoEntrada);
+                       listarTodos(enderecoContatoEntrada);
                        break;
                     case 1:
-                        enderecoEntrada.setBairro(inputPesquisa.getText());  
+                        enderecoContatoEntrada.setEndereco(new BeanEndereco(Long.parseLong(inputPesquisa.getText())));  
                         break;
                     case 2:
-                        enderecoEntrada.setCidade(inputPesquisa.getText());
+                        enderecoContatoEntrada.setContato(new BeanContato(Long.parseLong(inputPesquisa.getText())));
                         break; 
                     case 3:
-                        enderecoEntrada.setEstado(inputPesquisa.getText());
-                        break; 
-                    case 4:
-                        enderecoEntrada.setCep(inputPesquisa.getText());
+                        enderecoContatoEntrada.setObs(inputPesquisa.getText());
                         break;
-                    case 5:
-                        enderecoEntrada.setLogradouro(inputPesquisa.getText());
-                        break;
-                    case 6:
-                        enderecoEntrada.setNumero(inputPesquisa.getText());
-                        break; 
-                    case 7:
-                        enderecoEntrada.setComplemento(inputPesquisa.getText());
-                        break; 
                     default:
-                        listarTodos(enderecoEntrada);
+                        listarTodos(enderecoContatoEntrada);
                         break;
                     }
-                    enderecos = controllerEndereco.listarEnderecos(enderecoEntrada, tipoPesquisa);
-                    verificarLista(enderecos);
+                    enderecoContatos = controllerEnderecoContato.listarEnderecoContato(enderecoContatoEntrada, tipoPesquisa);
+                    verificarLista(enderecoContatos);
                 } else {
 
-                    enderecoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
-                    BeanEndereco enderecoSaida = controllerEndereco.buscarEndereco(enderecoEntrada);
-                    enderecos.add(enderecoSaida);
-                    verificarLista(enderecos);
+                    enderecoContatoEntrada.setId(Long.valueOf(inputPesquisa.getText()));
+                    BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.buscarEnderecoContato(enderecoContatoEntrada);
+                    enderecoContatos.add(enderecoContatoSaida);
+                    verificarLista(enderecoContatos);
                 }
             
             } catch (ParseException e) {
@@ -334,8 +333,6 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
                 inputPesquisa.setText("");
             }
         }
-        
-        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed
@@ -345,21 +342,21 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             if(!buscar){
-                BeanEndereco endereco = new BeanEndereco(usuario);
-                listarTodos(endereco);
+               BeanEnderecoContato enderecoContato = new BeanEnderecoContato(usuario);
+                listarTodos(enderecoContato);
             }
         } catch (ParseException ex) {
-            Logger.getLogger(ViewEnderecoListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ViewEnderecoContatoListarBuscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if(tableListaEnderecos.getSelectedRow() >= 0){
-            ViewEnderecoExcluir usuarioExcluir = new ViewEnderecoExcluir(this, editar, excluir, tableListaEnderecos, usuario);
+        if(tableListaEnderecoContato.getSelectedRow() >= 0){
+            ViewEnderecoContatoExcluir usuarioExcluir = new ViewEnderecoContatoExcluir(this, editar, excluir, tableListaEnderecoContato, usuario);
             usuarioExcluir.setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Nenhum Endereço Selecionado" , "Selecione um Endereço!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Endereco de Contato Selecionado" , "Selecione um Endereco de Contato!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
@@ -375,6 +372,6 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
     private javax.swing.JTextField inputPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableListaEnderecos;
+    private javax.swing.JTable tableListaEnderecoContato;
     // End of variables declaration//GEN-END:variables
 }

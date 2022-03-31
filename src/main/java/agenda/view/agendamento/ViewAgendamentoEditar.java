@@ -290,8 +290,6 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
         
         try {
-            
-            
              
             BeanContato contato = new BeanContato(Long.valueOf(inputIdContato.getText()));
             

@@ -27,7 +27,6 @@ public class EnderecoTeste {
         
         
         BeanEndereco enderecoEntrada = new BeanEndereco("ipava", "São Paulo", "SP", "04951-020", "Catangua", "88", "Casa", new BeanUsuario(1L));
-        
         ControllerEndereco controllerEndereco = new ControllerEndereco();
         
         BeanEndereco enderecoSaida = controllerEndereco.inserirEndereco(enderecoEntrada);
