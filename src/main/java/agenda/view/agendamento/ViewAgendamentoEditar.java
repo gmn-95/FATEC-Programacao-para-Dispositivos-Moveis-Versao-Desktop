@@ -43,8 +43,10 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         this.tabela = tabela;
         
         initComponents();
+        
         formataCampoData();
         formataCampoHorário();
+        
         setLocationRelativeTo(null);
         
         camposEditar();
@@ -76,6 +78,7 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
         btLimparFormAgendamento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Agendamento");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {

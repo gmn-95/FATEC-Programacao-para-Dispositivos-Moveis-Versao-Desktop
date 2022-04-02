@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.model.dao;
 
 import agenda.model.bean.BeanUsuario;
@@ -262,7 +257,7 @@ public class DaoUsuario {
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 
-                while(resultSet.next()){
+                if(resultSet.next()){
                     usuario = new BeanUsuario(resultSet.getLong("id"), 
                             resultSet.getString("login"), 
                             resultSet.getString("senha"), 

@@ -1,4 +1,3 @@
-
 package agenda.view.endereco;
 
 import agenda.controller.ControllerEndereco;
@@ -193,7 +192,7 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
                 BeanEndereco enderecoSaida = controllerEndereco.inserirEndereco(enderecoEntrada);
                 
                 if(Confirmacao.compare(enderecoSaida)){
-                    JOptionPane.showMessageDialog(null, "Erro ao inserir novo endereco", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao criar novo endereco", "Erro!", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Endereço criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);

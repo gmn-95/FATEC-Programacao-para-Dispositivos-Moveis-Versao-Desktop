@@ -7,6 +7,7 @@ import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanEndereco;
 import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -212,7 +213,13 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
             ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
 
             BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.alterarEnderecoContato(enderecoContatoEntrada);
-            JOptionPane.showMessageDialog(null, enderecoContatoSaida);
+            
+            if(Confirmacao.compare(enderecoContatoSaida)){
+                JOptionPane.showMessageDialog(null, "Erro ao editar Endereço do contato", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Endereço do contato editado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             dispose();
             v.dispose();

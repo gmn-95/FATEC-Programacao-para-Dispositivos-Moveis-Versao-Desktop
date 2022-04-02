@@ -3,6 +3,7 @@ package agenda.view.contato;
 import agenda.controller.ControllerContato;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -37,7 +38,7 @@ public class ViewContatoEditar extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         formartarCampoCelularTelefone();
-        camposEditar(tabela);
+        camposEditar();
         
     }
 
@@ -247,7 +248,13 @@ public class ViewContatoEditar extends javax.swing.JDialog {
             ControllerContato controllerContato = new ControllerContato();
 
             BeanContato contatoSaida = controllerContato.alterarContato(contatoEntrada);
-            JOptionPane.showMessageDialog(null, contatoSaida);
+            
+            if(Confirmacao.compare(contatoSaida)){
+                JOptionPane.showMessageDialog(null, "Erro ao editar Contato", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Contato editado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
             
             dispose();
             v.dispose();
@@ -276,7 +283,7 @@ public class ViewContatoEditar extends javax.swing.JDialog {
 
     }
  
-    private void camposEditar(JTable tabela){
+    private void camposEditar(){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         

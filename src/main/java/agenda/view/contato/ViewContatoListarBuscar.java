@@ -51,6 +51,20 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
+    public ViewContatoListarBuscar(boolean editar, boolean excluir, boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.editar = editar;
+        this.excluir = excluir;
+        this.buscar = buscar;
+        this.usuario = usuario;
+        
+        initComponents();
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
     public ViewContatoListarBuscar(boolean buscar) {
         setResizable(false);
         
@@ -89,22 +103,11 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
     
     private void verificaOpção(){
 
-        if(editar == true && excluir != true){
-            btExcluir.setVisible(false);
-            btEditar.setVisible(true);
-        }
-        else if(editar != true && excluir == true){
-            btEditar.setVisible(false);
-            btExcluir.setVisible(true);
-        }
-        else if(editar == true && excluir == true){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-        }
-        else if(buscar){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-            
+        btExcluir.setVisible(excluir);
+        btEditar.setVisible(editar);
+        
+        if(buscar){
+   
             cbxTipoListagem.removeAllItems();
             cbxTipoListagem.addItem("Id Contato");
             

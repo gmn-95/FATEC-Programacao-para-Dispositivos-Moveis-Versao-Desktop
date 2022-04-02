@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.view.usuario;
 
 
 import agenda.controller.ControllerPessoa;
 import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -240,7 +236,12 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
             ControllerPessoa controllerPessoa = new ControllerPessoa();
             BeanUsuario beanUsuarioSaida = controllerPessoa.excluirPessoa(beanUsuario);
 
-            JOptionPane.showMessageDialog(null, beanUsuarioSaida);
+            if(Confirmacao.compare(beanUsuarioSaida)){
+                JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             dispose();
             v.dispose();

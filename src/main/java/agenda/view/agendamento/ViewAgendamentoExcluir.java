@@ -272,7 +272,7 @@ public class ViewAgendamentoExcluir extends javax.swing.JDialog{
             JOptionPane.showMessageDialog(null, "Erro ao excluir Agendamento", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Agendamento excluir com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Agendamento excluído com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
         }
         
         dispose();

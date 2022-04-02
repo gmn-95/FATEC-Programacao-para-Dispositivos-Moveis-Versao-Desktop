@@ -3,6 +3,7 @@ package agenda.view.usuario;
 import agenda.controller.ControllerPessoa;
 import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -33,8 +34,10 @@ public class ViewUsuarioEditar extends javax.swing.JDialog {
         
         initComponents();
         setLocationRelativeTo(null);
+        
         this.tabela = tabela;
-        camposEditar(tabela);
+        
+        camposEditar();
         
     }
 
@@ -259,7 +262,12 @@ public class ViewUsuarioEditar extends javax.swing.JDialog {
                 ControllerUsuario controllerUsuario = new ControllerUsuario();
                 BeanUsuario beanUsuarioSaida = controllerUsuario.atualizarUsuario(beanUsuario);
 
-                JOptionPane.showMessageDialog(null, beanUsuarioSaida);
+                if(Confirmacao.compare(beanUsuarioSaida)){
+                    JOptionPane.showMessageDialog(null, "Erro ao editar Usuário", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                }
 
                 limparCamposTela();
                 
@@ -307,7 +315,7 @@ public class ViewUsuarioEditar extends javax.swing.JDialog {
 
     }
  
-    private void camposEditar(JTable tabela){
+    private void camposEditar(){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         

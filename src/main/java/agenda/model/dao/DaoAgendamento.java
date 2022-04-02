@@ -308,7 +308,7 @@ public class DaoAgendamento {
                 
                 ResultSet resultSet = preparedStatement.executeQuery();
                 
-                while(resultSet.next()){
+                if(resultSet.next()){
                     BeanContato beanContato = new BeanContato(resultSet.getLong("fk_id_contato"), resultSet.getString("nome"));
                     agendamento = new BeanAgendamento();
                     agendamento.setId(resultSet.getLong("id"));

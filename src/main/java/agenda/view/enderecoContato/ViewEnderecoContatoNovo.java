@@ -1,4 +1,3 @@
-
 package agenda.view.enderecoContato;
 
 import agenda.controller.ControllerContato;
@@ -8,6 +7,7 @@ import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanEndereco;
 import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -152,7 +152,13 @@ public class ViewEnderecoContatoNovo extends javax.swing.JFrame {
             ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
 
             BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.inserirEnderecoContato(enderecoContatoEntrada);
-            JOptionPane.showMessageDialog(null, enderecoContatoSaida);
+            
+            if(Confirmacao.compare(enderecoContatoSaida)){
+                JOptionPane.showMessageDialog(null, "Erro ao criar Endereço do contato", "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Endereço do contato criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             limparCamposTela();  
           
@@ -186,8 +192,6 @@ public class ViewEnderecoContatoNovo extends javax.swing.JFrame {
                 
                 cbxEndereco.addItem(mostrar);
             }
-            
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,8 +211,6 @@ public class ViewEnderecoContatoNovo extends javax.swing.JFrame {
                 id_contato.addElement(bc.getId());
                 cbxContato.addItem(bc.getNome());
             }
-            
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

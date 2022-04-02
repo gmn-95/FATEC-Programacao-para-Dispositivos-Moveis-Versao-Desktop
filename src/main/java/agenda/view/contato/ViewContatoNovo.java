@@ -4,6 +4,7 @@ package agenda.view.contato;
 import agenda.controller.ControllerContato;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -168,7 +169,13 @@ public class ViewContatoNovo extends javax.swing.JFrame {
                 ControllerContato controllerContato = new ControllerContato();
                 
                 BeanContato contatoSaida = controllerContato.inserirContato(contatoEntrada);
-                JOptionPane.showMessageDialog(null, contatoSaida);
+                
+                if(Confirmacao.compare(contatoSaida)){
+                JOptionPane.showMessageDialog(null, "Erro ao criar Contato", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Contato criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                }
                
                 limparCamposTela();  
           

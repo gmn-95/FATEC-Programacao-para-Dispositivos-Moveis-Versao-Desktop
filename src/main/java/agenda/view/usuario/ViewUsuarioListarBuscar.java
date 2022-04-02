@@ -136,38 +136,29 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
         if(usuarios != null){
             for(BeanUsuario beanUsuario : usuarios){
-                model.addRow(new Object[]{
-                    beanUsuario.getId_usuario(),
-                    beanUsuario.getId(),
-                    beanUsuario.getNome(),
-                    beanUsuario.getLogin(),
-                    beanUsuario.getSenha(),
-                    beanUsuario.isCriar_novo_usuario(),
-                    beanUsuario.isEditar_usuario(),
-                    beanUsuario.isExcluir_usuario(),
-                    beanUsuario.isListar_usuario()
-                });
+                if(beanUsuario.getId_usuario()!= null || beanUsuario.getId() != null){
+                    model.addRow(new Object[]{
+                        beanUsuario.getId_usuario(),
+                        beanUsuario.getId(),
+                        beanUsuario.getNome(),
+                        beanUsuario.getLogin(),
+                        beanUsuario.getSenha(),
+                        beanUsuario.isCriar_novo_usuario(),
+                        beanUsuario.isEditar_usuario(),
+                        beanUsuario.isExcluir_usuario(),
+                        beanUsuario.isListar_usuario()
+                    });
+                }
             }
         }
     }
     
     private void verificaOpção(){
-
-        if(editar == true && excluir != true){
-            btExcluir.setVisible(false);
-            btEditar.setVisible(true);
-        }
-        else if(editar != true && excluir == true){
-            btEditar.setVisible(false);
-            btExcluir.setVisible(true);
-        }
-        else if(editar == true && excluir == true){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-        }
-        else if(buscar){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
+        
+        btExcluir.setVisible(excluir);
+        btEditar.setVisible(editar);
+        
+        if(buscar){
             
             cbxTipoListagem.removeAllItems();
             cbxTipoListagem.addItem("Id Usuário");

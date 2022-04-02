@@ -74,6 +74,27 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
+    public ViewEnderecoContatoListarBuscar(boolean editar, boolean excluir, boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.editar = editar;
+        this.excluir = excluir;
+        this.buscar = buscar;
+        this.usuario = usuario;
+        
+        initComponents();
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMaxWidth(0);
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
+        
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
     public ViewEnderecoContatoListarBuscar(boolean buscar) {
         setResizable(false);
         
@@ -105,45 +126,34 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
 
         if(beanEnderecoContatos != null || !beanEnderecoContatos.isEmpty()){
             for(BeanEnderecoContato enderecoContato : beanEnderecoContatos){
-                model.addRow(new Object[]{
-                    enderecoContato.getId(),
-                    enderecoContato.getContato().getNome(),
-                    enderecoContato.getEndereco().getBairro(),
-                    enderecoContato.getEndereco().getCidade(),
-                    enderecoContato.getEndereco().getEstado(),
-                    enderecoContato.getEndereco().getCep(),
-                    enderecoContato.getEndereco().getLogradouro(),
-                    enderecoContato.getEndereco().getNumero(),
-                    enderecoContato.getEndereco().getComplemento(),
-                    enderecoContato.getObs(),
-                    enderecoContato.getContato().getId(),
-                    enderecoContato.getEndereco().getId()
-                });
+                if(enderecoContato.getId() != null || enderecoContato.getContato().getId() != null){
+                    model.addRow(new Object[]{
+                        enderecoContato.getId(),
+                        enderecoContato.getContato().getNome(),
+                        enderecoContato.getEndereco().getBairro(),
+                        enderecoContato.getEndereco().getCidade(),
+                        enderecoContato.getEndereco().getEstado(),
+                        enderecoContato.getEndereco().getCep(),
+                        enderecoContato.getEndereco().getLogradouro(),
+                        enderecoContato.getEndereco().getNumero(),
+                        enderecoContato.getEndereco().getComplemento(),
+                        enderecoContato.getObs(),
+                        enderecoContato.getContato().getId(),
+                        enderecoContato.getEndereco().getId()
+                    });
+                }
             }
         }
     }
     
     private void verificaOpção(){
-
-        if(editar == true && excluir != true){
-            btExcluir.setVisible(false);
-            btEditar.setVisible(true);
-        }
-        else if(editar != true && excluir == true){
-            btEditar.setVisible(false);
-            btExcluir.setVisible(true);
-        }
-        else if(editar == true && excluir == true){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-        }
-        else if(buscar){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-            
+        
+        btExcluir.setVisible(excluir);
+        btEditar.setVisible(editar);
+        
+        if(buscar){
             cbxTipoListagem.removeAllItems();
             cbxTipoListagem.addItem("Id endereço de contato");
-            
         }
     }
     

@@ -15,6 +15,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     public ViewLogin() {
         setResizable(false);
+        setTitle("Agendamento");
         initComponents();
         setLocationRelativeTo(null);
     }

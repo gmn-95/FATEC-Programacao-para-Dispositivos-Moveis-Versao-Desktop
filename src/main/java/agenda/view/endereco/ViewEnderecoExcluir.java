@@ -3,6 +3,7 @@ package agenda.view.endereco;
 import agenda.controller.ControllerEndereco;
 import agenda.model.bean.BeanEndereco;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -37,7 +38,7 @@ public class ViewEnderecoExcluir extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         formartarCampoCep();
-        camposEditar(tabela);
+        camposEditar();
         
     }
 
@@ -219,7 +220,13 @@ public class ViewEnderecoExcluir extends javax.swing.JDialog {
         ControllerEndereco controllerEndereco = new ControllerEndereco();
 
         BeanEndereco enderecoSaida = controllerEndereco.excluirEndereco(enderecoEntrada);
-        JOptionPane.showMessageDialog(null, enderecoSaida);
+        
+        if(Confirmacao.compare(enderecoSaida)){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Endereço", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Endereço excluído com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+        }
         
         dispose();
         v.dispose();
@@ -238,7 +245,7 @@ public class ViewEnderecoExcluir extends javax.swing.JDialog {
         }
     }
  
-    private void camposEditar(JTable tabela){
+    private void camposEditar(){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         

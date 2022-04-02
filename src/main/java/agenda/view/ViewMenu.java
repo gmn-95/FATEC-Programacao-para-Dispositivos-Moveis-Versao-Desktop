@@ -24,6 +24,7 @@ public final class ViewMenu extends javax.swing.JFrame {
         
         this.usuario = usuario;
         
+        setTitle("Projeto Desktop P1 - Agendamento ");
         initComponents();
         
         setLocationRelativeTo(null);
@@ -623,7 +624,7 @@ public final class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarEnderecoActionPerformed
 
     private void btBuscarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarEnderecoActionPerformed
-        new ViewEnderecoListarBuscar(true, usuario).setVisible(true);
+        new ViewEnderecoListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(),usuario.isBuscar_usuario(), usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarEnderecoActionPerformed
 
     private void btNovoEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoEnderecoActionPerformed
@@ -643,7 +644,7 @@ public final class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarContatoActionPerformed
 
     private void btBuscarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarContatoActionPerformed
-        new ViewContatoListarBuscar(true, usuario).setVisible(true);
+        new ViewContatoListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(),usuario.isBuscar_usuario(), usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarContatoActionPerformed
 
     private void btNovoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoContatoActionPerformed
@@ -663,7 +664,7 @@ public final class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarAgendamentoActionPerformed
 
     private void btBuscarAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarAgendamentoActionPerformed
-        new ViewAgendamentoListarBuscar(true, usuario).setVisible(true);
+        new ViewAgendamentoListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(),usuario.isBuscar_usuario(), usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarAgendamentoActionPerformed
 
     private void btNovoAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoAgendamentoActionPerformed
@@ -675,7 +676,7 @@ public final class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoEnderecoContatoActionPerformed
 
     private void btBuscarEnderecoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarEnderecoContatoActionPerformed
-        new ViewEnderecoContatoListarBuscar(true, usuario).setVisible(true);
+        new ViewEnderecoContatoListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(),usuario.isBuscar_usuario(), usuario).setVisible(true);
     }//GEN-LAST:event_btBuscarEnderecoContatoActionPerformed
 
     private void btEditarEnderecoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarEnderecoContatoActionPerformed
@@ -704,7 +705,7 @@ public final class ViewMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para buscar um usuário!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            new ViewUsuarioListarBuscar(usuario.isBuscar_usuario(), usuario).setVisible(true);
+            new ViewUsuarioListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(),usuario.isBuscar_usuario(), usuario).setVisible(true);
         }
     }//GEN-LAST:event_btBuscarUsuarioActionPerformed
 
@@ -740,9 +741,9 @@ public final class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        dispose();
         usuario = new BeanUsuario();
         new ViewLogin().setVisible(true);
-        dispose();
     }//GEN-LAST:event_btSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

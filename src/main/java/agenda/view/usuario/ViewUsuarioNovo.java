@@ -1,9 +1,9 @@
-
 package agenda.view.usuario;
 
 import agenda.controller.ControllerPessoa;
 import agenda.controller.ControllerUsuario;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -185,7 +185,12 @@ public class ViewUsuarioNovo extends javax.swing.JFrame {
                ControllerUsuario controllerUsuario = new ControllerUsuario();
                BeanUsuario beanUsuarioSaida = controllerUsuario.inserirUsuario(beanUsuario);
                
-               JOptionPane.showMessageDialog(null, beanUsuarioSaida);
+               if(Confirmacao.compare(beanUsuarioSaida)){
+                    JOptionPane.showMessageDialog(null, "Erro ao criar Usuário", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Usuário criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                }
                
                limparCamposTela();
                

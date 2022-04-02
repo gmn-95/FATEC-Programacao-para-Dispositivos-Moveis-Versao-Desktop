@@ -43,6 +43,20 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
+    public ViewAgendamentoListarBuscar(boolean editar, boolean excluir, boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.editar = editar;
+        this.excluir = excluir;
+        this.buscar = buscar;
+        this.usuario = usuario;
+        
+        initComponents();
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
     public ViewAgendamentoListarBuscar(boolean buscar, BeanUsuario usuario) {
         setResizable(false);
         
@@ -69,7 +83,8 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
 
         if(agendamentos != null){
             for(BeanAgendamento agendamento : agendamentos){
-                model.addRow(new Object[]{
+                if(agendamento.getId() != null || agendamento.getContato().getId() != null){
+                    model.addRow(new Object[]{
                     agendamento.getId(),
                     agendamento.getDescricao(),
                     agendamento.getConteudo(),
@@ -77,31 +92,20 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
                     horaFormat.format(agendamento.getHora_agendada()),
                     agendamento.getContato().getId(),
                     agendamento.getContato().getNome()
-                });
+                    });
+                }
             }
         }
     }
     
     private void verificaOpção(){
-        if(editar == true && excluir != true){
-            btExcluir.setVisible(false);
-            btEditar.setVisible(true);
-        }
-        else if(editar != true && excluir == true){
-            btEditar.setVisible(false);
-            btExcluir.setVisible(true);
-        }
-        else if(editar == true && excluir == true){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-        }
-        else if(buscar){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-            
+
+        btExcluir.setVisible(excluir);
+        btEditar.setVisible(editar);
+        
+        if(buscar){
             cbxTipoListagem.removeAllItems();
             cbxTipoListagem.addItem("Id Agendamento");
-            
         }
     }
 

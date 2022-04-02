@@ -51,6 +51,20 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
     
+    public ViewEnderecoListarBuscar(boolean editar, boolean excluir, boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.editar = editar;
+        this.excluir = excluir;
+        this.buscar = buscar;
+        this.usuario = usuario;
+        
+        initComponents();
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
     public ViewEnderecoListarBuscar(boolean buscar) {
         setResizable(false);
         
@@ -90,26 +104,13 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
     }
     
     private void verificaOpção(){
-
-        if(editar == true && excluir != true){
-            btExcluir.setVisible(false);
-            btEditar.setVisible(true);
-        }
-        else if(editar != true && excluir == true){
-            btEditar.setVisible(false);
-            btExcluir.setVisible(true);
-        }
-        else if(editar == true && excluir == true){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-        }
-        else if(buscar){
-            btEditar.setVisible(true);
-            btExcluir.setVisible(true);
-            
+        
+        btExcluir.setVisible(excluir);
+        btEditar.setVisible(editar);
+        
+        if(buscar){
             cbxTipoListagem.removeAllItems();
             cbxTipoListagem.addItem("Id Endereco");
-            
         }
     }
     
@@ -334,8 +335,6 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
                 inputPesquisa.setText("");
             }
         }
-        
-        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed
