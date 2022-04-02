@@ -5,6 +5,7 @@
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/dao/DaoEndereco.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanPessoa.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerUsuario.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewEnderecoContatoExcluir.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanUsuario.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/endereco/ViewEnderecoEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerPessoa.java
@@ -13,15 +14,14 @@
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/agendamento/ViewAgendamentoEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/ViewLogin.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/contato/ViewContatoExcluir.java
-/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewContatoEditar.java
-/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewContatoListarBuscar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerAgendamento.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanEndereco.java
-/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewContatoExcluir.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewEnderecoContatoListarBuscar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/agendamento/ViewAgendamentoNovo.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/model/bean/BeanEnderecoContato.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/contato/ViewContatoEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/ViewMenu.java
+/home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/enderecoContato/ViewEnderecoContatoEditar.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/controller/ControllerEnderecoContato.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/usuario/ViewUsuarioNovo.java
 /home/gustavo/NetBeansProjects/agenda/src/main/java/agenda/view/contato/ViewContatoNovo.java

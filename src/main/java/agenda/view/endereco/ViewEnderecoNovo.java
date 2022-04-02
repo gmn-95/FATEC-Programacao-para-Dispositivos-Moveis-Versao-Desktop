@@ -4,6 +4,7 @@ package agenda.view.endereco;
 import agenda.controller.ControllerEndereco;
 import agenda.model.bean.BeanEndereco;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -190,7 +191,13 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
                 ControllerEndereco controllerEndereco = new ControllerEndereco();
                 
                 BeanEndereco enderecoSaida = controllerEndereco.inserirEndereco(enderecoEntrada);
-                JOptionPane.showMessageDialog(null, enderecoSaida);
+                
+                if(Confirmacao.compare(enderecoSaida)){
+                    JOptionPane.showMessageDialog(null, "Erro ao inserir novo endereco", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Endereço criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                }
                
                 limparCamposTela();  
           
@@ -208,7 +215,6 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
         }
     }
     
-    
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limparCamposTela();
     }//GEN-LAST:event_btLimparActionPerformed
@@ -220,6 +226,7 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
                 || inputEstado.getText().isEmpty() || inputEstado.getText().equals("")
                 || inputLogradouro.getText().isEmpty() || inputLogradouro.getText().equals(""));
     }
+    
     
     
     private void limparCamposTela(){
@@ -254,4 +261,5 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
     private javax.swing.JLabel labelComplemento;
     private javax.swing.JLabel labelEstado;
     // End of variables declaration//GEN-END:variables
+
 }

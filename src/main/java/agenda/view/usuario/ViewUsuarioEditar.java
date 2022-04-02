@@ -343,11 +343,8 @@ public class ViewUsuarioEditar extends javax.swing.JDialog {
                 inputLogin.setEnabled(false);
                 
                 btAtualizar.setEnabled(false);
-            }
-            
-            
+            }  
         }
-        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

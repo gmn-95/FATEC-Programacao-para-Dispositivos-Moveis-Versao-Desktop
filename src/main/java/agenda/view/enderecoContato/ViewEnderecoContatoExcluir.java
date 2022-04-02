@@ -1,14 +1,17 @@
 package agenda.view.enderecoContato;
 
-import agenda.view.contato.*;
 import agenda.controller.ControllerContato;
+import agenda.controller.ControllerEndereco;
+import agenda.controller.ControllerEnderecoContato;
 import agenda.model.bean.BeanContato;
+import agenda.model.bean.BeanEndereco;
+import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
-import java.text.ParseException;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
 
 
 /**
@@ -16,29 +19,37 @@ import javax.swing.text.MaskFormatter;
  * @author gustavo
  */
 public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
-
+    
     private boolean editar;
     private boolean excluir;
+    
+    private final Vector<Long> id_contato = new Vector<>();
+    private final Vector<Long> id_endereco = new Vector<>();
+    
     private BeanUsuario usuario;
+    
     private JTable tabela;
-    private ViewEnderecoContatoListarBuscar viewContatoListarBuscar;
+    
+    private ViewEnderecoContatoListarBuscar viewEnderecoContatoListarBuscar;
     private ViewEnderecoContatoListarBuscar v;
     
-    public ViewEnderecoContatoExcluir(ViewEnderecoContatoListarBuscar viewContatoListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
-        super(viewContatoListarBuscar, true);
+    public ViewEnderecoContatoExcluir(ViewEnderecoContatoListarBuscar viewEnderecoContatoListarBuscar, boolean editar, boolean excluir, JTable tabela, BeanUsuario usuario) {
+        super(viewEnderecoContatoListarBuscar, true);
         
-        this.viewContatoListarBuscar = viewContatoListarBuscar;
-        this.viewContatoListarBuscar.setVisible(false);
+        this.viewEnderecoContatoListarBuscar = viewEnderecoContatoListarBuscar;
+        this.viewEnderecoContatoListarBuscar.setVisible(false);
         
         this.usuario = usuario;
         this.editar = editar;
         this.excluir = excluir;
+        
         this.tabela = tabela;
         
         initComponents();
+        
         setLocationRelativeTo(null);
-        formartarCampoCelularTelefone();
-        camposEditar(tabela);
+        
+        camposEditar();
         
     }
 
@@ -47,20 +58,15 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelNome = new javax.swing.JLabel();
-        inputNome = new javax.swing.JTextField();
-        labelTelefone = new javax.swing.JLabel();
-        labelCelular = new javax.swing.JLabel();
-        labelEmail = new javax.swing.JLabel();
         btExcluir = new javax.swing.JButton();
-        inputTelefone = new javax.swing.JFormattedTextField();
-        inputCelular = new javax.swing.JFormattedTextField();
         labelObs = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textAreaObs = new javax.swing.JTextArea();
-        inputEmail = new javax.swing.JTextField();
-        labelIdContato = new javax.swing.JLabel();
-        inputIdContato = new javax.swing.JTextField();
+        cbxContato = new javax.swing.JComboBox<>();
+        labelContato = new javax.swing.JLabel();
+        cbxEndereco = new javax.swing.JComboBox<>();
+        labelEnderecos = new javax.swing.JLabel();
+        inputObs = new javax.swing.JTextField();
+        labelId = new javax.swing.JLabel();
+        inputId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -76,14 +82,6 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
             }
         });
 
-        labelNome.setText("Nome");
-
-        labelTelefone.setText("Telefone");
-
-        labelCelular.setText("Celular");
-
-        labelEmail.setText("Email");
-
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,21 +89,19 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
             }
         });
 
-        inputTelefone.setMaximumSize(new java.awt.Dimension(157, 24));
-        inputTelefone.setMinimumSize(new java.awt.Dimension(157, 24));
-
         labelObs.setText("Obs");
 
-        textAreaObs.setColumns(20);
-        textAreaObs.setRows(5);
-        jScrollPane1.setViewportView(textAreaObs);
+        cbxContato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
-        inputEmail.setMaximumSize(new java.awt.Dimension(157, 24));
-        inputEmail.setMinimumSize(new java.awt.Dimension(157, 24));
+        labelContato.setText("Contato");
 
-        labelIdContato.setText("Id contato");
+        cbxEndereco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
-        inputIdContato.setEditable(false);
+        labelEnderecos.setText("Endereços");
+
+        labelId.setText("Id");
+
+        inputId.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,62 +110,48 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelIdContato)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelObs)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(inputCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                .addComponent(labelNome)
-                                .addComponent(labelCelular)
-                                .addComponent(inputNome))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(labelTelefone)
-                                        .addComponent(labelEmail))
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(inputEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(inputTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbxContato, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelContato, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEnderecos)
+                            .addComponent(cbxEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelId)
+                            .addComponent(labelObs))
+                        .addGap(0, 503, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(inputObs, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(labelIdContato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inputIdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(labelId)
+                .addGap(18, 18, 18)
+                .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNome)
-                    .addComponent(labelTelefone))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelContato)
+                    .addComponent(labelEnderecos))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCelular)
-                    .addComponent(labelEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(labelObs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btExcluir)
-                .addGap(30, 30, 30))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btExcluir)
+                    .addComponent(inputObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +160,7 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,8 +171,8 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
   
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.viewContatoListarBuscar = new ViewEnderecoContatoListarBuscar(editar, excluir, usuario);
-        this.viewContatoListarBuscar.setVisible(true);
+        this.viewEnderecoContatoListarBuscar = new ViewEnderecoContatoListarBuscar(editar, excluir, usuario);
+        this.viewEnderecoContatoListarBuscar.setVisible(true);
         v.dispose();
     }//GEN-LAST:event_formWindowClosing
 
@@ -204,86 +186,115 @@ public class ViewEnderecoContatoExcluir extends javax.swing.JDialog {
 
     }//GEN-LAST:event_formWindowClosed
 
-    private void formartarCampoCelularTelefone(){
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        
+        BeanEnderecoContato enderecoContatoEntrada = new BeanEnderecoContato(Long.parseLong(inputId.getText()), usuario);
+
+        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
+
+        BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.excluirEnderecoContato(enderecoContatoEntrada);
+        JOptionPane.showMessageDialog(null, enderecoContatoSaida);
+
+        dispose();
+        v.dispose();
+        this.viewEnderecoContatoListarBuscar = new ViewEnderecoContatoListarBuscar(editar, excluir, usuario);
+        this.viewEnderecoContatoListarBuscar.setVisible(true);
+
+    }//GEN-LAST:event_btExcluirActionPerformed
+        
+
+    private void enderecoComboBox(DefaultTableModel model, int row){
         try {
-            MaskFormatter celularFormatado = new MaskFormatter("(##) #####-####");
-            celularFormatado.install(inputCelular);
             
-            MaskFormatter telefoneFormatado = new MaskFormatter("(##) ####-####");
-            telefoneFormatado.install(inputTelefone);
+            ControllerEndereco controllerEndereco = new ControllerEndereco();
+            BeanEndereco endereco = new BeanEndereco(usuario);
+            List<BeanEndereco> enderecos = controllerEndereco.listarEnderecos(endereco, "Todos");
             
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao formar campo." , "ERRO", JOptionPane.ERROR);
+            cbxEndereco.removeAllItems();
+            cbxEndereco.addItem("Selecione");
+            
+            for(BeanEndereco en : enderecos){
+                id_endereco.addElement(en.getId());
+                
+                String mostrar = 
+                        String.format(en.getBairro() + ", " + en.getLogradouro() 
+                                + ", " + en.getNumero() + ", " + en.getCep() + ", " 
+                                + en.getCidade() + "-" + en.getEstado());
+                
+                cbxEndereco.addItem(mostrar);
+            }
+            
+            for(int i = 0; i < cbxEndereco.getItemCount(); i++){
+                if(model.getValueAt(row, 11) == id_endereco.get(i)){
+                    cbxEndereco.setSelectedIndex(i + 1);
+                    break;
+                }
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        
-            BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario);
-
+    private void contatoComboBox(DefaultTableModel model, int row){
+        try {
+            
             ControllerContato controllerContato = new ControllerContato();
-
-            BeanContato contatoSaida = controllerContato.excluirContato(contatoEntrada);
-            JOptionPane.showMessageDialog(null, contatoSaida);
+            BeanContato contato = new BeanContato(usuario);
+            List<BeanContato> contatos = controllerContato.listarContatos(contato, "Todos");
             
-            dispose();
-            v.dispose();
-            this.viewContatoListarBuscar = new ViewEnderecoContatoListarBuscar(editar, excluir, usuario);
-            this.viewContatoListarBuscar.setVisible(true);
+            cbxContato.removeAllItems();
+            cbxContato.addItem("Selecione");
             
-    }//GEN-LAST:event_btExcluirActionPerformed
-    
-    private void limparCamposTela(){
-        
-        inputNome.setText("");
-        inputCelular.setText("");
-        inputTelefone.setText("");
-        formartarCampoCelularTelefone();
-        inputEmail.setText("");
-        textAreaObs.setText("");
-
+            for(BeanContato bc : contatos){
+                id_contato.addElement(bc.getId());
+                cbxContato.addItem(bc.getNome());
+            }
+            
+            for(int i = 0; i < cbxContato.getItemCount(); i++){
+                if(model.getValueAt(row, 10) == id_contato.get(i)){
+                    cbxContato.setSelectedIndex(i + 1);
+                    break;
+                }
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
- 
-    private void camposEditar(JTable tabela){
+    
+    private void camposEditar(){
+        
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
-        inputIdContato.setText(String.valueOf(model.getValueAt(row, 0)));
-        inputIdContato.setEnabled(false);
+        inputId.setText(String.valueOf(model.getValueAt(row, 0)));
+        inputId.setEnabled(false);
         
-        inputNome.setText(String.valueOf(model.getValueAt(row, 1)));
-        inputNome.setEnabled(false);
+        inputObs.setText(String.valueOf(model.getValueAt(row, 9)));
+        inputObs.setEnabled(false);
         
-        inputTelefone.setText(String.valueOf(model.getValueAt(row, 2)));
-        inputTelefone.setEnabled(false);
+        contatoComboBox(model, row);
+        cbxContato.setEnabled(false);
         
-        inputCelular.setText(String.valueOf(model.getValueAt(row, 3)));
-        inputCelular.setEnabled(false);
-        
-        inputEmail.setText(String.valueOf(model.getValueAt(row, 4)));
-        inputEmail.setEnabled(false);
-        
-        textAreaObs.setText(String.valueOf(model.getValueAt(row, 5)));
-        textAreaObs.setEnabled(false);
+        enderecoComboBox(model, row);
+        cbxEndereco.setEnabled(false);
         
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExcluir;
-    private javax.swing.JFormattedTextField inputCelular;
-    private javax.swing.JTextField inputEmail;
-    private javax.swing.JTextField inputIdContato;
-    private javax.swing.JTextField inputNome;
-    private javax.swing.JFormattedTextField inputTelefone;
+    private javax.swing.JComboBox<String> cbxContato;
+    private javax.swing.JComboBox<String> cbxEndereco;
+    private javax.swing.JTextField inputId;
+    private javax.swing.JTextField inputObs;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelCelular;
-    private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelIdContato;
-    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelContato;
+    private javax.swing.JLabel labelEnderecos;
+    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelObs;
-    private javax.swing.JLabel labelTelefone;
-    private javax.swing.JTextArea textAreaObs;
     // End of variables declaration//GEN-END:variables
+
 }

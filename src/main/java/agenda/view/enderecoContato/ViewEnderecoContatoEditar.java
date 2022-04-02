@@ -46,12 +46,9 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
         
         initComponents();
         
-        enderecoComboBox();
-        contatoComboBox();
-        
         setLocationRelativeTo(null);
         
-        camposEditar(tabela);
+        camposEditar();
         
     }
 
@@ -206,18 +203,21 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
         }
         else{
 
-            BeanContato contato = new BeanContato(id_contato.get(cbxContato.getSelectedIndex() - 1), usuario);
-            BeanEndereco endereco = new BeanEndereco(id_endereco.get(cbxEndereco.getSelectedIndex() - 1), usuario);
+            BeanContato contato = new BeanContato(id_contato.get(cbxContato.getSelectedIndex() - 1));
+            BeanEndereco endereco = new BeanEndereco(id_endereco.get(cbxEndereco.getSelectedIndex() - 1));
 
-            BeanEnderecoContato enderecoContatoEntrada = new BeanEnderecoContato(
+            BeanEnderecoContato enderecoContatoEntrada = new BeanEnderecoContato(Long.parseLong(inputId.getText()),
                 endereco, contato, inputObs.getText(), usuario);
 
             ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
 
-            BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.inserirEnderecoContato(enderecoContatoEntrada);
+            BeanEnderecoContato enderecoContatoSaida = controllerEnderecoContato.alterarEnderecoContato(enderecoContatoEntrada);
             JOptionPane.showMessageDialog(null, enderecoContatoSaida);
 
-            limparCamposTela();
+            dispose();
+            v.dispose();
+            this.viewEnderecoContatoListarBuscar = new ViewEnderecoContatoListarBuscar(editar, excluir, usuario);
+            this.viewEnderecoContatoListarBuscar.setVisible(true);
 
         }
     }//GEN-LAST:event_btAtualizarActionPerformed
@@ -225,14 +225,10 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limparCamposTela();
     }//GEN-LAST:event_btLimparActionPerformed
-
-    
         
     private boolean validarCampos(){
         return !(cbxContato.getSelectedIndex() == 0 || cbxEndereco.getSelectedIndex() == 0);
     }
-    
-    
     
     private void limparCamposTela(){
         
@@ -242,14 +238,15 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
 
     }
  
-    private void enderecoComboBox(){
+    private void enderecoComboBox(DefaultTableModel model, int row){
         try {
             
             ControllerEndereco controllerEndereco = new ControllerEndereco();
             BeanEndereco endereco = new BeanEndereco(usuario);
             List<BeanEndereco> enderecos = controllerEndereco.listarEnderecos(endereco, "Todos");
             
-            cbxContato.addItem("Selecione");
+            cbxEndereco.removeAllItems();
+            cbxEndereco.addItem("Selecione");
             
             for(BeanEndereco en : enderecos){
                 id_endereco.addElement(en.getId());
@@ -262,13 +259,20 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
                 cbxEndereco.addItem(mostrar);
             }
             
+            for(int i = 0; i < cbxEndereco.getItemCount(); i++){
+                if(model.getValueAt(row, 11) == id_endereco.get(i)){
+                    cbxEndereco.setSelectedIndex(i + 1);
+                    break;
+                }
+            }
+            
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void contatoComboBox(){
+    private void contatoComboBox(DefaultTableModel model, int row){
         try {
             
             ControllerContato controllerContato = new ControllerContato();
@@ -283,35 +287,30 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
                 cbxContato.addItem(bc.getNome());
             }
             
+            for(int i = 0; i < cbxContato.getItemCount(); i++){
+                if(model.getValueAt(row, 10) == id_contato.get(i)){
+                    cbxContato.setSelectedIndex(i + 1);
+                    break;
+                }
+            }
+            
             
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    private void camposEditar(JTable tabela){
+    private void camposEditar(){
         int row = tabela.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         
         inputId.setText(String.valueOf(model.getValueAt(row, 0)));
         inputId.setEnabled(false);
         
-        String valorColunaIdContato = String.valueOf(model.getValueAt(row, 10));
-        String valorColunaIdEndereco = String.valueOf(model.getValueAt(row, 11));
-        //  COONINUE AQ
-        int i = 0;
-        while(true){
-            if(id_contato.get(i).toString().equals(valorColunaIdContato) ){
-                cbxContato.setSelectedItem(id_contato.get(i));
-                System.out.println(cbxContato.getSelectedItem());
-            }
-            i++;
-        }
-        
-        cbxContato.setSelectedItem(valorColunaIdContato);
-        cbxEndereco.setSelectedItem(valorColunaIdEndereco);
-       
         inputObs.setText(String.valueOf(model.getValueAt(row, 9)));
+        
+        contatoComboBox(model, row);
+        enderecoComboBox(model, row);
         
     }
     

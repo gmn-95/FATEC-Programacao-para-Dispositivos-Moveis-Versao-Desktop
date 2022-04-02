@@ -11,35 +11,22 @@ import agenda.view.enderecoContato.ViewEnderecoContatoListarBuscar;
 import agenda.view.enderecoContato.ViewEnderecoContatoNovo;
 import agenda.view.usuario.ViewUsuarioListarBuscar;
 import agenda.view.usuario.ViewUsuarioNovo;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author gustavo
  */
-public class ViewMenu extends javax.swing.JFrame {
+public final class ViewMenu extends javax.swing.JFrame {
 
-    private final BeanUsuario usuario;
+    private BeanUsuario usuario;
     public ViewMenu(BeanUsuario usuario) {
         
-        initComponents();
-        setLocationRelativeTo(null);
         this.usuario = usuario;
-       
-        if(!this.usuario.isCriar_novo_usuario()){
-            btNovoContato.setEnabled(false);
-        }
-        if(!this.usuario.isEditar_usuario()){
-            btEditarAgendamento.setEnabled(false);
-        }
-        if(!this.usuario.isExcluir_usuario()){
-            btExcluirContato.setEnabled(false);
-        }
-        if(!this.usuario.isListar_usuario()){
-            btListarContato.setEnabled(false);
-        }
-        if(!this.usuario.isBuscar_usuario()){
-            btBuscarContato.setEnabled(false);
-        }
+        
+        initComponents();
+        
+        setLocationRelativeTo(null);
         
     }
 
@@ -89,6 +76,7 @@ public class ViewMenu extends javax.swing.JFrame {
         btEditarUsuario = new javax.swing.JButton();
         btExcluirUsuario = new javax.swing.JButton();
         btListarUsuario = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -100,6 +88,11 @@ public class ViewMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         menu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -583,27 +576,38 @@ public class ViewMenu extends javax.swing.JFrame {
                 .addGap(62, 62, 62))
         );
 
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSair, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSair)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_menuMouseClicked
 
     private void btListarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarEnderecoActionPerformed
@@ -679,7 +683,7 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarEnderecoContatoActionPerformed
 
     private void btExcluirEnderecoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirEnderecoContatoActionPerformed
-        
+        new ViewEnderecoContatoListarBuscar(false, true, usuario).setVisible(true);
     }//GEN-LAST:event_btExcluirEnderecoContatoActionPerformed
 
     private void btListarEnderecoContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarEnderecoContatoActionPerformed
@@ -687,26 +691,59 @@ public class ViewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btListarEnderecoContatoActionPerformed
 
     private void btNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoUsuarioActionPerformed
-        new ViewUsuarioNovo(usuario).setVisible(true);
+        if(!usuario.isCriar_novo_usuario()){
+            JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para criar um novo usuário!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            new ViewUsuarioNovo(usuario).setVisible(true);
+        }
     }//GEN-LAST:event_btNovoUsuarioActionPerformed
 
     private void btBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarUsuarioActionPerformed
-        new ViewUsuarioListarBuscar(true, usuario).setVisible(true);
+        if(!usuario.isBuscar_usuario()){
+            JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para buscar um usuário!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            new ViewUsuarioListarBuscar(usuario.isBuscar_usuario(), usuario).setVisible(true);
+        }
     }//GEN-LAST:event_btBuscarUsuarioActionPerformed
 
     private void btEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarUsuarioActionPerformed
-        new ViewUsuarioListarBuscar(true, false, usuario).setVisible(true);
+        if(!usuario.isEditar_usuario()){
+            JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para editar um usuário!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            new ViewUsuarioListarBuscar(true, false, usuario).setVisible(true);
+        }
     }//GEN-LAST:event_btEditarUsuarioActionPerformed
 
     private void btExcluirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirUsuarioActionPerformed
-        new ViewUsuarioListarBuscar(false, true, usuario).setVisible(true);
+        if(!usuario.isExcluir_usuario()){
+            JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para excluir um usuário!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            new ViewUsuarioListarBuscar(false, true, usuario).setVisible(true);
+        }
     }//GEN-LAST:event_btExcluirUsuarioActionPerformed
 
     private void btListarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarUsuarioActionPerformed
-        new ViewUsuarioListarBuscar(true, true, usuario).setVisible(true);
+        if(!usuario.isListar_usuario()){
+            JOptionPane.showMessageDialog(null, "Você NÃO tem permissão para listar usuários!", "AÇÃO NÃO PERMITIDA!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            new ViewUsuarioListarBuscar(usuario.isEditar_usuario(), usuario.isExcluir_usuario(), usuario).setVisible(true);
+        }
     }//GEN-LAST:event_btListarUsuarioActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        usuario = new BeanUsuario();
+        new ViewLogin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscarAgendamento;
@@ -734,6 +771,7 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JButton btNovoEndereco;
     private javax.swing.JButton btNovoEnderecoContato;
     private javax.swing.JButton btNovoUsuario;
+    private javax.swing.JButton btSair;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

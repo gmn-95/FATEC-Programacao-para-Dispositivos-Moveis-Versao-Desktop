@@ -25,7 +25,14 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
     private BeanUsuario usuario;
     
     public ViewEnderecoContatoListarBuscar() {
+        
         initComponents();
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMaxWidth(0);
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
     }
     
     public ViewEnderecoContatoListarBuscar(boolean buscar, BeanUsuario usuario) {
@@ -37,6 +44,9 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
         initComponents();
         
         tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMaxWidth(0);
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMinWidth(0);
         tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
         
         verificaOpção();
@@ -52,6 +62,13 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
         this.usuario = usuario;
         
         initComponents();
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMaxWidth(0);
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
+        
         verificaOpção();
         setLocationRelativeTo(null);
         formatarInputDePequisa();
@@ -63,6 +80,13 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
         this.buscar = buscar;
         
         initComponents();
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(10).setMaxWidth(0);
+        
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMinWidth(0);
+        tableListaEnderecoContato.getColumnModel().getColumn(11).setMaxWidth(0);
+        
         verificaOpção();
         setLocationRelativeTo(null);
         formatarInputDePequisa();
@@ -180,7 +204,7 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

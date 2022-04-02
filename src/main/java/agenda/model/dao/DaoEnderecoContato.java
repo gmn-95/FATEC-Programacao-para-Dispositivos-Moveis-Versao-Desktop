@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.model.dao;
 
 import agenda.model.bean.BeanContato;
@@ -233,12 +228,90 @@ public class DaoEnderecoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
             }
         }
-        conexaoDb.desconectar();
         return null;
     }
+
+    public BeanEnderecoContato alterarEnderecoContato(BeanEnderecoContato enderecoContato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "UPDATE tb_endereco_do_contato SET fk_id_endereco = ?, fk_id_contato = ?, obs = ? "
+                    + "WHERE id = ? AND fk_id_usuario = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, enderecoContato.getEndereco().getId());
+                preparedStatement.setLong(2, enderecoContato.getContato().getId());
+                preparedStatement.setString(3, enderecoContato.getObs());
+                preparedStatement.setLong(4, enderecoContato.getId());
+                preparedStatement.setLong(5, enderecoContato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return enderecoContato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
+    
+    public BeanEnderecoContato excluirEnderecoContato(BeanEnderecoContato enderecoContato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "delete from tb_endereco_do_contato where id = ? AND fk_id_usuario = ? ";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, enderecoContato.getId());
+                preparedStatement.setLong(2, enderecoContato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return enderecoContato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
+    
+    
 }

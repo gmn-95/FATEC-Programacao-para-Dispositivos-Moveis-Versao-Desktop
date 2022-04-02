@@ -53,6 +53,36 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
         formatarInputDePequisa();
     }
 
+    public ViewUsuarioListarBuscar(boolean editar, boolean excluir, boolean buscar, BeanUsuario usuario) {
+        setResizable(false);
+        
+        this.editar = editar;
+        this.excluir = excluir;
+        this.usuario = usuario;
+        this.buscar = buscar;
+        
+        initComponents();
+        
+        tableListaUsuarios.getColumnModel().getColumn(4).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(4).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(5).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(5).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(6).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(7).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(7).setMaxWidth(0);
+        
+        tableListaUsuarios.getColumnModel().getColumn(8).setMinWidth(0);
+        tableListaUsuarios.getColumnModel().getColumn(8).setMaxWidth(0);
+        
+        verificaOpção();
+        setLocationRelativeTo(null);
+        formatarInputDePequisa();
+    }
+    
     public ViewUsuarioListarBuscar(boolean editar, boolean excluir, BeanUsuario usuario) {
         setResizable(false);
         
@@ -355,8 +385,6 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
                 inputPesquisa.setText("");
             }
         }
-        
-        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed
