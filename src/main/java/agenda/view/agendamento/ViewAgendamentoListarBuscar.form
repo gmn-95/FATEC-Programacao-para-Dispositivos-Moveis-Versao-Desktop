@@ -167,7 +167,7 @@
             <StringItem index="3" value="Descricao"/>
             <StringItem index="4" value="Conteudo"/>
             <StringItem index="5" value="Contato"/>
-            <StringItem index="6" value="Id_contato"/>
+            <StringItem index="6" value="Id contato"/>
           </StringArray>
         </Property>
       </Properties>

@@ -126,7 +126,7 @@ public class ViewEnderecoContatoListarBuscar extends javax.swing.JFrame {
 
         if(beanEnderecoContatos != null || !beanEnderecoContatos.isEmpty()){
             for(BeanEnderecoContato enderecoContato : beanEnderecoContatos){
-                if(enderecoContato.getId() != null || enderecoContato.getContato().getId() != null){
+                if(enderecoContato.getId() != null && enderecoContato.getContato().getId() != null){
                     model.addRow(new Object[]{
                         enderecoContato.getId(),
                         enderecoContato.getContato().getNome(),

@@ -83,7 +83,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
 
         if(agendamentos != null){
             for(BeanAgendamento agendamento : agendamentos){
-                if(agendamento.getId() != null || agendamento.getContato().getId() != null){
+                if(agendamento.getId() != null && agendamento.getContato().getId() != null){
                     model.addRow(new Object[]{
                     agendamento.getId(),
                     agendamento.getDescricao(),
@@ -169,7 +169,7 @@ public class ViewAgendamentoListarBuscar extends javax.swing.JFrame {
             tableListaAgendamendo.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hora", "Data", "Descricao", "Conteudo", "Contato", "Id_contato" }));
+        cbxTipoListagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hora", "Data", "Descricao", "Conteudo", "Contato", "Id contato" }));
         cbxTipoListagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoListagemActionPerformed(evt);

@@ -89,16 +89,18 @@ public class ViewEnderecoListarBuscar extends javax.swing.JFrame {
 
         if(enderecos != null || !enderecos.isEmpty()){
             for(BeanEndereco endereco : enderecos){
-                model.addRow(new Object[]{
-                    endereco.getId(),
-                    endereco.getBairro(),
-                    endereco.getCidade(),
-                    endereco.getEstado(),
-                    endereco.getCep(),
-                    endereco.getLogradouro(),
-                    endereco.getNumero(),
-                    endereco.getComplemento()
-                });
+                if(endereco.getId() != null && endereco.getBairro() != null){
+                    model.addRow(new Object[]{
+                        endereco.getId(),
+                        endereco.getBairro(),
+                        endereco.getCidade(),
+                        endereco.getEstado(),
+                        endereco.getCep(),
+                        endereco.getLogradouro(),
+                        endereco.getNumero(),
+                        endereco.getComplemento()
+                    });
+                }
             }
         }
     }

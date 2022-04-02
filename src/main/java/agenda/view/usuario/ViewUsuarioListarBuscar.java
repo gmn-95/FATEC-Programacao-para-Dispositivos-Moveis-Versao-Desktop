@@ -136,7 +136,7 @@ public class ViewUsuarioListarBuscar extends javax.swing.JFrame {
 
         if(usuarios != null){
             for(BeanUsuario beanUsuario : usuarios){
-                if(beanUsuario.getId_usuario()!= null || beanUsuario.getId() != null){
+                if(beanUsuario.getId_usuario()!= null && beanUsuario.getId() != null){
                     model.addRow(new Object[]{
                         beanUsuario.getId_usuario(),
                         beanUsuario.getId(),

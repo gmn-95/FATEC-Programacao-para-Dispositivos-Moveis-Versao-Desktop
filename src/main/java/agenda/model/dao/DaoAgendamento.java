@@ -159,12 +159,12 @@ public class DaoAgendamento {
                         preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
                         preparedStatement.setString(2, "%" + agendamento.getContato().getNome() + "%");
                         break;
-                    case "id_contato":
+                    case "Id contato":
                         sql = "select age.id, age.fk_id_contato, age.data_agendada, " +
                                 "age.hora_agendada, age.descricao, age.conteudo, cont.nome FROM tb_agendamento AS age " +
                                 "inner join tb_usuario AS usu on age.fk_id_usuario = usu.id " +
                                 "inner join tb_contato AS cont on age.fk_id_contato = cont.id " +
-                                "where usu.id = ? and cont.nome LIKE UPPER(?) ORDER BY age.data_agendada";
+                                "where usu.id = ? and cont.id = ? ORDER BY age.data_agendada";
                         
                         preparedStatement = connection.prepareStatement(sql);
                         preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());

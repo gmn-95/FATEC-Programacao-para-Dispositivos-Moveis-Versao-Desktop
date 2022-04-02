@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package myproject.agenda;
+package agenda.application;
 
 import agenda.view.ViewLogin;
 import com.formdev.flatlaf.FlatLightLaf;

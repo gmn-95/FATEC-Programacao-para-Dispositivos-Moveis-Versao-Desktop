@@ -89,14 +89,16 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
 
         if(contatos != null || !contatos.isEmpty()){
             for(BeanContato contato : contatos){
-                model.addRow(new Object[]{
-                    contato.getId(),
-                    contato.getNome(),
-                    contato.getTelefone_fixo(),
-                    contato.getCelular(),
-                    contato.getEmail(),
-                    contato.getObs()
-                });
+                if(contato.getId() != null && contato.getNome() != null){
+                    model.addRow(new Object[]{
+                        contato.getId(),
+                        contato.getNome(),
+                        contato.getTelefone_fixo(),
+                        contato.getCelular(),
+                        contato.getEmail(),
+                        contato.getObs()
+                    });
+                }
             }
         }
     }
