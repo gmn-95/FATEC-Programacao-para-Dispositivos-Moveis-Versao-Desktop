@@ -141,7 +141,4 @@ public class BeanEndereco {
     public String toString() {
         return "BeanEndereco{" + "id=" + id + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", usuario=" + usuario + '}';
     }
-    
-    
-    
 }

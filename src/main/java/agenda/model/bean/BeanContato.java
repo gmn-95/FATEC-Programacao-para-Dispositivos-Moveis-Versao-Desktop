@@ -30,8 +30,6 @@ public class BeanContato {
         this.id = id;
         this.nome = nome;
     }
-    
-    
 
     public BeanContato(BeanUsuario usuario, String nome, String telefone_fixo, String celular, String email, String obs) {
         this.usuario = usuario;
@@ -139,10 +137,4 @@ public class BeanContato {
         return "BeanContato{" + "id=" + id + ", usuario=" + usuario + ", nome=" + nome + ", telefone_fixo=" + telefone_fixo + ", celular=" + celular + ", email=" + email + ", obs=" + obs + '}';
     }
 
-   
-
-    
-    
-    
-    
 }

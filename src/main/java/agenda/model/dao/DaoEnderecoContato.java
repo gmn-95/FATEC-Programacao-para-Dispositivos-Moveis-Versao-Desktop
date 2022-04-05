@@ -147,7 +147,6 @@ public class DaoEnderecoContato {
                 
                 while(resultSet.next()){
                     BeanContato beanContato = new BeanContato(resultSet.getLong("fk_id_contato"), resultSet.getString("nome"));
-    //(Long.MIN_VALUE, bairro, cidade, estado, cep, logradouro, numero, complemento)
                     BeanEndereco beanEndereco = new BeanEndereco(resultSet.getLong("fk_id_endereco"), 
                             resultSet.getString("bairro"), resultSet.getString("cidade"), 
                             resultSet.getString("estado"), resultSet.getString("cep"), 

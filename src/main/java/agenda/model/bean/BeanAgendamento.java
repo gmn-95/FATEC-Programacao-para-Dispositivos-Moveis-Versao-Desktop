@@ -24,8 +24,6 @@ public class BeanAgendamento {
         this.usuario = usuario;
     }
     
-    
-
     public BeanAgendamento(BeanUsuario usuario) {
         this.usuario = usuario;
     }
@@ -85,8 +83,6 @@ public class BeanAgendamento {
         this.usuario = usuario;
     }
 
-    
-
     public Date getData_agendada() {
         return data_agendada;
     }
@@ -123,10 +119,4 @@ public class BeanAgendamento {
     public String toString() {
         return "BeanAgendamento{" + "id=" + id + ", contato=" + contato + ", usuario=" + usuario + ", \ndata_agendada=" + data_agendada + ", hora_agendada=" + hora_agendada + ", descricao=" + descricao + ", \nconteudo=" + conteudo + '}';
     }
-
-    
-   
-    
-    
-    
 }

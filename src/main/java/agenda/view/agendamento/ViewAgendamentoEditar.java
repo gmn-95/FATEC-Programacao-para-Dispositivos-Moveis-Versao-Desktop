@@ -279,7 +279,6 @@ public class ViewAgendamentoEditar extends javax.swing.JDialog {
     }//GEN-LAST:event_cbxContatoActionPerformed
 
     private void inputHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHorarioActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_inputHorarioActionPerformed
 
     private void btAtualizarAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarAgendamentoActionPerformed

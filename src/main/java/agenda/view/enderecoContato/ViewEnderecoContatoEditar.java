@@ -272,8 +272,6 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
                     break;
                 }
             }
-            
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -300,8 +298,6 @@ public class ViewEnderecoContatoEditar extends javax.swing.JDialog {
                     break;
                 }
             }
-            
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

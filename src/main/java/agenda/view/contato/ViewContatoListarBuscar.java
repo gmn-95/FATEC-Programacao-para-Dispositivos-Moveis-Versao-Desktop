@@ -333,8 +333,6 @@ public class ViewContatoListarBuscar extends javax.swing.JFrame {
                 inputPesquisa.setText("");
             }
         }
-        
-        
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void cbxTipoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoListagemActionPerformed

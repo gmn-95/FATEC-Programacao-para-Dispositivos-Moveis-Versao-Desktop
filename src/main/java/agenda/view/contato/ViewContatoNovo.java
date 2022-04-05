@@ -1,4 +1,3 @@
-
 package agenda.view.contato;
 
 import agenda.controller.ControllerContato;
@@ -217,7 +216,6 @@ public class ViewContatoNovo extends javax.swing.JFrame {
         inputEmail.setText("");
         textAreaObs.setText("");
         
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

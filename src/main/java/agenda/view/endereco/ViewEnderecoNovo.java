@@ -226,8 +226,6 @@ public class ViewEnderecoNovo extends javax.swing.JFrame {
                 || inputLogradouro.getText().isEmpty() || inputLogradouro.getText().equals(""));
     }
     
-    
-    
     private void limparCamposTela(){
        
         inputBairro.setText("");

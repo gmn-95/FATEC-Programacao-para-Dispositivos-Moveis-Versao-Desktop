@@ -151,11 +151,9 @@ public class ViewLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btEntrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosing
 
     private void inputSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputSenhaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_inputSenhaActionPerformed
 
 

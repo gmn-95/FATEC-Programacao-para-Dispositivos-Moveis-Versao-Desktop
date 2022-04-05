@@ -320,7 +320,6 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
         }
     }
     
-    
     private final Vector<Long> id_contato = new Vector<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCriarAgendamento;
