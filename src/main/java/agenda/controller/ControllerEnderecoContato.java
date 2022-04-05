@@ -40,4 +40,13 @@ public class ControllerEnderecoContato {
         return daoEnderecoContato.excluirEnderecoContato(enderecoContato);
     }
     
+    public BeanEnderecoContato excluirEnderecoContatoPorContato(BeanEnderecoContato enderecoContato){
+        return daoEnderecoContato.excluirEnderecoContatoPorContato(enderecoContato);
+    }
+    
+    public BeanEnderecoContato excluirEnderecoContatoPorEndereco(BeanEnderecoContato enderecoContato){
+        return daoEnderecoContato.excluirEnderecoContatoPorEndereco(enderecoContato);
+    }
+            
+    
 }

@@ -8,9 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -198,7 +201,7 @@ public class DaoAgendamento {
                 
                 return agendamentos;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -206,6 +209,8 @@ public class DaoAgendamento {
                     ex.printStackTrace();
                 }
                 return null;
+            } catch (ParseException ex) {
+                ex.printStackTrace();
             }
             finally{
                 conexaoDb.desconectar();
@@ -358,13 +363,15 @@ public class DaoAgendamento {
                 conexaoDb.desconectar();
                 
                 return agendamento;
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+            } catch (ParseException ex) {
+                ex.printStackTrace();
             }
             finally{
                 conexaoDb.desconectar();

@@ -1,7 +1,9 @@
 package agenda.view.contato;
 
 import agenda.controller.ControllerContato;
+import agenda.controller.ControllerEnderecoContato;
 import agenda.model.bean.BeanContato;
+import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
 import agenda.util.Confirmacao;
 import java.text.ParseException;
@@ -219,24 +221,29 @@ public class ViewContatoExcluir extends javax.swing.JDialog {
     }
     
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+            
+        BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario);
         
-            BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario);
+        BeanEnderecoContato enderecoContato = new BeanEnderecoContato(contatoEntrada, usuario);
+        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
+        controllerEnderecoContato.excluirEnderecoContatoPorContato(enderecoContato);
 
-            ControllerContato controllerContato = new ControllerContato();
 
-            BeanContato contatoSaida = controllerContato.excluirContato(contatoEntrada);
-            
-            if(Confirmacao.compare(contatoSaida)){
-                JOptionPane.showMessageDialog(null, "Erro ao excluir Contato", "Erro!", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-            }
-            
-            dispose();
-            v.dispose();
-            this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
-            this.viewContatoListarBuscar.setVisible(true);
+        ControllerContato controllerContato = new ControllerContato();
+
+        BeanContato contatoSaida = controllerContato.excluirContato(contatoEntrada);
+
+        if(Confirmacao.compare(contatoSaida)){
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Contato", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        dispose();
+        v.dispose();
+        this.viewContatoListarBuscar = new ViewContatoListarBuscar(editar, excluir, usuario);
+        this.viewContatoListarBuscar.setVisible(true);
             
     }//GEN-LAST:event_btExcluirActionPerformed
     

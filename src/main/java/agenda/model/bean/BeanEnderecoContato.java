@@ -19,6 +19,17 @@ public class BeanEnderecoContato {
     public BeanEnderecoContato(BeanUsuario usuario) {
         this.usuario = usuario;
     }
+
+    public BeanEnderecoContato(BeanEndereco endereco, BeanUsuario usuario) {
+        this.endereco = endereco;
+        this.usuario = usuario;
+    }
+
+    public BeanEnderecoContato(BeanContato contato, BeanUsuario usuario) {
+        this.contato = contato;
+        this.usuario = usuario;
+    }
+    
     
     public BeanEnderecoContato(Long id, BeanEndereco endereco, BeanContato contato, String obs) {
         this.id = id;

@@ -1,7 +1,9 @@
 package agenda.view.endereco;
 
 import agenda.controller.ControllerEndereco;
+import agenda.controller.ControllerEnderecoContato;
 import agenda.model.bean.BeanEndereco;
+import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
 import agenda.util.Confirmacao;
 import java.text.ParseException;
@@ -216,6 +218,11 @@ public class ViewEnderecoExcluir extends javax.swing.JDialog {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         
         BeanEndereco enderecoEntrada = new BeanEndereco(Long.parseLong(inputId.getText()), usuario);
+        
+        BeanEnderecoContato enderecoContato = new BeanEnderecoContato(enderecoEntrada, usuario);
+        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
+        controllerEnderecoContato.excluirEnderecoContatoPorEndereco(enderecoContato);
+        
 
         ControllerEndereco controllerEndereco = new ControllerEndereco();
 

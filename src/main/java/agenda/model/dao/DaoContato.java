@@ -54,7 +54,7 @@ public class DaoContato {
                 
                 return contato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -163,7 +163,7 @@ public class DaoContato {
                 
                 return list;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -218,7 +218,7 @@ public class DaoContato {
                 
                 return null;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -260,7 +260,7 @@ public class DaoContato {
                 
                 return contato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -293,7 +293,7 @@ public class DaoContato {
 
                 return  contato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -328,7 +328,7 @@ public class DaoContato {
 
                 return  contato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();

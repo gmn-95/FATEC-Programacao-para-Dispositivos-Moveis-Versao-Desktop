@@ -55,7 +55,7 @@ public class DaoEnderecoContato {
                 
                 return enderecoContato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -165,7 +165,7 @@ public class DaoEnderecoContato {
                 
                 return enderecosContatos;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -220,7 +220,7 @@ public class DaoEnderecoContato {
                 
                 return enderecoContato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -260,7 +260,7 @@ public class DaoEnderecoContato {
                 
                 return enderecoContato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -295,7 +295,79 @@ public class DaoEnderecoContato {
                 
                 return enderecoContato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
+    
+    public BeanEnderecoContato excluirEnderecoContatoPorContato(BeanEnderecoContato enderecoContato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_endereco_do_contato WHERE fk_id_contato = ? AND fk_id_usuario = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, enderecoContato.getContato().getId());
+                preparedStatement.setLong(2, enderecoContato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return enderecoContato;
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
+    
+    public BeanEnderecoContato excluirEnderecoContatoPorEndereco(BeanEnderecoContato enderecoContato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_endereco_do_contato WHERE fk_id_endereco = ? AND fk_id_usuario = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, enderecoContato.getEndereco().getId());
+                preparedStatement.setLong(2, enderecoContato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return enderecoContato;
+                
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -331,7 +403,7 @@ public class DaoEnderecoContato {
                 
                 return enderecoContato;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();

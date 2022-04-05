@@ -84,7 +84,7 @@ public class DaoUsuario {
                 
                 return listaUsuarios;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -134,7 +134,7 @@ public class DaoUsuario {
                 
                 return usuario;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -224,7 +224,7 @@ public class DaoUsuario {
                 
                 return usuario;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -274,7 +274,7 @@ public class DaoUsuario {
                 
                 return usuario;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -310,7 +310,7 @@ public class DaoUsuario {
                 
                 return usuario;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();

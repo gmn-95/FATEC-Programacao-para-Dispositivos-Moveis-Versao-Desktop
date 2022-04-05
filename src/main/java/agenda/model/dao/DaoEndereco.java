@@ -58,7 +58,7 @@ public class DaoEndereco {
                 
                 return endereco;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -103,7 +103,7 @@ public class DaoEndereco {
                 
                 return endereco;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -138,7 +138,7 @@ public class DaoEndereco {
                 
                 return endereco;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -175,7 +175,7 @@ public class DaoEndereco {
                 
                 return endereco;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -303,7 +303,7 @@ public class DaoEndereco {
                 
                 return list;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
@@ -356,7 +356,7 @@ public class DaoEndereco {
                 
                 return null;
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 try {
                     connection.rollback();
