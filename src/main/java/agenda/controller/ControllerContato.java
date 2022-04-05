@@ -36,6 +36,10 @@ public class ControllerContato {
     public BeanContato alterarContato(BeanContato contato){
         return daoContato.alterarContato(contato);
     }
+    
+    public BeanContato excluirTodosContatos(BeanContato contato) {
+        return daoContato.excluirTodosContatos(contato);
+    }
 
     public BeanContato excluirContato(BeanContato contato) {
         return daoContato.excluirContato(contato);

@@ -32,6 +32,10 @@ public class ControllerEndereco {
     public BeanEndereco excluirEndereco(BeanEndereco endereco){
         return daoEndereco.excluirEndereco(endereco);
     }
+    
+    public BeanEndereco excluirTodosEnderecos(BeanEndereco endereco){
+        return daoEndereco.excluirTodosEnderecos(endereco);
+    }
             
     public List<BeanEndereco> listarEnderecos(BeanEndereco endereco, String tipoPesquisa){
         return daoEndereco.listarEnderecos(endereco, tipoPesquisa);

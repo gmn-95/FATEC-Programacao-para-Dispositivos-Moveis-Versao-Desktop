@@ -36,6 +36,7 @@ public class ViewAgendamentoExcluir extends javax.swing.JDialog{
         this.usuario = usuario;
         this.editar = editar;
         this.excluir = excluir;
+        this.tabela = tabela;
         
         initComponents();
         
@@ -264,7 +265,7 @@ public class ViewAgendamentoExcluir extends javax.swing.JDialog{
 
     private void btExcluirAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirAgendamentoActionPerformed
      
-        BeanAgendamento agendamentoEntrada = new BeanAgendamento(Long.valueOf(inputId.getText()));
+        BeanAgendamento agendamentoEntrada = new BeanAgendamento(Long.valueOf(inputId.getText()), usuario);
         ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
         BeanAgendamento agendamentoSaida = controllerAgendamento.excluirAgendamento(agendamentoEntrada);
         

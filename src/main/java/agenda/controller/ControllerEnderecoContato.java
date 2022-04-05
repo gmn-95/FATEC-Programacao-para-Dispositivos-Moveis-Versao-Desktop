@@ -32,6 +32,11 @@ public class ControllerEnderecoContato {
         return daoEnderecoContato.alterarEnderecoContato(enderecoContato);
     }
     
+    //excluirTodosEnderecoContato
+    public BeanEnderecoContato excluirTodosEnderecoContato(BeanEnderecoContato enderecoContato){
+        return daoEnderecoContato.excluirTodosEnderecoContato(enderecoContato);
+    }
+    
     public BeanEnderecoContato excluirEnderecoContato(BeanEnderecoContato enderecoContato){
         return daoEnderecoContato.excluirEnderecoContato(enderecoContato);
     }

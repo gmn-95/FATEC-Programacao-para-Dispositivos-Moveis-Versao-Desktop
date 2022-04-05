@@ -30,12 +30,15 @@ public class DaoAgendamento {
         
         if(conexaoDb.conectar()){
             
-            String sql = "INSERT INTO tb_agendamento VALUES (null, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tb_agendamento (fk_id_contato, fk_id_usuario, "
+                    + "data_agendada, hora_agendada, descricao, conteudo) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
             
             try {
                 connection = conexaoDb.getConnection();
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                
                 preparedStatement.setLong(1, agendamento.getContato().getId());
                 preparedStatement.setLong(2, agendamento.getUsuario().getId_usuario());
                 preparedStatement.setDate(3, new java.sql.Date(agendamento.getData_agendada().getTime()));
@@ -70,7 +73,6 @@ public class DaoAgendamento {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
         
     }
@@ -254,16 +256,49 @@ public class DaoAgendamento {
         return null;
     }
     
+    public BeanAgendamento excluirTodosAgendamentos(BeanAgendamento agendamento){
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_agendamento WHERE fk_id_usuario = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, agendamento.getUsuario().getId_usuario());
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return agendamento;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
+        return null;
+    }
+    
     public BeanAgendamento excluirAgendamento(BeanAgendamento agendamento){
          if(conexaoDb.conectar()){
             
-            String sql = "delete from tb_agendamento where id = ?";
+            String sql = "delete from tb_agendamento where id = ? AND fk_id_usuario = ?";
             
             try {
                 connection = conexaoDb.getConnection();
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setLong(1, agendamento.getId());
+                preparedStatement.setLong(2, agendamento.getUsuario().getId_usuario());
                 preparedStatement.executeUpdate();
                 
                 connection.commit();

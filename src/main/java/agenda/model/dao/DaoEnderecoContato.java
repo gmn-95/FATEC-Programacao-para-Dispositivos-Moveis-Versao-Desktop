@@ -277,18 +277,17 @@ public class DaoEnderecoContato {
         return null;
     }
     
-    public BeanEnderecoContato excluirEnderecoContato(BeanEnderecoContato enderecoContato) {
+    public BeanEnderecoContato excluirTodosEnderecoContato(BeanEnderecoContato enderecoContato) {
         if(conexaoDb.conectar()){
             
-            String sql = "delete from tb_endereco_do_contato where id = ? AND fk_id_usuario = ? ";
+            String sql = "DELETE FROM tb_endereco_do_contato WHERE fk_id_usuario = ? ";
             
             try {
                 
                 connection = conexaoDb.getConnection();
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setLong(1, enderecoContato.getId());
-                preparedStatement.setLong(2, enderecoContato.getUsuario().getId_usuario());
+                preparedStatement.setLong(1, enderecoContato.getUsuario().getId_usuario());
                 
                 preparedStatement.executeUpdate();
                 
@@ -313,5 +312,39 @@ public class DaoEnderecoContato {
         return null;
     }
     
-    
+    public BeanEnderecoContato excluirEnderecoContato(BeanEnderecoContato enderecoContato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_endereco_do_contato WHER id = ? AND fk_id_usuario = ? ";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, enderecoContato.getId());
+                preparedStatement.setLong(1, enderecoContato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return enderecoContato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
 }

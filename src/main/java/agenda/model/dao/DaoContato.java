@@ -274,6 +274,40 @@ public class DaoContato {
         }
         return null;
     }
+    
+    public BeanContato excluirTodosContatos(BeanContato contato) {
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_contato WHERE fk_id_usuario = ?";
+            
+            try {
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, contato.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+
+                return  contato;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+        }
+        return null;
+    }
 
     public BeanContato excluirContato(BeanContato contato) {
         if(conexaoDb.conectar()){
@@ -309,5 +343,4 @@ public class DaoContato {
         }
         return null;
     }
-    
 }

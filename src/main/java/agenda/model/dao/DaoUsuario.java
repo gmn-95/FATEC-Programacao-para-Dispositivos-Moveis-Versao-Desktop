@@ -93,6 +93,9 @@ public class DaoUsuario {
                 }
                 return null;
             }
+            finally{
+                conexaoDb.desconectar();
+            }
         }
         return null;
     }
@@ -143,8 +146,6 @@ public class DaoUsuario {
                 conexaoDb.desconectar();
             }
         }
-        
-        conexaoDb.desconectar();
         return null;
     }
     
@@ -152,7 +153,7 @@ public class DaoUsuario {
         
         if(conexaoDb.conectar()){
             String sql = "select * from tb_usuario where login = ? and senha = ?";
-            
+             
             try {
                 connection = conexaoDb.getConnection();
                 
@@ -192,7 +193,6 @@ public class DaoUsuario {
                 conexaoDb.desconectar();
             }
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -238,7 +238,6 @@ public class DaoUsuario {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -289,7 +288,6 @@ public class DaoUsuario {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -325,7 +323,6 @@ public class DaoUsuario {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
     

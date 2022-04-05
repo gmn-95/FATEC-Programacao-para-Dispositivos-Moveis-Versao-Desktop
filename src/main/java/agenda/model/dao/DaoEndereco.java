@@ -116,7 +116,42 @@ public class DaoEndereco {
             }
             
         }
-        conexaoDb.desconectar();
+        return null;
+    }
+    
+    public BeanEndereco excluirTodosEnderecos(BeanEndereco endereco){
+        if(conexaoDb.conectar()){
+            
+            String sql = "DELETE FROM tb_endereco WHERE fk_id_usuario = ?";
+            
+            try {
+                
+                connection = conexaoDb.getConnection();
+                
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setLong(1, endereco.getUsuario().getId_usuario());
+                
+                preparedStatement.executeUpdate();
+                
+                connection.commit();
+                conexaoDb.desconectar();
+                
+                return endereco;
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+            finally{
+                conexaoDb.desconectar();
+            }
+            
+        }
         return null;
     }
 
@@ -282,7 +317,6 @@ public class DaoEndereco {
             }
         }
         return null;
-        
     }
     
     public BeanEndereco buscarEndereco(BeanEndereco endereco){
@@ -337,5 +371,4 @@ public class DaoEndereco {
         }
         return null;
     }
-    
 }

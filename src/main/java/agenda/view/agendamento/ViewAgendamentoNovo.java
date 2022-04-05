@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agenda.view.agendamento;
 
 import agenda.controller.ControllerAgendamento;
@@ -10,6 +5,7 @@ import agenda.controller.ControllerContato;
 import agenda.model.bean.BeanAgendamento;
 import agenda.model.bean.BeanContato;
 import agenda.model.bean.BeanUsuario;
+import agenda.util.Confirmacao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -221,12 +217,9 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDataActionPerformed
-       
-        
     }//GEN-LAST:event_inputDataActionPerformed
 
     private void cbxContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxContatoActionPerformed
-        
     }//GEN-LAST:event_cbxContatoActionPerformed
 
     private void limparCamposTelaCriar(){
@@ -246,14 +239,12 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
         SimpleDateFormat dataFormat = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat horaFormat = new SimpleDateFormat("HH:mm");
         
-        
-            
         try {
             Date data = dataFormat.parse(inputData.getText());
             Date hora = horaFormat.parse(inputHorario.getText());
             
             BeanContato contato = new BeanContato(id_contato.get(cbxContato.getSelectedIndex() - 1), usuario);
-
+            System.out.println(contato.getId());
             String descricao = inputDescricao.getText();
             String conteudo = inputConteudo.getText();
 
@@ -264,21 +255,18 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
             ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
             BeanAgendamento agendamentoSaida = controllerAgendamento.criarAgendamento(agendamentoEntrada);
 
-            if(agendamentoSaida != null){
-                JOptionPane.showMessageDialog(null, agendamentoSaida);
+            if(Confirmacao.compare(agendamentoSaida)){
+            JOptionPane.showMessageDialog(null, "Erro ao criar Agendamento", "Erro!", JOptionPane.ERROR_MESSAGE);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Os dados não puderam ser inseridos");
+                JOptionPane.showMessageDialog(null, "Agendamento criado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (ParseException ex) {
             Logger.getLogger(ViewAgendamentoNovo.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-        
         limparCamposTelaCriar();
-        
-        
         
     }//GEN-LAST:event_btCriarAgendamentoActionPerformed
 
@@ -287,7 +275,6 @@ public class ViewAgendamentoNovo extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparFormAgendamentoActionPerformed
 
     private void inputHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHorarioActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_inputHorarioActionPerformed
 
     private void contatoComboBox(){

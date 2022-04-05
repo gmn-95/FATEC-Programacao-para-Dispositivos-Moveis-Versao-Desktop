@@ -61,7 +61,6 @@ public class DaoPessoa {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -98,7 +97,6 @@ public class DaoPessoa {
             }
             
         }
-        conexaoDb.desconectar();
         return null;
     }
 
@@ -133,7 +131,6 @@ public class DaoPessoa {
             finally{
                 conexaoDb.desconectar();
             }
-            
         }
         return null;
     }
