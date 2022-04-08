@@ -170,7 +170,7 @@ public class DaoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -267,6 +267,7 @@ public class DaoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();

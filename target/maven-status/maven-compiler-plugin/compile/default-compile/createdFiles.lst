@@ -33,6 +33,7 @@ agenda/view/agendamento/ViewAgendamentoListarBuscar$3.class
 agenda/model/bean/BeanAgendamento.class
 agenda/view/agendamento/ViewAgendamentoExcluir$3.class
 agenda/view/agendamento/ViewAgendamentoEditar$1.class
+agenda/application/Main$1.class
 agenda/view/contato/ViewContatoListarBuscar$2.class
 agenda/view/agendamento/ViewAgendamentoExcluir$6.class
 agenda/view/ViewLogin$3.class
@@ -74,17 +75,16 @@ agenda/view/contato/ViewContatoEditar.class
 agenda/view/ViewMenu$20.class
 agenda/view/usuario/ViewUsuarioEditar.class
 agenda/view/endereco/ViewEnderecoExcluir$2.class
+agenda/view/ViewMenu$27.class
 agenda/model/dao/DaoPessoa.class
 agenda/view/endereco/ViewEnderecoListarBuscar$6.class
 agenda/view/ViewMenu$3.class
 agenda/view/ViewLogin$2.class
 agenda/view/agendamento/ViewAgendamentoNovo$3.class
 agenda/view/enderecoContato/ViewEnderecoContatoEditar$3.class
-myproject/agenda/Main$1.class
 agenda/view/enderecoContato/ViewEnderecoContatoEditar$1.class
 agenda/view/usuario/ViewUsuarioListarBuscar.class
 agenda/view/usuario/ViewUsuarioListarBuscar$6.class
-agenda/view/agendamento/ViewAgendamentoExcluir$7.class
 agenda/view/usuario/ViewUsuarioExcluir$2.class
 agenda/view/agendamento/ViewAgendamentoEditar$5.class
 agenda/model/dao/DaoEndereco.class
@@ -100,6 +100,7 @@ agenda/view/enderecoContato/ViewEnderecoContatoListarBuscar$5.class
 agenda/view/enderecoContato/ViewEnderecoContatoNovo$1.class
 agenda/controller/ControllerEnderecoContato.class
 agenda/view/ViewMenu$25.class
+agenda/view/ViewMenu$28.class
 agenda/view/agendamento/ViewAgendamentoEditar.class
 agenda/view/endereco/ViewEnderecoNovo.class
 agenda/view/endereco/ViewEnderecoListarBuscar$7.class
@@ -123,7 +124,6 @@ agenda/view/usuario/ViewUsuarioExcluir.class
 agenda/view/endereco/ViewEnderecoListarBuscar$3.class
 agenda/view/endereco/ViewEnderecoEditar$3.class
 agenda/view/enderecoContato/ViewEnderecoContatoNovo$2.class
-myproject/agenda/Main.class
 agenda/view/contato/ViewContatoListarBuscar$1.class
 agenda/view/agendamento/ViewAgendamentoExcluir$2.class
 agenda/view/ViewMenu$11.class
@@ -143,6 +143,7 @@ agenda/view/endereco/ViewEnderecoEditar$2.class
 agenda/view/ViewMenu$18.class
 agenda/view/agendamento/ViewAgendamentoNovo.class
 agenda/view/contato/ViewContatoListarBuscar$7.class
+agenda/application/Main.class
 agenda/model/bean/BeanEnderecoContato.class
 agenda/view/agendamento/ViewAgendamentoExcluir$1.class
 agenda/view/enderecoContato/ViewEnderecoContatoListarBuscar$4.class
@@ -150,5 +151,6 @@ agenda/util/ConexaoDb.class
 agenda/model/dao/DaoContato.class
 agenda/view/usuario/ViewUsuarioExcluir$1.class
 agenda/model/bean/BeanContato.class
+agenda/util/Confirmacao.class
 agenda/view/agendamento/ViewAgendamentoEditar$6.class
 agenda/view/ViewMenu$12.class

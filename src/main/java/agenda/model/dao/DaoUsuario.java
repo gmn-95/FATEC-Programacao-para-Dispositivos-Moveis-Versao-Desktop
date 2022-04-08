@@ -141,6 +141,7 @@ public class DaoUsuario {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -175,11 +176,12 @@ public class DaoUsuario {
                 resultSet.close();
                 if(usuario.getId_usuario() != null){
                     connection.commit();
+                    conexaoDb.desconectar();
                     return usuario;
                 }
                 else{
+                    conexaoDb.desconectar();
                     return null;
-                    
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -188,6 +190,7 @@ public class DaoUsuario {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -317,6 +320,7 @@ public class DaoUsuario {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();

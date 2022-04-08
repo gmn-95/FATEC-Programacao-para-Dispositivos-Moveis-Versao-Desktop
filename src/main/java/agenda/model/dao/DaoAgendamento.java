@@ -12,8 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -70,6 +68,7 @@ public class DaoAgendamento {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -211,6 +210,7 @@ public class DaoAgendamento {
                 return null;
             } catch (ParseException ex) {
                 ex.printStackTrace();
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -284,6 +284,7 @@ public class DaoAgendamento {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -317,11 +318,11 @@ public class DaoAgendamento {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
             }
-            
         }
         return null;
     }
@@ -370,8 +371,10 @@ public class DaoAgendamento {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             } catch (ParseException ex) {
                 ex.printStackTrace();
+                return null;
             }
             finally{
                 conexaoDb.desconectar();

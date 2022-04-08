@@ -10,9 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class ViewLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Teste
-     */
+   
     public ViewLogin() {
         setResizable(false);
         setTitle("Agendamento");

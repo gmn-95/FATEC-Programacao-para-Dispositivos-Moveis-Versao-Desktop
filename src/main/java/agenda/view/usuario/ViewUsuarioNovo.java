@@ -172,11 +172,11 @@ public class ViewUsuarioNovo extends javax.swing.JFrame {
                boolean podeExcluir = radioExcluir.isSelected();
                boolean podeBuscar = radioListarBuscar.isSelected();
                
-               String senha = String.valueOf(inputSenha.getPassword());
-               
+               String senha = String.valueOf(inputSenha.getPassword()   );
+//String login, String senha, boolean criar_novo_usuario, boolean buscar_usuario, boolean editar_usuario, boolean excluir_usuario, boolean listar_usuario, String nome) {
                BeanUsuario beanUsuario = new BeanUsuario(
                        inputLogin.getText(), senha, podeCriar, 
-                       podeBuscar, podeExcluir, podeListar, podeEditar, inputNome.getText());
+                       podeBuscar, podeEditar, podeExcluir, podeListar, inputNome.getText());
                
                ControllerPessoa controllerPessoa = new ControllerPessoa();
                beanUsuario = controllerPessoa.inserirPessoa(beanUsuario);

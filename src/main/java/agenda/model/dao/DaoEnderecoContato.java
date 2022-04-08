@@ -62,6 +62,7 @@ public class DaoEnderecoContato {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                return null;
             }
             finally{
                 conexaoDb.desconectar();
@@ -386,7 +387,7 @@ public class DaoEnderecoContato {
     public BeanEnderecoContato excluirEnderecoContato(BeanEnderecoContato enderecoContato) {
         if(conexaoDb.conectar()){
             
-            String sql = "DELETE FROM tb_endereco_do_contato WHER id = ? AND fk_id_usuario = ? ";
+            String sql = "DELETE FROM tb_endereco_do_contato WHERE id = ? AND fk_id_usuario = ? ";
             
             try {
                 
@@ -394,7 +395,7 @@ public class DaoEnderecoContato {
                 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setLong(1, enderecoContato.getId());
-                preparedStatement.setLong(1, enderecoContato.getUsuario().getId_usuario());
+                preparedStatement.setLong(2, enderecoContato.getUsuario().getId_usuario());
                 
                 preparedStatement.executeUpdate();
                 
