@@ -218,11 +218,6 @@ public class ViewEnderecoExcluir extends javax.swing.JDialog {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         
         BeanEndereco enderecoEntrada = new BeanEndereco(Long.parseLong(inputId.getText()), usuario);
-        
-        BeanEnderecoContato enderecoContato = new BeanEnderecoContato(enderecoEntrada, usuario);
-        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
-        controllerEnderecoContato.excluirEnderecoContatoPorEndereco(enderecoContato);
-        
 
         ControllerEndereco controllerEndereco = new ControllerEndereco();
 

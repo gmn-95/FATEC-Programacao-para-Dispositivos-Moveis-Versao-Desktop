@@ -224,11 +224,6 @@ public class ViewContatoExcluir extends javax.swing.JDialog {
             
         BeanContato contatoEntrada = new BeanContato(Long.valueOf(inputIdContato.getText()), usuario);
         
-        BeanEnderecoContato enderecoContato = new BeanEnderecoContato(contatoEntrada, usuario);
-        ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
-        controllerEnderecoContato.excluirEnderecoContatoPorContato(enderecoContato);
-
-
         ControllerContato controllerContato = new ControllerContato();
 
         BeanContato contatoSaida = controllerContato.excluirContato(contatoEntrada);

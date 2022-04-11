@@ -1,15 +1,6 @@
 package agenda.view.usuario;
 
-import agenda.controller.ControllerAgendamento;
-import agenda.controller.ControllerContato;
-import agenda.controller.ControllerEndereco;
-import agenda.controller.ControllerEnderecoContato;
 import agenda.controller.ControllerPessoa;
-import agenda.controller.ControllerUsuario;
-import agenda.model.bean.BeanAgendamento;
-import agenda.model.bean.BeanContato;
-import agenda.model.bean.BeanEndereco;
-import agenda.model.bean.BeanEnderecoContato;
 import agenda.model.bean.BeanUsuario;
 import agenda.util.Confirmacao;
 import javax.swing.JOptionPane;
@@ -237,25 +228,6 @@ public class ViewUsuarioExcluir extends javax.swing.JDialog{
            
             BeanUsuario beanUsuario = new BeanUsuario(Long.valueOf(inputIdUsuario.getText()), Long.valueOf(inputIdPessoa.getText()));
 
-            BeanAgendamento agendamento = new BeanAgendamento(beanUsuario);
-            ControllerAgendamento controllerAgendamento = new ControllerAgendamento();
-            controllerAgendamento.excluirTodosAgendamentos(agendamento);
-            
-            BeanEnderecoContato enderecoContato = new BeanEnderecoContato(beanUsuario);
-            ControllerEnderecoContato controllerEnderecoContato = new ControllerEnderecoContato();
-            controllerEnderecoContato.excluirTodosEnderecoContato(enderecoContato);
-            
-            BeanEndereco endereco = new BeanEndereco(beanUsuario);
-            ControllerEndereco controllerEndereco = new ControllerEndereco();
-            controllerEndereco.excluirTodosEnderecos(endereco);
-            
-            BeanContato contato = new BeanContato(beanUsuario);
-            ControllerContato controllerContato = new ControllerContato();
-            controllerContato.excluirTodosContatos(contato);
-            
-            ControllerUsuario controllerUsuario = new ControllerUsuario();
-            beanUsuario = controllerUsuario.excluirUsuario(beanUsuario);
-            
             ControllerPessoa controllerPessoa = new ControllerPessoa();
             BeanUsuario beanUsuarioSaida = controllerPessoa.excluirPessoa(beanUsuario);
 
